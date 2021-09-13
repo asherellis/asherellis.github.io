@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+
+        body {
+            position: relative;
+            top: 150px;
+            transform: scale(1.5);
+            overflow: hidden;
+        }
+        canvas {
+            position: relative;
+            background-image: url("flappyback.png");
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background-size: 100%;
+            height: 95;
+            border: 1px solid black;
+        }
+        #currentAndHighScores {
+            font-family: Arial;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+<body onload="startGame()">
+
+    <p id="currentAndHighScores"> </p>
+
+    <link rel="icon" href="flappy2.png" type="image/x-icon" sizes="16x16">
+
+    <title>Flappy Bird</title>
+
+    <script>
+
+        var scaleFactor = 1.5;
+        var myObstacles = [];
+        var myScore = 0;
+        var highScore = 0;
+        var numbObstaclePast = 0;
+        var running = true;
+        var timeOfLastJump = 0;
+        var leaderboardState = false;
+        var barPosX = 0;
+        var spaceBarPressed = false;
+        var canvas = document.getElementById("myCanvas");
+        var spritesheet = new Image();
+        spritesheet.src = "spritesheet.png";
+        var imageWidth = 34;
+        var imageHeight = 24;
+        var numbImages = 4;
+        var currImage = 0;
+        var flappy2 = new Image();
+        flappy2.src = "flappy2.png";
+        var bottomBar2 = new Image();
+        bottomBar2.src = "bottomBar.png";
+
+        //detecting if you click a "button"
+        function doMouseDown(event) {
+            page_x = event.pageX;
+            page_y = event.pageY;
+            var rect = event.target.getBoundingClientRect();
+            page_x = page_x - rect.left;
+            page_y = page_y - rect.top;
+            if (running == false) {
+                if (page_x > 165 * scaleFactor & page_x < 235 * scaleFactor & page_y > 140 * scaleFactor & page_y < 160 * scaleFactor) {
+                    window.location.reload(false);
+                }
+                else if (page_x > 245 * scaleFactor & page_x < 315 * scaleFactor & page_y > 140 * scaleFactor & page_y < 160 * scaleFactor) {
+                    var url = "https://twitter.com/intent/tweet/?text=Just%20scored%20" + myScore + "%20points!";
+                    window.open(url);
+                }
+                else if (page_x > 165 * scaleFactor & page_x < 315 * scaleFactor & page_y > 170 * scaleFactor & page_y < 190 * scaleFactor) {
+                    leaderboardState = true;
+                    document.addEventListener("mousedown", doMouseDownV2, true);
+                }
+            }
+        }
+
+        //another version of the previous function for when you're in leaderboard state
+        function doMouseDownV2(event) {
+            page_x = event.pageX;
+            page_y = event.pageY;
+            var rect = event.target.getBoundingClientRect();
+            page_x = page_x - rect.left;
+            page_y = page_y - rect.top;
+            if (page_x > 163 * scaleFactor & page_x < 319 * scaleFactor & page_y > 200 * scaleFactor & page_y < 224 * scaleFactor) {
+                window.location.reload(false);
+            }
+        }
+
+        //one of the main functions; displays score data; some leaderboard state logic
+        function checkIfRunning() {
+            if (running == true) {
+                ctx.font = "26px Verdana";
+                ctx.fillStyle = "rgb(255, 204, 102)";
+                ctx.fillStyle = "white";
+                ctx.fillText(myScore, 230, 70);
+                ctx.strokeText(myScore, 230, 70);
+                ctx.font = "27px Verdana";
+                ctx.strokeText(myScore, 229.75, 70);
+                ctx.font = "28px Verdana";
+                ctx.strokeText(myScore, 229.5, 70);
+            }
+            else if (running == false) {
+                spaceBarPressed = false;
+                ctx.font = "14px Verdana";
+                ctx.fillStyle = "rgb(223, 215, 152)";
+                ctx.fillRect(195, 20, 80, 100);
+                ctx.strokeRect(195, 20, 80, 100);
+                ctx.fillStyle = "white";
+                ctx.fillText(myScore, 230, 70);
+                ctx.strokeText(myScore, 230, 70);
+                ctx.fillText(highScore, 225, 110);
+                ctx.strokeText(highScore, 225, 110);
+                ctx.fillStyle = "rgb(251, 119, 94)";
+                ctx.fillText("SCORE", 210, 50);
+                ctx.fillText("BEST", 216, 90);
+                ctx.fillStyle = "rgb(230, 97, 30)";
+                ctx.fillRect(165, 140, 70, 20);
+                ctx.strokeRect(165, 140, 70, 20);
+                ctx.fillRect(245, 140, 70, 20);
+                ctx.strokeRect(245, 140, 70, 20);
+                ctx.fillStyle = "white";
+                ctx.fillText("RESTART", 167, 155);
+                ctx.fillText("SHARE", 255, 155);
+                ctx.fillStyle = "rgb(230, 97, 30)";
+                ctx.fillRect(165, 170, 150, 20);
+                ctx.strokeRect(165, 170, 150, 20);
+                ctx.fillStyle = "white";
+                ctx.font = "12px Verdana";
+                ctx.fillText("ADD TO LEADERBOARD", 168, 185);
+                if (this.leaderboardState == true) {
+                    myGameArea.clear();
+                    ctx.drawImage(bottomBar2, barPosX, 270);
+                    ctx.fillStyle = "rgb(223, 215, 152)";
+                    ctx.fillRect(133.7, 44, 205, 143);
+                    ctx.strokeRect(133.7, 44, 205, 143);
+                    ctx.font = "26px Verdana";
+                    ctx.fillStyle = "white";
+                    ctx.fillText("LEADERBOARD", 137, 70);
+                    ctx.strokeText("LEADERBOARD", 137, 70);
+                    ctx.font = "26.2px Verdana";
+                    ctx.strokeText("LEADERBOARD", 136.5, 70);
+                    ctx.font = "18px Verdana";
+                    ctx.fillStyle = "white"
+                    ctx.fillText("1)  " + highScore, 138, 100);
+                    ctx.strokeText("1)  " + highScore, 138, 100);
+                    ctx.fillText("2)  " + highScore2, 138, 120);
+                    ctx.strokeText("2)  " + highScore2, 138, 120);
+                    ctx.fillText("3)  " + highScore3, 138, 140);
+                    ctx.strokeText("3)  " + highScore3, 138, 140);
+                    ctx.fillText("4)  " + highScore4, 138, 160);
+                    ctx.strokeText("4)  " + highScore4, 138, 160);
+                    ctx.fillText("5)  " + highScore5, 138, 180);
+                    ctx.strokeText("5)  " + highScore5, 138, 180);
+                    ctx.fillStyle = "rgb(230, 97, 30)";
+                    ctx.fillRect(165, 200, 150, 20);
+                    ctx.strokeRect(165, 200, 150, 20);
+                    ctx.fillStyle = "white";
+                    ctx.fillText("RESTART", 197, 217);
+                }
+            }
+        }
+
+        //start game; canvas, gamepiece, gravity stuff
+        function startGame() {
+            myGamePiece = new component(34, 24, "spritesheet.png", 170, 120, "sprite");
+            myGamePiece.gravity = 0;
+            myGameArea.start();
+        }
+        var myGameArea = {
+            canvas: document.createElement("canvas"),
+
+            //initializing game and canvas
+            start: function() {
+                this.canvas.width = 480;
+                this.canvas.height = 310;
+                this.context = this.canvas.getContext("2d");
+                document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+                this.frameNo = 0;
+                this.interval = setInterval(callTwoFunctions, 20);
+            },
+
+            //clearing canvas
+            clear: function() {
+                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+        }
+
+        //calls the two important sub-functions at an interval
+        function callTwoFunctions() {
+            updateGameArea();
+            checkIfRunning();
+        }
+
+        //game piece (sprite), bottom bar, image-displaying logic
+        function component(width, height, color, x, y, type) {
+            this.type = type;
+            this.score = 0;
+            this.width = width;
+            this.height = height;
+            this.speedY = 0;
+            this.x = x;
+            this.y = y;
+            this.gravity = 0;
+            this.gravitySpeed = 0;
+            flySound = document.createElement("audio");
+            flySound.src = "fly.mp3";
+            scoreSound = document.createElement("audio");
+            scoreSound.src = "score.mp3";
+            if (type == "image") {
+                this.image = new Image();
+                this.image.src = color;
+            }
+            ctx = myGameArea.context;
+
+            //updating canvas and bird player
+            this.update = function() {
+                ctx.drawImage(bottomBar2, barPosX, 270);
+                if (type == "image") {
+                    ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+
+                    ctx.fillStyle = "rgba(255, 255, 255, 0)";
+                    ctx.globalCompositeOperation = 'source-over';
+                }
+                else if (type == "sprite") {
+                    if (spaceBarPressed == false) {
+                        ctx.drawImage(spritesheet, (currImage + 1) * imageWidth - .5, 0, imageWidth, imageHeight, this.x, this.y, imageWidth, imageHeight);
+                    }
+                    else {
+
+                        ctx.drawImage(spritesheet, currImage * imageWidth - .5, 0, imageWidth, imageHeight, this.x, this.y, imageWidth, imageHeight);
+                        if (everyinterval(5)) {
+                            currImage += 1;
+                            currImage %= numbImages;
+                        }
+                    }
+                }
+                else {
+                    ctx.fillStyle = color;
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                }
+            }
+
+            //physics, collision detection
+            this.newPos = function() {
+                this.speedY += this.gravity;
+                if (this.speedY > 5) {
+                    this.speedY = 5;
+                }
+                if (this.speedY < -6) {
+                    this.speedY = -6;
+                }
+                this.y += this.speedY + this.gravity;
+                this.hitBottom();
+                if (numbObstaclePast > 2) {
+                    if (everyinterval(150)) {
+                        this.hitTop();
+                    }
+                }
+            }
+
+            //bottom collision detection
+            this.hitBottom = function() {
+                var rockbottom = 243;
+                if (this.y > rockbottom) {
+                    running = false;
+                }
+            }
+
+            //top collision detection
+            this.hitTop = function() {
+                var top = 0
+                if (this.y < top) {
+                    running = false;
+                }
+            }
+
+            //hitting top, bottom, pipes
+            this.crashWith = function(otherobj) {
+                var myleft = this.x;
+                var myright = this.x + (this.width);
+                var mytop = this.y;
+                var mybottom = this.y + (this.height);
+                var otherleft = otherobj.x;
+                var otherright = otherobj.x + (otherobj.width);
+                var othertop = otherobj.y;
+                var otherbottom = otherobj.y + (otherobj.height);
+                var crash = true;
+                if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+                    crash = false;
+                }
+                return crash;
+            }
+        }
+
+        //things that happen as game updates like creating obstacles, detecting crashes, changing bottom bar pos, tracking/displaying scores
+        function updateGameArea() {
+            var x, height, gap, minHeight, maxHeight, gap;
+            if (spaceBarPressed == false) {
+
+                //this code causes bird to hover until game starts
+                myGamePiece = new component(34, 24, spritesheet, 170, 120, "sprite");
+                myGamePiece.gravity = 0;
+            }
+            else {
+                for (i = 0; i < myObstacles.length; i += 1) {
+                    if (myGamePiece.crashWith(myObstacles[i])) {
+                        running = false;
+                        break;
+                    }
+                }
+                if (running == true) {
+
+                    //run these updates only when running so pipes stay onscreen after crash
+                    myGameArea.clear();
+                    myGameArea.frameNo += 1;
+                    if (myGameArea.frameNo == 1 || everyinterval(150)) {
+                        x = myGameArea.canvas.width;
+                        shiftTerm = 140 * Math.random() - 70;
+                        myObstacles.push(new component(34.6666667, 293.3333333, "topPipe.png", x, -203 + shiftTerm, "image"));
+                        myObstacles.push(new component(34.6666667, 293.3333333, "bottomPipe.png", x, 184 + shiftTerm, "image"));
+                        numbObstaclePast += 1;
+                    }
+                }
+            }
+            if (running == true) {
+                //document.getElementById('leaderboard').innerHTML = "<strong>LEADERBOARD:</strong><br>1) " + this.highScore + "<br>2) " + this.highScore2 + "<br>3) " + highScore3 + "<br>4) " + highScore4 + "<br>5) " + highScore5;
+                barPosX--;
+                if (barPosX < -500) {
+                    barPosX = 0;
+                }
+                if (numbObstaclePast < 2) {
+                    //document.getElementById('currentAndHighScores').innerHTML = "<strong>CURRENT SCORE: </strong>" + myScore + "<br><br><strong>HIGH SCORE: </strong>" + highScore;
+                    //document.getElementById('currentAndHighScores').innerHTML = "<strong>CURRENT SCORE: </strong>" + myScore + "<br><br><strong>HIGH SCORE: </strong>" + highScore;
+                }
+                else if (numbObstaclePast > 2) {
+                    if (everyinterval(150)) {
+                        myScore++;
+                        scoreSound.play();
+                        //document.getElementById('currentAndHighScores').innerHTML = "<strong>CURRENT SCORE: </strong>" + myScore + "<br><br><strong>HIGH SCORE: </strong>" + highScore;
+                        if (myScore > (highScore - 1)) {
+                            highScore = myScore;
+                            localStorage.setItem("highScoreRecord", highScore);
+                            //document.getElementById('currentAndHighScores').innerHTML = "Current score: " + myScore + "<br><br>High score: " + highScore;
+                        }
+                        else if (myScore > (highScore2)) {
+                            highScore2 = myScore;
+                            localStorage.setItem("highScoreRecord2", highScore2);
+                        }
+                        else if (myScore > (highScore3)) {
+                            highScore3 = myScore;
+                            localStorage.setItem("highScoreRecord3", highScore3);
+                        }
+                        else if (myScore > (highScore4)) {
+                            highScore4 = myScore;
+                            localStorage.setItem("highScoreRecord4", highScore4);
+                        }
+                        else if (myScore > (highScore5)) {
+                            highScore5 = myScore;
+                            localStorage.setItem("highScoreRecord5", highScore5);
+                        }
+                    }
+                }
+                for (i = 0; i < myObstacles.length; i += 1) {
+                    myObstacles[i].x += -1;
+                    myObstacles[i].update();
+                }
+                myGamePiece.newPos();
+                myGamePiece.update();
+            }
+        }
+
+        //makes timing function easier to use
+        function everyinterval(n) {
+            if ((myGameArea.frameNo / n) % 1 == 0) {
+                return true;
+            }
+            return false;
+        }
+
+        //accelerate (physics)
+        function accelerate(n) {
+            myGamePiece.gravity = n;
+        }
+
+        //change speed (physics)
+        function changeSpeed(n) {
+            myGamePiece.speedY -= n;
+        }
+        document.addEventListener("keydown", handleKeyDown, true);
+        document.addEventListener("mousedown", doMouseDown, true);
+
+
+        //fly when you hit space bar
+        function handleKeyDown(event) {
+            if (event.key == ' ') {
+                var now = new Date().getTime();
+                if (spaceBarPressed == false) {
+                    spaceBarPressed = true; //signals game start
+                    myGamePiece.gravity = 0.25; //stop hovering
+                } else if (now - timeOfLastJump > 200) {
+                    changeSpeed(7);
+                    accelerate(myGamePiece.gravity);
+                    timeOfLastJump = now;
+                    if (running == true) {
+                        flySound.play();
+                    }
+                }
+            }
+        }
+
+        //local storage for score record data
+        var highScore = JSON.parse(localStorage.getItem("highScoreRecord"));
+        var highScore2 = JSON.parse(localStorage.getItem("highScoreRecord2"));
+        var highScore3 = JSON.parse(localStorage.getItem("highScoreRecord3"));
+        var highScore4 = JSON.parse(localStorage.getItem("highScoreRecord4"));
+        var highScore5 = JSON.parse(localStorage.getItem("highScoreRecord5"));
+        if (highScore == null) {
+            highScore = 0;
+        }
+        if (highScore2 == null) {
+            highScore2 = 0;
+        }
+        if (highScore3 == null) {
+            highScore3 = 0;
+        }
+        if (highScore3 == null) {
+            highScore3 = 0;
+        }
+        if (highScore4 == null) {
+            highScore4 = 0;
+        }
+        if (highScore5 == null) {
+            highScore5 = 0;
+        }
+
+    </script>
+
+
+</body>
+
+</html>
