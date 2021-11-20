@@ -4,7 +4,9 @@ $on-laptop:         800px !default;
 // typography
  @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
 // @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&display=swap');
-$inconsolata:       'MPlus2', monospace;
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+$inconsolata:       'Oxygen', monospace;
+//$inconsolata:       '$Inconsolata', monospace;
 $font__size:        14px;
 $font__weight:      400;
 $font__line-height: 1.2;
@@ -12,7 +14,8 @@ $font__line-height: 1.2;
 // colors
 $color__black:      #000000;
 $color__gray:       #eeeeee;
-$color__beige:      #f8f8f1;
+//$color__beige:      #f8f8f1;
+$color_beige:      #f1f4f8;
 $color__yellow:     #fefeca;
 
 @mixin media-query($device) {
