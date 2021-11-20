@@ -5,9 +5,25 @@
 layout: default
 ---
 
-I've had the privilege of working with 500 Global (fund and accelerator), shl.vc (rolling fund), and Glasswing Ventures.
+I've had the privilege of working and learning at several venture capital firms.
 
-#### 500 Global papers
+#### 500 Global
+
+**500 Global (Intern, Data Team)**, September 2021 to present.
+I pioneered our SRC TA program, which embeds relevant ethics & society content in the core content of individual CS courses. I was one of two Head STAs when the program began summer 2019 with five classes participating in the program for fall 2019; the program doubled in spring 2020 with 20+ STA hires in ten participating courses.
+I wrote a reflection on the program's first year [here](http://www.theindy.org/2235){:target="_blank"}.
+
+**Glasswing Ventures (Fellow)**, October 2021 to present.
+I wrote a [Language Debiasing Lab](https://drive.google.com/drive/folders/10zUf914rzKM-nzXAlqLpVJxe1wxYeUDR){:target="_blank"} with my co-STA [Hal](https://haltriedman.com/){:target="_blank"}, and made [a lot of lecture slides](https://drive.google.com/drive/folders/1DMdQB1-ThIb-p5BRQcNJYHEzR9F7cOdx?usp=sharing){:target="_blank"}.
+
+**shl.vc (Scout)**, July 2021 to present. Tried to manage the chaos of early pandemic with inimitable co-HTAs [Angie Kim](https://twitter.com/angiejwkim){:target="_blank"} and [Dylan Sam](https://dsam99.github.io/){:target="_blank"}.
+
+**CS0160 Data Structures & Algorithms (Undergraduate TA)**, Spring 2019.
+
+
+
+- Jessica Dai, Sina Fazelpour, Zachary Lipton. **Fair Machine Learning Under Partial Compliance.** In AAAI/ACM Conference on Artificial Intelligence, Ethics, and Society (AIES) 2021 (**oral presentation**). Previously in Workshop on Consequential Decisions in Dynamic Environments at NeurIPS 2020 (**contributed talk**); in Workshop on Machine Learning for Economic Policy at NeurIPS 2020;
+in Women in Machine Learning Workshop at NeurIPS 2020 (**contributed talk**). [PDF](https://arxiv.org/abs/2011.03654){:target="_blank"} [Video](https://slideslive.com/38942278/fair-machine-learning-under-partial-compliance){:target="_blank"}
 
 - Jessica Dai, Sina Fazelpour, Zachary Lipton. **Fair Machine Learning Under Partial Compliance.** In AAAI/ACM Conference on Artificial Intelligence, Ethics, and Society (AIES) 2021 (**oral presentation**). Previously in Workshop on Consequential Decisions in Dynamic Environments at NeurIPS 2020 (**contributed talk**); in Workshop on Machine Learning for Economic Policy at NeurIPS 2020;
 in Women in Machine Learning Workshop at NeurIPS 2020 (**contributed talk**). [PDF](https://arxiv.org/abs/2011.03654){:target="_blank"} [Video](https://slideslive.com/38942278/fair-machine-learning-under-partial-compliance){:target="_blank"}
