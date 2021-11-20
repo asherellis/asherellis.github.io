@@ -2,13 +2,15 @@ $on-palm:           600px !default;
 $on-laptop:         800px !default;
 
 // typography
- @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+// @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
 // @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&display=swap');
 //@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
 //$inconsolata:       'Oxygen', monospace;
 //$inconsolata:       '$Inconsolata', monospace;
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400&display=swap');
-$inconsolata:       'M Plus 1p', monospace;
+//@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+$inconsolata:       'PT Sans', monospace;
 $font__size:        14px;
 $font__weight:      400;
 $font__line-height: 1.3;
