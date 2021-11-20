@@ -5,8 +5,16 @@
 layout: default
 ---
 
-I grew up in San Diego and am now studying at [Yale](http://www.yale.edu){:target="blank"}. I am interested in startups, defense, and data.
+I grew up in San Diego, CA. My interests include defense, startups, and data.
+<!-- Now I study applied math at [Yale](http://www.yale.edu){:target="_blank"}.  -->
 
 Currently, I work at [500 Global](https://500.co){:target="blank"}, tracking and analyzing our portfolio metrics.
 
 Some of my writing is in the [WSJ](https://www.wsj.com/articles/the-death-of-the-student-athlete-11626215803){:target="blank"} and [Merion West](https://merionwest.com/2021/02/24/review-the-klondike-bake-oven-deaths/){:target="blank"}.
+
+
+
+<!-- Hello! I am a ML Engineer at [Arthur AI](http://www.arthur.ai){:target="_blank"}. I recently graduated from Brown with a degree in computer science.
+
+I'm on the editorial teams at [Reboot](https://reboothq.substack.com/about){:target="blank"}, where I am also a co-founder, and [The Gradient](https://thegradient.pub/){:target="blank"}. Some of my writing is in [Reboot](https://reboothq.substack.com/people/866504-jessica-dai){:target="blank"} and [The College Hill Independent](http://www.theindy.org/author=Jessica%20Dai){:target="blank"}.
+-->
