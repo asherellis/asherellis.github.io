@@ -5,9 +5,9 @@
 layout: default
 ---
 
-I grew up in San Diego and am now studying at [Yale](http://www.yale.edu){:target="_blank"}. I am interested in defense, startups, and tech policy.
+I grew up in San Diego and am now studying at [Yale](http://www.yale.edu){:target="_blank"}.
 
-I'm on the data team at [500 Global](https://500.co){:target="blank"}, helping track and analyze portfolio metrics. Some of my writing is in the [WSJ](https://www.wsj.com/articles/the-death-of-the-student-athlete-11626215803){:target="blank"} and [Merion West](https://merionwest.com/2021/02/24/review-the-klondike-bake-oven-deaths/){:target="blank"}.
+I am interested in defense, startups, and tech policy. Currently, I work on the data team at [500 Global](https://500.co){:target="blank"}, tracking and analyzing our portfolio companies. Some of my writing is in the [WSJ](https://www.wsj.com/articles/the-death-of-the-student-athlete-11626215803){:target="blank"} and [Merion West](https://merionwest.com/2021/02/24/review-the-klondike-bake-oven-deaths/){:target="blank"}.
 
 <!-- Hello! I am a ML Engineer at [Arthur AI](http://www.arthur.ai){:target="_blank"}. I recently graduated from Brown with a degree in computer science.
 
