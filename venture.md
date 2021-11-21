@@ -8,6 +8,9 @@ layout: default
 I've had the privilege of working and learning at several venture capital firms.
 
 **500 Global (Intern, Data Team)**, September 2021 to present.
+I developed an original composite scoring system to evaluate over 2500 portfolio companies, which is now used across the entire legal and strategy teams. I am also responsible for ensuring our deal data is accurate and accessible.
+
+
 I pioneered our SRC TA program, which embeds relevant ethics & society content in the core content of individual CS courses. I was one of two Head STAs when the program began summer 2019 with five classes participating in the program for fall 2019; the program doubled in spring 2020 with 20+ STA hires in ten participating courses.
 I wrote a reflection on the program's first year [here](http://www.theindy.org/2235){:target="_blank"}.
 
