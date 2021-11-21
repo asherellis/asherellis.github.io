@@ -5,16 +5,16 @@
 layout: default
 ---
 
-I grew up in San Diego, CA. I am interested in fixing civic problems through startups.
+<!-- I grew up in San Diego, CA. I like using data to fixing civic problems through startups. -->
+Hello! I am studying applied math at [Yale](http://www.yale.edu){:target="_blank"}. I am interested in fixing civic problems through startups.
+
 <!-- startups that solve civic missions and civic tech, everything from defense to education.
 I grew up in San Diego, CA. My interests include defense, startups, and data.
 -->
 
-I am studying applied math at [Yale](http://www.yale.edu){:target="_blank"}, focusing on data and econ.
-
+<!-- I am studying applied math at [Yale](http://www.yale.edu){:target="_blank"}, focusing on data and economics.
+-->
 I work at [500 Global](https://500.co){:target="blank"}, tracking and analyzing our portfolio metrics. Some of my writing is in the [WSJ](https://www.wsj.com/articles/the-death-of-the-student-athlete-11626215803){:target="blank"} and [Merion West](https://merionwest.com/2021/02/24/review-the-klondike-bake-oven-deaths/){:target="blank"}.
-
-
 
 <!-- Hello! I am a ML Engineer at [Arthur AI](http://www.arthur.ai){:target="_blank"}. I recently graduated from Brown with a degree in computer science.
 
