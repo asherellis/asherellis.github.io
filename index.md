@@ -6,7 +6,7 @@ layout: default
 ---
 
 <!-- I grew up in San Diego, CA. I like using data to fixing civic problems through startups. -->
-Hello! I am studying applied math at [Yale](http://www.yale.edu){:target="_blank"}. I am interested in fixing civic problems through startups.
+Hello! I am an undergrad at [Yale](http://www.yale.edu){:target="_blank"} studying applied math. I am interested in fixing civic problems through startups.
 
 <!-- startups that solve civic missions and civic tech, everything from defense to education.
 I grew up in San Diego, CA. My interests include defense, startups, and data.
@@ -14,7 +14,7 @@ I grew up in San Diego, CA. My interests include defense, startups, and data.
 
 <!-- I am studying applied math at [Yale](http://www.yale.edu){:target="_blank"}, focusing on data and economics.
 -->
-I work on the data team at [500 Global](https://500.co){:target="blank"}, where I track and analyze our portfolio metrics.
+I work on the data team at [500 Global](https://500.co){:target="blank"}, where I track and analyze our portfolio metrics. I also train in Air Force ROTC and founded the [Joint Service Cadet Network](http://cadet.community/){:target="blank"}.
 
 <!-- Some of my writing is in the [Wall Street Journal](https://www.wsj.com/articles/the-death-of-the-student-athlete-11626215803){:target="blank"} and [Merion West](https://merionwest.com/2021/02/24/review-the-klondike-bake-oven-deaths/){:target="blank"}.
 -->
