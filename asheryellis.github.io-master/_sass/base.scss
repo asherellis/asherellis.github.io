@@ -2,16 +2,25 @@ $on-palm:           600px !default;
 $on-laptop:         800px !default;
 
 // typography
-@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+ @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+// @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+//$inconsolata:       'Oxygen', monospace;
+//$inconsolata:       '$Inconsolata', monospace;
+//@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+//$inconsolata:       'PT Sans', monospace;
 $inconsolata:       'Inconsolata', monospace;
 $font__size:        14px;
-$font__weight:      400;
-$font__line-height: 1.2;
+$font__weight:      300;
+$font__line-height: 1.3;
 
 // colors
 $color__black:      #000000;
 $color__gray:       #eeeeee;
-$color__beige:      #f8f8f1;
+$color__background:      #f8f8f1;
+//$color__background:      #F8F8F2;
 $color__yellow:     #fefeca;
 
 @mixin media-query($device) {
@@ -60,7 +69,7 @@ body {
   width: 100%;
   margin: 25px 0;
   padding: 0;
-  background: $color__beige;
+  background: $color__background;
   font-family: $inconsolata;
   font-size: $font__size;
   font-weight: $font__weight;
