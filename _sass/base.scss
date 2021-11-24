@@ -84,17 +84,17 @@ body {
 // media queries
 @include media-query($on-palm) {
   body {
-    margin: 50px 0 25px;
+    margin: 30px 0 25px;
   }
 
   .container {
-    margin: 0 50px;
+    margin: 0 30px;
   }
 }
 
 @include media-query($on-laptop) {
   body {
-    margin: 120px 0 50px;
+    margin: 120px 0 30px;
   }
 
   .container {
