@@ -17,4 +17,4 @@ I grew up in San Diego, CA. My interests include defense, startups, and data.
 I work on the data team at [500 Global](https://500.co){:target="blank"}, a venture firm and accelerator. I also train in Air Force ROTC and founded the [Joint Service Cadet Network](http://jscn.site/){:target="blank"}.
 
 <!-- Some of my writing is in the [Wall Street Journal](https://www.wsj.com/articles/the-death-of-the-student-athlete-11626215803){:target="blank"} and [Merion West](https://merionwest.com/2021/02/24/review-the-klondike-bake-oven-deaths/){:target="blank"}. -->
-Some things I like: coffee, podcasts, tech policy, U.S. national parks
+Some things I like: coffee, podcasts, tech governance, U.S. national parks
