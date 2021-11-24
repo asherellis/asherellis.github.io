@@ -94,10 +94,10 @@ body {
 
 @include media-query($on-laptop) {
   body {
-    margin: 80px 0 50px;
+    margin: 120px 0 50px;
   }
 
   .container {
-    margin: 0 80px;
+    margin: 0 120px;
   }
 }
