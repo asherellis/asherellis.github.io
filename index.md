@@ -6,7 +6,7 @@ layout: default
 ---
 
 <!-- I grew up in San Diego, CA. I like using data to fixing civic problems through startups. -->
-Hello! I am an undergrad at Yale studying applied math. I believe technology can fix our civic problems.
+Hello! I am an undergrad at Yale studying applied math. I believe that technology can fix our civic problems.
 
 <!-- startups that solve civic missions and civic tech, everything from defense to education.
 I grew up in San Diego, CA. My interests include defense, startups, and data.
