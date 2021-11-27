@@ -11,6 +11,7 @@ As a cadet, I practice leadership skills to prepare to commission as a second li
 - An group for sharing defense-aligned internships and project opportunities
 - Ruck and Fin: a fitness group for supplemental training
 - A knowledge transfer hub to allow cadets who couldn't attend trainings to connect with and learn from those who did
+
 I also have had the opportunity to take private pilot lessons, converse with four-star generals, and challenge myself in ways I've never experienced.
 
 **Joint Service Cadet Network (Founder)**, October 2021-present.
