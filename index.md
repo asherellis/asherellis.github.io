@@ -8,6 +8,10 @@ layout: default
 <!-- I grew up in San Diego, CA. I like using data to fixing civic problems through startups. -->
 I believe that technology can fix our civic problems.
 
+- Jessica Dai, Sina Fazelpour, Zachary Lipton. **Fair Machine Learning Under Partial Compliance.** In AAAI/ACM Conference on Artificial Intelligence, Ethics, and Society (AIES) 2021 (**oral presentation**). Previously in Workshop on Consequential Decisions in Dynamic Environments at NeurIPS 2020 (**contributed talk**); in Workshop on Machine Learning for Economic Policy at NeurIPS 2020;
+in Women in Machine Learning Workshop at NeurIPS 2020 (**contributed talk**). [PDF](https://arxiv.org/abs/2011.03654){:target="_blank"} [Video](https://slideslive.com/38942278/fair-machine-learning-under-partial-compliance){:target="_blank"}
+
+
 <!-- startups that solve civic missions and civic tech, everything from defense to education.
 I grew up in San Diego, CA. My interests include defense, startups, and data.
 -->
