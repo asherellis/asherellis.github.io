@@ -17,4 +17,4 @@ I source early-stage technology startups for Sahil Lavingia's rolling fund. I sp
 
 **Glasswing Ventures (Venture Fellow)**, October 2021 to present.
 
-I'm participating in a year-long educational program by an frontier tech/AI-focused VC firm. I evaluate and diligence potential deals, conduct market analysis, examine product defensibility, and do mini-projects with undergrad/MBA students around the country.
+I'm participating in a year-long educational program by an frontier tech/AI-focused VC firm. I evaluate and diligence potential deals, conduct market analysis, examine product defensibility, and do other mini-projects with undergrad/MBA students around the country.
