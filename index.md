@@ -6,7 +6,7 @@ layout: default
 ---
 
 <!-- I grew up in San Diego, CA. I like using data to fixing civic problems through startups. -->
-I am an applied math student at Yale. I'm interested in fixing civic problems through technology.
+I'm an applied math student at Yale. I am interested in fixing civic problems through technology.
 
 <!-- startups that solve civic missions and civic tech, everything from defense to education.
 I grew up in San Diego, CA. My interests include defense, startups, and data.

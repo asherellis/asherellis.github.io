@@ -9,9 +9,9 @@ I aspire to serve my country as an Air Force officer.
 **U.S. Air Force (ROTC Cadet)**, August 2020-present.
 
 I've launched several initiatives within our detachment, including:
-- Det 009 Knowledge Transfer Hub: enabling cadets to learn from trainings they did not attend
-- Ruck and Fin: a supplemental, low-stakes fitness group
-- Det 009 Internship Sharing: helping cadets access defense-aligned internship opportunities
+ • Det 009 Knowledge Transfer Hub: enabling cadets to learn from trainings they did not attend
+ • Ruck and Fin: a supplemental, low-stakes fitness group
+ • Det 009 Internship Sharing: helping cadets access defense-aligned internship opportunities
 
 I have also had the opportunity to converse with four-star generals, take private pilot lessons, and challenge myself in ways I've never experienced.
 
