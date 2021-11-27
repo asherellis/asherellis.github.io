@@ -9,12 +9,12 @@ I've had the privilege of working and learning at several venture capital firms.
 
 **500 Global (Intern, Data Team)**, September 2021 to present.
 
-I developed an original composite scoring system to evaluate over 2500 portfolio companies, now used across the entire legal and strategy teams. I am responsible for ensuring our investment data is accurate and accessible.
+I developed an original composite scoring method to evaluate our portfolio companies. Overall, I am responsible for ensuring our investment data is accurate and accessible.
 
 **shl.vc (Scout)**, July 2021 to present.
 
-I source early-stage technology startups for Sahil Lavingia's rolling fund. I spend most of my time reviewing pitch decks, conducting preliminary due-diligence, and chatting with founders. We invest in elegant, easy-to-use software solutions to complex or boring problems.
+I source early-stage technology startups for Sahil Lavingia's rolling fund. We invest in elegant, easy-to-use solutions to complex or boring problems. I spend most of my time reviewing pitch decks, conducting due-diligence, and chatting with founders.
 
 **Glasswing Ventures (Venture Fellow)**, October 2021 to present.
 
-I'm participating in a year-long educational program by an frontier tech/AI-focused VC firm. I evaluate and diligence potential deals, conduct market analysis, examine product defensibility, and do other mini-projects with undergrad/MBA students around the country.
+I am participating in a year-long educational program by an frontier tech/AI-focused VC firm. I evaluate potential deals, analyze product defensibility, and do small research projects with undergrad/MBA students around the country.
