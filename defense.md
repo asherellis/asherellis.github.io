@@ -11,14 +11,14 @@ I aspire to serve my country as an Air Force officer.
 I've launched several initiatives within our detachment, including:
 - Det 009 Knowledge Transfer Hub: enabling cadets to learn from trainings they did not attend
 - Ruck and Fin: a supplemental, low-stakes fitness group
-- A group for sharing defense-aligned internships and project opportunities
+- Det 009 Internship Sharing: helping cadets, particularly first- and second-years, find defense-aligned internship opportunities
 
 I have also had the opportunity to converse with four-star generals, take private pilot lessons, and challenge myself in ways I've never experienced.
 
 **Joint Service Cadet Network (Founder)**, October 2021-present.
 
-I built an online community of over 100 aspiring military officers from ROTC programs and service academies nationwide. Our goals are to share work opportunities, discuss current events in foreign affairs and defense technology, and connect with other cadets with similar interests.
+I built an online community of over 100 aspiring military officers from ROTC programs and service academies nationwide. My goal is to foster collaboration on projects, discourse on foreign affairs and defense technology, and connections between cadets with similar interests.
 
 **Defense Entrepreneurs Forum (Operations)**, August 2021-present.
 
-As a volunteer, I am helping expand the organization's internship program to create student roles in operations, development, and communications. I am also driving student involvement in annual conferences and conducting outreach to strengthen university partnerships.
+As a volunteer, I am expanding the organization's internship program to create student roles in operations, development, and communications. I am also driving student involvement in annual conferences while conducting outreach to strengthen university partnerships.
