@@ -14,6 +14,6 @@ I grew up in San Diego, CA. My interests include defense, startups, and data.
 
 <!-- I am studying applied math at [Yale](http://www.yale.edu){:target="_blank"}, focusing on data and economics.
 -->
-I work on the data team at [500 Global](https://500.co){:target="blank"}, a vc firm and accelerator. I also train in Air Force ROTC and founded the [Joint Service Cadet Network](http://jscn.site/){:target="blank"}.
+I work on the data team at [500 Global](https://500.co){:target="blank"}, a VC firm and accelerator. I also train in Air Force ROTC and founded the [Joint Service Cadet Network](http://jscn.site/){:target="blank"}.
 
 Other things I like: coffee, tech governance, podcasts, U.S. national parks
