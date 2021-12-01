@@ -13,7 +13,7 @@ I've launched several initiatives within our detachment, including:
 - Ruck and Fin: a supplemental, low-stakes fitness group
 - Det 009 Internship Sharing: helping cadets access defense-aligned internship opportunities
 
-I have also had the opportunity to converse with four-star generals, take private pilot lessons, and challenge myself in ways I've never experienced.
+I have also had the opportunity to converse with four-star generals, take private pilot lessons, and challenge myself in ways I've never done before.
 
 **Joint Service Cadet Network (Founder)**, October 2021-present.
 
