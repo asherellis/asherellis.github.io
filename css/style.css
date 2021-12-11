@@ -394,7 +394,8 @@ tbody tr:nth-child(odd) th {
 }
 
 .post {
-	width: 465px;
+/*width: 465px; */
+	width: 510px;
 	float: left
 }
 
