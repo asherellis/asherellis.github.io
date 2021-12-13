@@ -1,0 +1,103 @@
+$on-palm:           600px !default;
+$on-laptop:         800px !default;
+
+// typography
+// @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+// @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+//$inconsolata:       'Oxygen', monospace;
+//$inconsolata:       '$Inconsolata', monospace;
+//@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+$PT_Sans:       'PT Sans', monospace;
+$font__size:        16px;
+$font__weight:      400;
+$font__line-height: 1.3;
+
+// colors
+$color__black:      #000000;
+$color__gray:       #eeeeee;
+//$color__background:      #f8f8f1;
+$color__background:      #ffffff;
+//$color__background:      #F8F8F2;
+$color__yellow:     #fefeca;
+
+@mixin media-query($device) {
+  @media screen and (min-width: $device) {
+    @content;
+  }
+}
+
+// elements
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: $color__yellow;
+}
+
+::-moz-selection {
+  background: $color__yellow;
+}
+
+hr {
+  color: $color__black;
+  background-color: $color__black;
+}
+
+a {
+  // display: block;
+  // width: 100%;
+  // height: 100%;
+  color: $color__black;
+  text-decoration: underline;
+
+  &:hover {
+    color: $color__black;
+  }
+}
+
+// layout
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  width: 100%;
+  margin: 25px 0;
+  padding: 0;
+  background: $color__background;
+  font-family: $PT_Sans;
+  font-size: $font__size;
+  font-weight: $font__weight;
+  line-height: $font__line-height;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 25px;
+}
+
+// media queries
+@include media-query($on-palm) {
+  body {
+    margin: 50px 0 25px;
+  }
+
+  .container {
+    margin: 0 50px;
+  }
+}
+
+@include media-query($on-laptop) {
+  body {
+    margin: 120px 0 50px;
+  }
+
+  .container {
+    margin: 0 120px;
+  }
+}
