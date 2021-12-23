@@ -41,75 +41,20 @@
       <div class="container">
          <script>
             var imageGallery = [
-            	"https://asher.page/images/halfdome.webp",
-            	"https://asher.page/images/whitney.webp",
-              "https://asher.page/images/grandcanyon.webp",
-              "https://asher.page/images/longspeak.webp",
-              "https://asher.page/images/narrows.webp",
-              "https://asher.page/images/goatcanyontrestle.webp",
-              "https://asher.page/images/brianhead.webp",
-              "https://asher.page/images/whistler.webp",
-              "https://asher.page/images/ljshores.webp",
-              "https://asher.page/images/blacks.webp",
-              "https://asher.page/images/scripps.webp",
-              "https://asher.page/images/scuba.webp",
-              "https://asher.page/images/monumentvalley.webp",
-              "https://asher.page/images/bike.webp",
-              "https://asher.page/images/gunnison.webp",
-              "https://asher.page/images/grandcanyon2.webp",
-              "https://asher.page/images/horses.webp",
-              "https://asher.page/images/bryce.webp",
-              "https://asher.page/images/skagitvalley.webp",
-              "https://asher.page/images/canyonlands.webp",
-              "https://asher.page/images/arches.webp",
+            	"https://asher.page/images/graphs/spaceobjects.webp",
+              "https://asher.page/images/graphs/batteries.webp",
+            	"https://asher.page/images/graphs/internetusers.webp",
+              "https://asher.page/images/graphs/productivity.webp",
+              "https://asher.page/images/graphs/power.webp",
+              "https://asher.page/images/graphs/climatetech.webp",
             ];
 
             var imageText = [
-            "Half Dome",
-            "Mount Whitney",
-            "South Kaibab and Bright Angel Trail",
-            "Longs Peak",
-            "The Narrows",
-            "Goat Canyon Trestle",
-            "Brian Head",
-            "Whistler-Blackcomb",
-            "La Jolla Shores",
-            "Blacks Beach",
-            "Scripps Institute of Oceanography",
-            "Nā Pali Coast",
-            "Monument Valley",
-            "Telluride Bike Park",
-            "Gunnison Trail",
-            "South Kaibab and Bright Angel Trail",
-            "Buena Vista",
-            "Navajo Loop",
-            "Skagit Valley Provincial Park",
-            "Island in the Sky",
-            "Corona Arch",
+            "I like looking at graphs. Here are some of my favorites.",
             ];
 
             var locations = [
-            	"Yosemite National Park, CA",
-            	"Sierra Nevada Mountains, CA",
-              "Grand Canyon National Park, AZ",
-              "Rocky Mountain National Park, CO",
-              "Zion National Park, UT",
-              "Anza-Borrego Desert State Park, CA",
-              "Southern Utah",
-              "British Columbia, Canada",
-              "San Diego, CA",
-              "San Diego, CA",
-              "San Diego, CA",
-              "Kauai, HI",
-              "Navajo County, AZ",
-              "Telluride, CO",
-              "Black Canyon of the Gunnison National Park, CO",
-              "Grand Canyon National Park, AZ",
-              "Browns Canyon National Monument, CO",
-              "Bryce Canyon National Park, UT",
-              "British Columbia, Canada",
-              "Canyonlands National Park, UT",
-              "Moab, UT",
+            	"",
             ];
 
 
@@ -131,8 +76,8 @@
               imgCount++;
             }
             document.getElementById("gallery").src = imageGallery[imgCount];
-            document.getElementById("locationsText").innerHTML = locations[imgCount];
-            document.getElementById("imageText").innerHTML = imageText[imgCount];
+          //  document.getElementById("locationsText").innerHTML = locations[imgCount];
+          //  document.getElementById("imageText").innerHTML = imageText[imgCount];
             document.getElementById('currentImage').innerHTML = imgCount + 1
             }
 
@@ -140,8 +85,8 @@
             imgCount--;
             if(imgCount < 0) imgCount = totalImgs ;
                document.getElementById("gallery").src = imageGallery[imgCount];
-               document.getElementById("locationsText").innerHTML = locations[imgCount];
-               document.getElementById("imageText").innerHTML = imageText[imgCount];
+          //     document.getElementById("locationsText").innerHTML = locations[imgCount];
+          //     document.getElementById("imageText").innerHTML = imageText[imgCount];
                 document.getElementById('currentImage').innerHTML = imgCount + 1
 
             }
@@ -192,11 +137,11 @@
                   <span style="float:right; color: #aaa;"> <span id="currentImage">0</span> of <span id="totalImages">5</span></span>
                </div>
                <div id="imageText">
-                  Half Dome
+                  I like looking at graphs. Here are some of my favorites.
                </div>
-               <img id="gallery" onclick="handlePhotoClick(event, this)" src="https://asher.page/images/halfdome.webp">
+               <img id="gallery" onclick="handlePhotoClick(event, this)" src="https://asher.page/images/graphs/spaceobjects">
                <div id="locationsText" style = "font-style: italic;">
-                  Yosemite National Park, CA
+
                </div>
             </div>
          </div>
