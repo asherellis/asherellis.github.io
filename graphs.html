@@ -48,16 +48,35 @@
             	"https://asher.page/graphs/internetusers.webp",
               "https://asher.page/graphs/productivity.webp",
               "https://asher.page/graphs/power.webp",
-              "https://asher.page/graphs/fortune500.webp",
+              "https://asher.page/graphs/M1.png",
               "https://asher.page/graphs/climatetech.webp",
+              "https://asher.page/graphs/tiktok.png",
             ];
 
             var imageText = [
             "I like looking at graphs. Here are some of my favorites.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ];
 
             var locations = [
             	"",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
             ];
 
 
@@ -79,8 +98,8 @@
               imgCount++;
             }
             document.getElementById("gallery").src = imageGallery[imgCount];
-          //  document.getElementById("locationsText").innerHTML = locations[imgCount];
-          //  document.getElementById("imageText").innerHTML = imageText[imgCount];
+            document.getElementById("locationsText").innerHTML = locations[imgCount];
+            document.getElementById("imageText").innerHTML = imageText[imgCount];
             document.getElementById('currentImage').innerHTML = imgCount + 1
             }
 
@@ -88,8 +107,8 @@
             imgCount--;
             if(imgCount < 0) imgCount = totalImgs ;
                document.getElementById("gallery").src = imageGallery[imgCount];
-          //     document.getElementById("locationsText").innerHTML = locations[imgCount];
-          //     document.getElementById("imageText").innerHTML = imageText[imgCount];
+               document.getElementById("locationsText").innerHTML = locations[imgCount];
+               document.getElementById("imageText").innerHTML = imageText[imgCount];
                 document.getElementById('currentImage').innerHTML = imgCount + 1
 
             }
