@@ -53,7 +53,21 @@
               "https://asher.page/graphs/tiktok.png",
             ];
 
-            var imageText = [
+            var imageText_graphs = [
+          "I like looking at graphs. Here are some cool ones I've found recently.",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+        ];
+
+    /*
+              var imageText_graphs = [
             "I like looking at graphs. Here are some cool ones I've found recently.<p><p><i>Becoming an interplanetary species:</i></p></p>",
             "<i>Vaccines being developed quickly:<i>",
             "<i>Batteries becoming cheaper:<i>",
@@ -64,9 +78,24 @@
             "<i>Printing money:<i>",
             "<i>Climate tech investment:<i>",
             "<i>Rise of TikTok:<i>",
-            ];
+          ];
+          */
 
             var locations = [
+          "Becoming an interplanetary species</i>",
+          "<i>Vaccines being developed quickly<i>",
+          "<i>Batteries becoming cheaper<i>",
+          "<i>Democracy ↗<i>",
+          "<i>India <=> Internet<i>",
+          "<i>Tech boom<i>",
+          "<i>Shifting energy sources<i>",
+          "<i>Printing money<i>",
+          "<i>Climate tech investment<i>",
+          "<i>Rise of TikTok<i>",
+        ];
+
+
+        /*    [
             	"",
               "",
               "",
@@ -78,7 +107,7 @@
               "",
               "",
             ];
-
+*/
 
             var imgCount = 0;
             var totalImgs = imageGallery.length -1;
@@ -99,7 +128,7 @@
             }
             document.getElementById("gallery").src = imageGallery[imgCount];
             document.getElementById("locationsText").innerHTML = locations[imgCount];
-            document.getElementById("imageText").innerHTML = imageText[imgCount];
+            document.getElementById("imageText_graphs").innerHTML = imageText_graphs[imgCount];
             document.getElementById('currentImage').innerHTML = imgCount + 1
             }
 
@@ -108,7 +137,7 @@
             if(imgCount < 0) imgCount = totalImgs ;
                document.getElementById("gallery").src = imageGallery[imgCount];
                document.getElementById("locationsText").innerHTML = locations[imgCount];
-               document.getElementById("imageText").innerHTML = imageText[imgCount];
+               document.getElementById("imageText_graphs").innerHTML = imageText_graphs[imgCount];
                 document.getElementById('currentImage').innerHTML = imgCount + 1
 
             }
@@ -158,13 +187,14 @@
                   <a href="#" onclick="next(); return false;">Next</a>
                   <span style="float:right; color: #aaa;"> <span id="currentImage">0</span> of <span id="totalImages">5</span></span>
                </div>
-               <div id="imageText">
-                 <p>I like looking at graphs. Here are some cool ones I've found recently.</p>
-                 <p><i>Becoming an interplanetary species:</i></p>
+               <div id="imageText_graphs">
+        <!--         <p>I like looking at graphs. Here are some cool ones I've found recently.</p> -->
+        <p>I like looking at graphs. Here are some cool ones I've found recently.</p>
+                <!-- <p><i>Becoming an interplanetary species:</i></p> -->
                </div>
                <img id="gallery" onclick="handlePhotoClick(event, this)" src="https://asher.page/graphs/spaceobjects.webp">
                <div id="locationsText" style = "font-style: italic;">
-
+                 <p><i>Becoming an interplanetary species</i></p>
 
 
                </div>
