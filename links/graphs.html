@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Graphs</title>
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600">
+      <link rel="stylesheet" href="https://asherellis.github.io/css/style.css">
+      <link rel="alternate" type="application/rss+xml" title="RSS Feed for Asher Ellis" href="/feed.xml">
+      <link rel="shortcut icon" type="image/png" href="https://asher.page/favicons/ico.png">
+      <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-84410223-1', 'auto');
+         ga('send', 'pageview');
+
+      </script>
+      <!-- Begin Jekyll SEO tag v2.7.1 -->
+      <meta name="generator" content="Jekyll v3.9.0">
+      <meta property="og:title" content="Graphs">
+      <meta name="author" content="Asher Ellis">
+      <meta property="og:locale" content="en_US">
+      <meta name="description" content="My name is Asher Ellis. I study applied math at Yale. I believe technology can fix our civic problems.">
+      <meta property="og:description" content="My name is Asher Ellis. I study applied math at Yale. I believe technology can fix our civic problems.">
+      <link rel="canonical" href="https://asher.page/graphs/">
+      <meta property="og:url" content="https://asher.page/graphs/">
+      <meta property="og:site_name" content="Asher Ellis">
+      <meta name="twitter:card" content="summary">
+      <meta property="twitter:title" content="graphs">
+      <meta name="twitter:site" content="@asher__ellis">
+      <meta name="twitter:creator" content="@Asher Ellis">
+      <script type="application/ld+json">
+         {"author":{"@type":"Person","name":"Asher Ellis"},"description":"My name is Asher Ellis - this is my homepage.","url":"https://asher.page/work/","@type":"WebPage","headline":"Work","@context":"https://schema.org"}
+      </script>
+      <!-- End Jekyll SEO tag -->
+   </head>
+   <body>
+      <div class="container">
+         <script>
+            var imageGallery = [
+            	"https://asher.page/graphs/spaceobjects.webp",
+              "https://asher.page/graphs/vaccines.webp",
+              "https://asher.page/graphs/batteries.webp",
+              "https://asher.page/graphs/democracy.webp",
+            	"https://asher.page/graphs/internetusers.webp",
+              "https://asher.page/graphs/productivity.webp",
+              "https://asher.page/graphs/power.webp",
+              "https://asher.page/graphs/M1.png",
+              "https://asher.page/graphs/climatetech.webp",
+              "https://asher.page/graphs/tiktok.png",
+            ];
+
+            var imageText_graphs = [
+          "I like looking at graphs. Here are some cool ones I've found recently.",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+        ];
+
+            var locations = [
+          "Becoming an interplanetary species</i>",
+          "<i>Vaccines being developed quickly<i>",
+          "<i>Batteries becoming cheaper<i>",
+          "<i>Democracy ↗<i>",
+          "<i>India <=> Internet<i>",
+          "<i>Tech boom<i>",
+          "<i>Shifting energy sources<i>",
+          "<i>Printing money<i>",
+          "<i>Climate tech investment<i>",
+          "<i>Rise of TikTok<i>",
+        ];
+
+            var imgCount = 0;
+            var totalImgs = imageGallery.length -1;
+
+            function preloadImages() {
+            for (var i = 0; i < imageGallery.length; i++) {
+            img1 = new Image();
+            img1.src = imageGallery[i];
+            }
+            }
+
+
+            function next() {
+            if(imgCount == totalImgs){
+              imgCount = 0;
+            }  else {
+              imgCount++;
+            }
+            document.getElementById("gallery").src = imageGallery[imgCount];
+            document.getElementById("locationsText").innerHTML = locations[imgCount];
+            document.getElementById("imageText_graphs").innerHTML = imageText_graphs[imgCount];
+            document.getElementById('currentImage').innerHTML = imgCount + 1
+            }
+
+            function previous() {
+            imgCount--;
+            if(imgCount < 0) imgCount = totalImgs ;
+               document.getElementById("gallery").src = imageGallery[imgCount];
+               document.getElementById("locationsText").innerHTML = locations[imgCount];
+               document.getElementById("imageText_graphs").innerHTML = imageText_graphs[imgCount];
+                document.getElementById('currentImage').innerHTML = imgCount + 1
+
+            }
+
+            document.addEventListener("keydown", function(e){
+            console.log(e.keyCode)
+            if (e.keyCode == 37) {
+            previous()
+            } else if (e.keyCode == 39) {
+            next()
+            }
+            });
+
+
+            function handlePhotoClick(event, img) {
+                var posX = event.offsetX?(event.offsetX):event.pageX-img.offsetLeft;
+                var posY = event.offsetY?(event.offsetY):event.pageY-img.offsetTop;
+                if (posX > img.width / 2) {
+                  next()
+                } else {
+                  previous()
+                }
+            }
+
+
+         </script>
+         <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css">
+         <header class="masthead">
+            <h1 class="masthead-title">
+               <strong><a href="https://asher.page/">Asher Ellis</a></strong>
+            </h1>
+            <nav class="masthead-nav">
+               <ul class="navlist">
+                 <li class="currnavitem">
+                   <a href="https://asher.page/links">Links</a>
+                   <span class="middle">-</span>
+                   <a href="graphs">
+                   <span class ="inner">graphs</span>
+                   </a>
+                   </li>
+
+                 <li class="navitem"><a href="https://asher.page/photos">Photos</a></li>
+                 <li class="navitem"><a href="https://asher.page/work">Work</a></li>
+                 <li class="navitem"><a href="https://asher.page/contact">Contact</a></li>
+                 <li class="navitem"><a href="https://asher.page/about">About</a></li>
+
+               </ul>
+            </nav>
+         </header>
+         <div class="content list" id="photolist">
+            <div id="gallerycontainer">
+               <div class="buttons">
+                  <a href="#" onclick="previous(); return false;">Back</a> |
+                  <a href="#" onclick="next(); return false;">Next</a>
+                  <span style="float:right; color: #aaa;"> <span id="currentImage">0</span> of <span id="totalImages">5</span></span>
+               </div>
+               <div id="imageText_graphs">
+        <p>I like looking at graphs. Here are some cool ones I've found recently.</p>
+               </div>
+               <img id="gallery" onclick="handlePhotoClick(event, this)" src="https://asher.page/graphs/spaceobjects.webp">
+               <div id="locationsText" style = "font-style: italic;">
+                 <p><i>Becoming an interplanetary species</i></p>
+               </div>
+            </div>
+         </div>
+         <script>
+            document.getElementById('currentImage').innerHTML = imgCount + 1
+            document.getElementById('totalImages').innerHTML = imageGallery.length
+            preloadImages()
+         </script>
+      </div>
+   </body>
+</html>
