@@ -347,7 +347,7 @@ tbody tr:nth-child(odd) th {
 
 .currnavitem a {
 	color: #888;
-	font-weight: bold;
+	font-weight: 450;
 	font-size: 1.1rem;
 	text-transform: lowercase;
 	-webkit-transition: all .2s ease;
@@ -501,7 +501,7 @@ tbody tr:nth-child(odd) th {
 }
 
 #gallery {
-	max-height: 500px
+	max-height: 400px
 }
 
 .hero-image {
@@ -837,4 +837,66 @@ tbody tr:nth-child(odd) th {
 
 .highlight .il {
 	color: #099
+}
+
+
+
+
+
+.footer-wrap {
+	display: block;
+	width: 500px;
+	margin: 0px auto;
+	padding: 0px 0px 40px;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+
+}
+.footer-wrap {
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	text-align: center;
+	position: relative;
+	display: block;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	float: none;
+}
+
+
+.div-block-12 {
+	float: left;
+	-webkit-align-self: flex-start;
+	-ms-flex-item-align: start;
+	align-self: flex-start;
+	margin-top: 0px;
+}
+
+.links, .social{
+display: inline-block;
+font-weight: 350;
+color: #2388ba;
+}
+
+.social {
+margin-right: 12px;
+}
+
+.w-inline-block {
+	max-width:100%;
+	display:inline-block
+}
+
+::selection {
+  background: #FFFFCC;
 }
