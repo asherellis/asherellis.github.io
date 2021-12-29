@@ -184,20 +184,20 @@
                <strong><a href="https://asher.page/">Asher Ellis</a></strong>
             </h1>
             <nav class="masthead-nav">
-               <ul class="navlist">
-                 <li class="navitem"><a href="links">Links</a></li>
-                 <li class="currnavitem"><a href="photos">Photos</a></li>
+              <ul class="navlist">
+                <li class="navitem"><a href="writing">Writing</a></li>
+                <li class="navitem"><a href="links">Links</a></li>
+                <li class="currnavitem"><a href="photos">Photos</a></li>
                  <li class="navitem"><a href="work">Work</a></li>
-                 <li class="navitem"><a href="contact">Contact</a></li>
                  <li class="navitem"><a href="about">About</a></li>
-               </ul>
+              </ul>
             </nav>
          </header>
          <div class="content list" id="photolist">
             <div id="gallerycontainer">
                <div class="buttons">
-                  <a href="#" onclick="previous(); return false;">Back</a> |
-                  <a href="#" onclick="next(); return false;">Next</a>
+                  <a href="#" onclick="previous(); return false;" class="links">Back</a> |
+                  <a href="#" onclick="next(); return false;" class="links">Next</a>
                   <span style="float:right; color: #aaa;"> <span id="currentImage">0</span> of <span id="totalImages">5</span></span>
                </div>
                <div id="imageText">
@@ -209,6 +209,10 @@
                </div>
             </div>
          </div>
+
+
+
+
          <script>
             document.getElementById('currentImage').innerHTML = imgCount + 1
             document.getElementById('totalImages').innerHTML = imageGallery.length
