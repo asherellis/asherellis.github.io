@@ -270,17 +270,19 @@ tbody tr:nth-child(odd) th {
 	/* padding: 25px 0px 45px 0px */
 }
 
+.jobs{
+	max-width: 150px;
+}
+
 .book {
 	float: left;
 	border-radius: 0px;
 	margin-right: 12px;
-
-
 }
 
-.test {
+/* .test {
 	padding-left: 140px
-}
+}*/
 
 .container {
 	max-width: 1000px;
@@ -882,15 +884,20 @@ tbody tr:nth-child(odd) th {
 	margin-top: 0px;
 }
 
-.links, .social{
+.social{
 display: inline-block;
 font-weight: 350;
 color: #2388ba;
-}
-
-.social {
 margin-right: 12px;
 }
+
+.links {
+	font-weight: 350;
+	color: #2388ba;
+}
+
+
+
 
 .w-inline-block {
 	max-width:100%;
