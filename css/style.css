@@ -507,12 +507,15 @@ tbody tr:nth-child(odd) th {
 }
 
 .hero-image {
-	max-width: 80%
+	max-width: 80%;
+	border: .01px solid #d1d1d1;
+	border-radius: 0px;
 }
 
 @media screen and (max-width: 850px) {
 	.hero-image {
-		max-width: 100%
+		max-width: 100%;
+		/*filter: contrast(130%);*/
 	}
 	#imageText {
 		height: 65px;
