@@ -507,7 +507,7 @@ tbody tr:nth-child(odd) th {
 }
 
 .hero-image {
-	max-width: 80%;
+	max-width: 85%;
 	border: .01px solid #d1d1d1;
 	border-radius: 0px;
 }
