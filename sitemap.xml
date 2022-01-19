@@ -1,70 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 
+
+
+
+
+
+
+
 <url>
   <loc>https://asherellis.net/</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://asherellis.net/writing</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://asherellis.net/photos</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://asherellis.net/work</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://asherellis.net/images</loc>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
+  <priority>0.80</priority>
+  <image:image>
+    <image:loc>http://asherellis.net/images/asher.jpg</image:loc>
+  </image:image>
 </url>
 <url>
   <loc>https://asherellis.net/about</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://asherellis.net/posts/spending.pdf</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://asherellis.net/posts/cars.pdf</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <loc>https://asherellis.net/writing/gapyear</loc>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links/graphs</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://asherellis.net/links/tools</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://asherellis.net/links/podcasts</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links/people</loc>
-  <lastmod>2022-01-03T09:00:09+00:00</lastmod>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://asherellis.net/links/sites</loc>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://asherellis.net/links/tools</loc>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://asherellis.net/links/podcasts</loc>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://asherellis.net/links/defense</loc>
+  <lastmod>2022-01-19T04:49:25+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 
