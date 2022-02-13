@@ -33,17 +33,17 @@
 <url>
   <loc>https://asherellis.net/photos</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.80</priority>
+  <priority>0.50</priority>
 </url>
 <url>
   <loc>https://asherellis.net/work</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.80</priority>
+  <priority>0.50</priority>
 </url>
 <url>
   <loc>https://asherellis.net/images</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.90</priority>
+  <priority>0.10</priority>
   <image:image>
     <image:loc>http://asherellis.net/images/asher.jpg</image:loc>
   </image:image>
@@ -51,42 +51,42 @@
 <url>
   <loc>https://asherellis.net/about</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.80</priority>
+  <priority>1.0</priority>
 </url>
 <url>
   <loc>https://asherellis.net/writing/gapyear</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.30</priority>
+  <priority>0.10</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links/graphs</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.30</priority>
+  <priority>0.10</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links/people</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.30</priority>
+  <priority>0.10</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links/sites</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.30</priority>
+  <priority>0.10</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links/tools</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.30</priority>
+  <priority>0.10</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links/podcasts</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.30</priority>
+  <priority>0.10</priority>
 </url>
 <url>
   <loc>https://asherellis.net/links/defense</loc>
   <lastmod>2022-01-19T04:49:25+00:00</lastmod>
-  <priority>0.30</priority>
+  <priority>0.10</priority>
 </url>
 
 
