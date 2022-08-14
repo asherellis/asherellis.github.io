@@ -69,7 +69,7 @@
             ];
 
             var imageText_graphs = [
-          "Some cool graphs, mostly time series.",
+          "Interesting graphs, mostly time series.",
           "",
           "",
           "",
@@ -144,7 +144,7 @@
               imgCount++;
             }
             document.getElementById("gallery").src = imageGallery[imgCount];
-            document.getElementById("locationsText").innerHTML = locations[imgCount];
+            //document.getElementById("locationsText").innerHTML = locations[imgCount];
             document.getElementById("imageText_graphs").innerHTML = imageText_graphs[imgCount];
             document.getElementById('currentImage').innerHTML = imgCount + 1
             }
@@ -153,7 +153,7 @@
             imgCount--;
             if(imgCount < 0) imgCount = totalImgs ;
                document.getElementById("gallery").src = imageGallery[imgCount];
-               document.getElementById("locationsText").innerHTML = locations[imgCount];
+            //   document.getElementById("locationsText").innerHTML = locations[imgCount];
                document.getElementById("imageText_graphs").innerHTML = imageText_graphs[imgCount];
                 document.getElementById('currentImage').innerHTML = imgCount + 1
 
@@ -216,7 +216,7 @@
                </div>
                <img id="gallery" onclick="handlePhotoClick(event, this)" src="https://asherellis.net/graphs/spaceobjects.webp">
                <div id="locationsText" style = "font-style: italic;">
-                 <p><i>Becoming an interplanetary species</i></p>
+                <!-- <p><i>Becoming an interplanetary species</i></p>-->
                </div>
             </div>
          </div>
