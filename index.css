@@ -5,16 +5,17 @@ body {
    */
    font-family: 'Roboto', sans-serif;
 
-    max-width: 600px;
+    max-width: 650px;
     margin: 40px;
 }
-p {
+/* p {
 	font-size: 15px; 
-}
+} 
 
-h1 {
+  h1 {
 	font-size: 30px;
 }
+/*
 
 a {
 	color: #268bd2;
