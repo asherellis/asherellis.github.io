@@ -8,6 +8,9 @@ body {
     max-width: 600px;
     margin: 40px;
 }
+p {
+	font-size: 15px; 
+}
 
 a {
 	color: #268bd2;
