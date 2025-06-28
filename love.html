@@ -45,6 +45,7 @@
       <span>> </span>
       <input type="text" id="user-input" autocomplete="off" autofocus />
     </form>
+    <img id="popup-image" src="images/asher-bao.JPG" style="display:none; max-width:100%; margin-top:20px; border-radius:10px;" />
   </div>
   <script>
     const compliments = [
@@ -59,13 +60,13 @@
     const form = document.getElementById('input-form');
     const input = document.getElementById('user-input');
 
-    function typewriter(text, callback, delay = 60) {
+    function typewriter(text, callback) {
       let i = 0;
       function type() {
         if (i < text.length) {
           output.innerHTML += text.charAt(i);
           i++;
-          setTimeout(type, delay);
+          setTimeout(type, 60);
         } else {
           output.innerHTML += '<br>';
           if (callback) callback();
@@ -92,17 +93,23 @@
       if (answer === "yes") {
         typewriter("Okay, here it comes...", () => {
           typewriter("I LOVE YOU! ❤️", () => {
-            typewriter(randomCompliment(), undefined, 200);
-          }, 200);
+            typewriter(randomCompliment(), () => {
+              document.getElementById('popup-image').style.display = 'block';
+            });
+          });
         });
       } else if (answer === "no") {
         typewriter("Too bad, I'm gonna tell you anyways!", () => {
           typewriter("I LOVE YOU! ❤️", () => {
-            typewriter(randomCompliment(), undefined, 200);
-          }, 200);
+            typewriter(randomCompliment(), () => {
+              document.getElementById('popup-image').style.display = 'block';
+            });
+          });
         });
       } else {
-        typewriter("Hmm, that's not a yes or no, but I love you anyway! 😘");
+        typewriter("Hmm, that's not a yes or no, but I love you anyway! 😘", () => {
+          document.getElementById('popup-image').style.display = 'block';
+        });
       }
     };
 
