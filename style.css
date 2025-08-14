@@ -144,6 +144,10 @@ img {
     line-height: 1.6;
 }
 
+.about .page-description {
+    font-size: 14px;
+}
+
 .masthead .masthead-nav a + a {
     margin-left: .25rem;
 }
