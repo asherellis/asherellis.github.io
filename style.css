@@ -1,11 +1,3 @@
-/* Preload and optimize font loading */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url('//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600');
-}
 
 * {
   -webkit-box-sizing: border-box;
@@ -20,7 +12,7 @@ body {
 }
 
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 15px;
   font-weight: 400;
   line-height: 1.6;
@@ -83,13 +75,14 @@ img {
 }
 
 .container {
+  /* max-width: 38rem; */
   max-width: 3000px;
   padding: 2rem 1.5rem;
-  margin-left: 50px;
+  margin-left:  auto;
   margin-right: auto;
-  display: flex;
-  gap: 30px;
-  align-items: flex-start;
+  float: left;
+  margin-left: 50px;
+  display: table;
 }
 
 @media (min-width: 38rem){
@@ -100,7 +93,8 @@ img {
 
 .masthead {
     width: 193px;
-    flex-shrink: 0;
+    float: left;
+    display: table-cell;
 }
 
 .masthead-title {
@@ -160,8 +154,8 @@ img {
     padding-left: 30px;
     border-left: 1px solid #dedfe0;
     font-size: 13px;
-    flex: 1;
-    min-width: 0;
+    display: table-cell;
+    vertical-align: top;
 }
 
 .list {
@@ -179,26 +173,24 @@ img {
 
   .container {
     margin: 0px;
+    margin-left: 0px;
     padding-top: 25px;
-    flex-direction: column;
-    gap: 10px;
+    padding-left: 15px;
   }
 
   .masthead {
     width: 100%;
   }
 
-
   .masthead-nav {
     float: left;
     display: inline;
-    padding-left: 0 !important; /* Fixed: remove padding that caused layout shift */
+    padding-left: 0;
     margin-bottom: 2px;
-    font-size: inherit !important; /* Fixed: maintain consistent font size */
   }
 
   .masthead .masthead-nav ul {
-    margin-left: 0 !important; /* Fixed: remove margin that caused layout shift */
+    margin-left: 0;
   }
 
   .masthead-nav li {
@@ -215,6 +207,8 @@ img {
     content: "";
   }
 
+
+
   .masthead .masthead-nav {
     margin-bottom: 0px;
   }
@@ -223,8 +217,11 @@ img {
     width: 100%;
     padding: 0px;
     border-left: none;
+    float: left;
     border-top: 1px solid #dedfe0;
     padding-top: 10px;
     margin-left: 0px;
+    position: relative;
+    display: block;
   }
 }
