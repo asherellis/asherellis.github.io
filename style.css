@@ -21,15 +21,9 @@ body {
 
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
-}
-
-@media (min-width: 38em) {
-  html {
-    font-size: 16px;
-  }
 }
 
 body {
@@ -104,7 +98,7 @@ img {
 }
 
 .masthead-title {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .masthead-title a {
@@ -126,7 +120,7 @@ img {
 
 .masthead .masthead-nav a {
     color: #aaa;
-    font-weight: 300;
+    font-weight: 400;
     text-transform: lowercase;
     -webkit-transition: all .2s ease;
        -moz-transition: all .2s ease;
@@ -147,8 +141,12 @@ img {
 .page-description {
     margin-bottom: 1.5rem;
     color: #515151;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.6;
+}
+
+.about .page-description {
+    font-size: 14px;
 }
 
 .masthead .masthead-nav a + a {
@@ -158,7 +156,7 @@ img {
 .content{
     padding-left: 30px;
     border-left: 1px solid #dedfe0;
-    font-size: 13px;
+    font-size: 15px;
     flex: 1;
     min-width: 0;
 }
@@ -185,6 +183,10 @@ img {
 
   .masthead {
     width: 100%;
+  }
+
+  .masthead-title {
+    font-weight: 300;
   }
 
   .masthead-nav {
