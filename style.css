@@ -141,7 +141,6 @@ img {
 .page-description {
     margin-bottom: 1.5rem;
     color: #515151;
-    font-size: 15px;
     line-height: 1.6;
 }
 
@@ -152,7 +151,6 @@ img {
 .content{
     padding-left: 30px;
     border-left: 1px solid #dedfe0;
-    font-size: 15px;
     flex: 1;
     min-width: 0;
 }
