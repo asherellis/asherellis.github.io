@@ -131,6 +131,18 @@ img {
     text-decoration: none;
 }
 
+.masthead .masthead-nav a.current-page {
+    color: #333;
+    font-weight: 500;
+}
+
+.page-description {
+    margin-bottom: 1.5rem;
+    color: #515151;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
 .masthead .masthead-nav a + a {
     margin-left: .25rem;
 }

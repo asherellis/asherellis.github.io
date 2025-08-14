@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Page Not Found - Asher Ellis</title>
     <meta name="description" content="Page not found. Redirecting to Asher Ellis's homepage.">
     <meta name="robots" content="noindex, nofollow">
     <meta http-equiv="refresh" content="3; url='https://asherellis.net/'" />
     <link rel="canonical" href="https://asherellis.net/" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+      /* Fix navigation alignment and font size on mobile */
+      @media screen and (max-width: 850px) {
+        .masthead-nav {
+          padding-left: 0 !important; /* Override the 13px padding from main CSS */
+          font-size: inherit !important; /* Keep same font size as desktop, don't shrink to 12px */
+        }
+        
+        .masthead .masthead-nav ul {
+          margin-left: 0 !important; /* Override the 35px margin from main CSS */
+        }
+      }
+    </style>
   </head>
   <body>
-    <main>
-      <header>
-        <h1>Page Not Found</h1>
+    <div class="container">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <strong><a href="/">Asher Ellis</a></strong>
+        </h1>
+        <nav class="masthead-nav">
+          <ul class="navlist">
+            <li class="navitem"><a href="/about/">About</a></li>
+            <li class="navitem"><a href="/writing/">Writing</a></li>
+            <li class="navitem"><a href="/photos/">Photos</a></li>
+          </ul>
+        </nav>
       </header>
-      <section>
+      
+      <div class="content list">
         <p>The page you're looking for doesn't exist. You'll be redirected to the homepage in a few seconds.</p>
-        <p><a href="https://asherellis.net/">Click here</a> if you're not redirected automatically.</p>
-      </section>
-    </main>
+        <p><a href="/">Click here</a> if you're not redirected automatically.</p>
+      </div>
+    </div>
   </body>
 </html>
