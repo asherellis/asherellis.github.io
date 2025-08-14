@@ -11,22 +11,22 @@
     <link rel="stylesheet" href="../style.css">
     <style>
       /* Photo grid with 7:4 cropped images - using main page styling approach */
-      .photo-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 500px)); /* Much larger: 320px→400px, 400px→500px */
-        gap: 50px; /* Generous spacing */
-        margin-top: 20px;
-        justify-content: center;
-      }
+        .photo-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(400px, 500px)); /* Much larger: 320px→400px, 400px→500px */
+          gap: 50px; /* Generous spacing */
+          margin-top: 20px;
+          justify-content: start;
+        }
       
-      .photo-item {
-        background: white;
-        border-radius: 0;
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        width: 100%;
-        margin: 0 auto;
-      }
+        .photo-item {
+          background: white;
+          border-radius: 0;
+          overflow: hidden;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+          width: 100%;
+          margin: 0;
+        }
       
       .photo-item img {
         width: 100%;

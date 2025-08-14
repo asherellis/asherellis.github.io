@@ -98,7 +98,7 @@ img {
 }
 
 .masthead-title {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .masthead-title a {
@@ -120,7 +120,7 @@ img {
 
 .masthead .masthead-nav a {
     color: #aaa;
-    font-weight: 300;
+    font-weight: 400;
     text-transform: lowercase;
     -webkit-transition: all .2s ease;
        -moz-transition: all .2s ease;
@@ -135,7 +135,7 @@ img {
 
 .masthead .masthead-nav a.current-page {
     color: #333;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .page-description {
@@ -177,6 +177,10 @@ img {
 
   .masthead {
     width: 100%;
+  }
+
+  .masthead-title {
+    font-weight: 300;
   }
 
   .masthead-nav {
