@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photos – Asher Ellis</title>
+    <meta name="description" content="Selected photography by Asher Ellis.">
+    <link rel="canonical" href="https://asherellis.net/photos/">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+      /* Photo grid with 7:4 cropped images - using main page styling approach */
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 500px)); /* Much larger: 320px→400px, 400px→500px */
+        gap: 50px; /* Generous spacing */
+        margin-top: 20px;
+        justify-content: center;
+      }
+      
+      .photo-item {
+        background: white;
+        border-radius: 0;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        width: 100%;
+        margin: 0 auto;
+      }
+      
+      .photo-item img {
+        width: 100%;
+        aspect-ratio: 3/2; /* Maintains 3:2 ratio at all screen sizes */
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      
+      .photo-caption {
+        padding: 4px 20px 20px 20px; /* Reduced top padding from 8px to 4px */
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      
+      .photo-caption .location {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 6px;
+        font-size: 15px;
+      }
+      
+      .photo-caption .description {
+        color: #666;
+        font-size: 13px;
+      }
+      
+      /* Progressive spacing reduction as screen gets smaller */
+      @media screen and (max-width: 900px) {
+        .photo-grid {
+          gap: 40px; /* Start reducing gap */
+        }
+      }
+      
+      @media screen and (max-width: 800px) {
+        .photo-grid {
+          gap: 30px; /* Smaller gap */
+        }
+      }
+      
+      @media screen and (max-width: 700px) {
+        .photo-grid {
+          gap: 25px; /* Even smaller */
+        }
+      }
+      
+      /* Match main page mobile spacing (850px breakpoint) */
+      @media screen and (max-width: 850px) {
+        .photo-grid {
+          grid-template-columns: 1fr; /* Single column like main page */
+          gap: 10px; /* Minimal gap to match main page's minimal padding */
+          padding: 0; /* No side padding like main page */
+        }
+        
+        .photo-item {
+          width: 100%;
+          max-width: 100%;
+        }
+        
+        .photo-item img {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 3/2; /* Maintain ratio on mobile */
+        }
+        
+        /* Fix navigation alignment and font size on mobile */
+        .masthead-nav {
+          padding-left: 0 !important; /* Override the 13px padding from main CSS */
+          font-size: inherit !important; /* Keep same font size as desktop, don't shrink to 12px */
+        }
+        
+        .masthead .masthead-nav ul {
+          margin-left: 0 !important; /* Override the 35px margin from main CSS */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <strong><a href="/">Asher Ellis</a></strong>
+        </h1>
+        <nav class="masthead-nav">
+          <ul class="navlist">
+            <li class="navitem"><a href="/writing/">Writing</a></li>
+            <li class="navitem"><a href="/photos/">Photos</a></li>
+            <li class="navitem"><a href="/about/">About</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+      <div class="content list">
+        <h2 style="margin-top: 0; font-size: 1.5rem;">Photos</h2>
+        <p style="margin-bottom: 30px;">See more at <a href="https://instagram.com/asherellisphoto/" target="_blank">@asherellisphoto</a>.</p>
+      
+        <div class="photo-grid">
+        <div class="photo-item">
+          <img src="../images/northcascades.webp" alt="North Cascades" loading="lazy">
+          <div class="photo-caption">
+            <div class="location">Coquihalla Summit</div>
+            <div class="description">British Columbia, Canada</div>
+          </div>
+        </div>
+          
+          <div class="photo-item">
+            <img src="../images/bear.jpg" alt="Bear" loading="lazy">
+            <div class="photo-caption">
+              <div class="location">Black Bear</div>
+              <div class="description">Yosemite, CA</div>
+            </div>
+          </div>
+          
+          <div class="photo-item">
+            <img src="../images/canyonlands.webp" alt="Canyonlands National Park" loading="lazy">
+            <div class="photo-caption">
+              <div class="location">Gooseberry Trail</div>
+              <div class="description">Canyonlands, UT</div>
+            </div>
+          </div>
+          
+          
+          <div class="photo-item">
+            <img src="../images/trout.jpeg" alt="Trout" loading="lazy">
+            <div class="photo-caption">
+              <div class="location">Trout</div>
+              <div class="description">Colorado Springs, CO</div>
+            </div>
+          </div>
+        </div> <!-- Close photo-grid -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
