@@ -1,3 +1,12 @@
+/* Preload and optimize font loading */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600');
+}
+
 * {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -11,8 +20,8 @@ body {
 }
 
 html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 15px;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.6;
 }
@@ -76,11 +85,11 @@ img {
 .container {
   max-width: 3000px;
   padding: 2rem 1.5rem;
-  margin-left:  auto;
-  margin-right: auto;
-  float: left;
   margin-left: 50px;
-  display: table;
+  margin-right: auto;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
 }
 
 @media (min-width: 38rem){
@@ -91,8 +100,7 @@ img {
 
 .masthead {
     width: 193px;
-    float: left;
-    display: table-cell;
+    flex-shrink: 0;
 }
 
 .masthead-title {
@@ -151,8 +159,8 @@ img {
     padding-left: 30px;
     border-left: 1px solid #dedfe0;
     font-size: 13px;
-    display: table-cell;
-    vertical-align: top;
+    flex: 1;
+    min-width: 0;
 }
 
 .list {
@@ -171,6 +179,8 @@ img {
   .container {
     margin: 0px;
     padding-top: 25px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .masthead {
@@ -180,9 +190,13 @@ img {
   .masthead-nav {
     float: left;
     display: inline;
-    padding-left: 13px;
+    padding-left: 0 !important; /* Fixed: remove padding that caused layout shift */
     margin-bottom: 2px;
-    font-size: 12px;
+    font-size: inherit !important; /* Fixed: maintain consistent font size */
+  }
+
+  .masthead .masthead-nav ul {
+    margin-left: 0 !important; /* Fixed: remove margin that caused layout shift */
   }
 
   .masthead-nav li {
@@ -207,10 +221,8 @@ img {
     width: 100%;
     padding: 0px;
     border-left: none;
-    float: left;
     border-top: 1px solid #dedfe0;
     padding-top: 10px;
     margin-left: 0px;
-    position: relative;
   }
 }

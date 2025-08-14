@@ -6,7 +6,8 @@
     <title>Photos – Asher Ellis</title>
     <meta name="description" content="Selected photography by Asher Ellis.">
     <link rel="canonical" href="https://asherellis.net/photos/">
-    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet">
+    <link rel="preload" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="../style.css">
     <style>
       /* Photo grid with 7:4 cropped images - using main page styling approach */
@@ -89,16 +90,6 @@
           width: 100%;
           height: auto;
           aspect-ratio: 3/2; /* Maintain ratio on mobile */
-        }
-        
-        /* Fix navigation alignment and font size on mobile */
-        .masthead-nav {
-          padding-left: 0 !important; /* Override the 13px padding from main CSS */
-          font-size: inherit !important; /* Keep same font size as desktop, don't shrink to 12px */
-        }
-        
-        .masthead .masthead-nav ul {
-          margin-left: 0 !important; /* Override the 35px margin from main CSS */
         }
       }
     </style>
