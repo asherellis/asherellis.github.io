@@ -172,10 +172,13 @@ img {
   }
 
   .container {
-    margin: 0px;
-    margin-left: 0px;
+    margin: 0 auto;
     padding-top: 25px;
     padding-left: 15px;
+    padding-right: 15px;
+    max-width: 600px;
+    float: none;
+    display: block;
   }
 
   .masthead {

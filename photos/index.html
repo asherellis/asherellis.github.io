@@ -6,6 +6,8 @@
     <title>Photos – Asher Ellis</title>
     <meta name="description" content="Selected photography by Asher Ellis.">
     <link rel="canonical" href="https://asherellis.net/photos/">
+    <link rel="preload" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="../style.css">
     <style>
       /* Photo grid with 7:4 cropped images - using main page styling approach */
@@ -77,6 +79,7 @@
           grid-template-columns: 1fr; /* Single column like main page */
           gap: 10px; /* Minimal gap to match main page's minimal padding */
           padding: 0; /* No side padding like main page */
+          justify-content: center; /* Center the grid items */
         }
         
         .photo-item {
@@ -369,7 +372,6 @@
             </div>
           </div>
         </div> <!-- Close photo-grid -->
-        </div>
       </div>
     </div>
   </body>
