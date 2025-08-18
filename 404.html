@@ -8,9 +8,11 @@
     <meta name="robots" content="noindex, nofollow">
     <meta http-equiv="refresh" content="3; url='https://asherellis.net/'" />
     <link rel="canonical" href="https://asherellis.net/" />
-    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
+      /* Critical CSS to prevent FOUT */
+      .masthead-title a { color: #333 !important; }
       /* Fix navigation alignment and font size on mobile */
       @media screen and (max-width: 850px) {
         .masthead-nav {

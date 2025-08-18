@@ -24,8 +24,12 @@
     <meta property="twitter:description" content="Air Force officer and graduate student in Computer Science at the University of Pennsylvania. Recently completed B.S. in Applied Mathematics at Yale.">
     
     <link rel="canonical" href="https://asherellis.net" />
-    <link rel="preload" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet"></noscript>
+    <link rel="preload" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600&display=swap" rel="stylesheet"></noscript>
+    <style>
+      /* Critical CSS to prevent FOUT */
+      .masthead-title a { color: #333 !important; }
+    </style>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -44,7 +48,7 @@
       </header>
       
       <div class="content list">
-        <img src="photos/src/Taft.webp" class="hero-image" style="border-radius: 0px;"/>
+        <img src="src/Taft.webp" class="hero-image" style="border-radius: 0px;"/>
       </div>
     </div>
   </body>
