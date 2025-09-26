@@ -1,0 +1,230 @@
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@media (min-width: 38em) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  color: #515151;
+  background-color: #ffffff;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+a {
+  color: #268bd2;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: .5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #333;
+  letter-spacing: -.025rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+ul {
+  list-style: inside circle;
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: .25rem;
+  list-style-type: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  margin: 0 0 1rem;
+}
+
+.container {
+  /* max-width: 38rem; */
+  max-width: 3000px;
+  padding: 2rem 1.5rem;
+  margin-left:  auto;
+  margin-right: auto;
+  float: left;
+  margin-left: 50px;
+  display: table;
+}
+
+@media (min-width: 38rem){
+  .container {
+    padding: 4rem 1rem;
+  }
+}
+
+.masthead {
+    width: 193px;
+    float: left;
+    display: table-cell;
+}
+
+.masthead-title {
+    font-weight: 300;
+}
+
+.masthead-title a {
+    color: #333;
+}
+
+.masthead-title a:hover,
+.masthead-title a:focus {
+    text-decoration: none;
+}
+
+.masthead .masthead-nav {
+    margin-bottom: 2rem;
+}
+
+.masthead .masthead-nav ul {
+    margin-left: 35px;
+}
+
+.masthead .masthead-nav a {
+    color: #aaa;
+    font-weight: 300;
+    text-transform: lowercase;
+    -webkit-transition: all .2s ease;
+       -moz-transition: all .2s ease;
+            transition: all .2s ease;
+}
+
+.masthead .masthead-nav a:hover,
+.masthead .masthead-nav a:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+.masthead .masthead-nav a.current-page {
+    color: #333;
+    font-weight: 500;
+}
+
+.page-description {
+    margin-bottom: 1.5rem;
+    color: #515151;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+.masthead .masthead-nav a + a {
+    margin-left: .25rem;
+}
+
+.content{
+    padding-left: 30px;
+    border-left: 1px solid #dedfe0;
+    font-size: 13px;
+    display: table-cell;
+    vertical-align: top;
+}
+
+.list {
+    max-width: 700px;
+}
+
+.hero-image {
+    max-width: 80%;
+}
+
+@media screen and (max-width: 850px) {
+  .hero-image {
+      max-width: 100%;
+  }
+
+  .container {
+    margin: 0 auto;
+    padding-top: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 600px;
+    float: none;
+    display: block;
+  }
+
+  .masthead {
+    width: 100%;
+  }
+
+  .masthead-nav {
+    float: left;
+    display: inline;
+    padding-left: 0;
+    margin-bottom: 2px;
+  }
+
+  .masthead .masthead-nav ul {
+    margin-left: 0;
+  }
+
+  .masthead-nav li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+  }
+
+  .masthead-nav li::after { 
+    content: " | ";
+  }
+
+  .masthead-nav ul li:last-child::after {
+    content: "";
+  }
+
+
+
+  .masthead .masthead-nav {
+    margin-bottom: 0px;
+  }
+
+  .content {
+    width: 100%;
+    padding: 0px;
+    border-left: none;
+    float: left;
+    border-top: 1px solid #dedfe0;
+    padding-top: 10px;
+    margin-left: 0px;
+    position: relative;
+    display: block;
+  }
+}
