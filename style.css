@@ -1,8 +1,7 @@
-
 * {
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
@@ -28,7 +27,7 @@ body {
   color: #515151;
   background-color: #ffffff;
   -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 a {
@@ -41,7 +40,12 @@ a:focus {
   text-decoration: underline;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
   margin-bottom: .5rem;
   font-weight: 600;
@@ -78,97 +82,97 @@ img {
   /* max-width: 38rem; */
   max-width: 3000px;
   padding: 2rem 1.5rem;
-  margin-left:  auto;
+  margin-left: auto;
   margin-right: auto;
   float: left;
   margin-left: 50px;
   display: table;
 }
 
-@media (min-width: 38rem){
+@media (min-width: 38rem) {
   .container {
     padding: 4rem 1rem;
   }
 }
 
 .masthead {
-    width: 193px;
-    float: left;
-    display: table-cell;
+  width: 193px;
+  float: left;
+  display: table-cell;
 }
 
 .masthead-title {
-    font-weight: 300;
+  font-weight: 300;
 }
 
 .masthead-title a {
-    color: #333;
+  color: #333;
 }
 
 .masthead-title a:hover,
 .masthead-title a:focus {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .masthead .masthead-nav {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .masthead .masthead-nav ul {
-    margin-left: 35px;
+  margin-left: 35px;
 }
 
 .masthead .masthead-nav a {
-    color: #aaa;
-    font-weight: 300;
-    text-transform: lowercase;
-    -webkit-transition: all .2s ease;
-       -moz-transition: all .2s ease;
-            transition: all .2s ease;
+  color: #aaa;
+  font-weight: 300;
+  text-transform: lowercase;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  transition: all .2s ease;
 }
 
 .masthead .masthead-nav a:hover,
 .masthead .masthead-nav a:focus {
-    color: #333;
-    text-decoration: none;
+  color: #333;
+  text-decoration: none;
 }
 
 .masthead .masthead-nav a.current-page {
-    color: #333;
-    font-weight: 500;
+  color: #333;
+  font-weight: 500;
 }
 
 .page-description {
-    margin-bottom: 1.5rem;
-    color: #515151;
-    font-size: 13px;
-    line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #515151;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 
-.masthead .masthead-nav a + a {
-    margin-left: .25rem;
+.masthead .masthead-nav a+a {
+  margin-left: .25rem;
 }
 
-.content{
-    padding-left: 30px;
-    border-left: 1px solid #dedfe0;
-    font-size: 13px;
-    display: table-cell;
-    vertical-align: top;
+.content {
+  padding-left: 30px;
+  border-left: 1px solid #dedfe0;
+  font-size: 13px;
+  display: table-cell;
+  vertical-align: top;
 }
 
 .list {
-    max-width: 700px;
+  max-width: 700px;
 }
 
 .hero-image {
-    max-width: 80%;
+  max-width: 80%;
 }
 
 @media screen and (max-width: 850px) {
   .hero-image {
-      max-width: 100%;
+    max-width: 100%;
   }
 
   .container {
@@ -202,8 +206,13 @@ img {
     display: inline;
   }
 
-  .masthead-nav li::after { 
+  .masthead-nav li::after {
     content: " | ";
+  }
+
+  /* Hide the bar after Photos (3rd item) to keep Secret hidden */
+  .masthead-nav ul li:nth-child(3)::after {
+    content: "";
   }
 
   .masthead-nav ul li:last-child::after {
