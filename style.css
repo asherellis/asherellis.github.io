@@ -210,11 +210,6 @@ img {
     content: " | ";
   }
 
-  /* Hide the bar after Photos (3rd item) to keep Secret hidden */
-  .masthead-nav ul li:nth-child(3)::after {
-    content: "";
-  }
-
   .masthead-nav ul li:last-child::after {
     content: "";
   }
