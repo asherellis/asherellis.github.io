@@ -6,6 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Photos – Asher Ellis</title>
   <meta name="description" content="Selected photography by Asher Ellis.">
+  <meta name="author" content="Asher Ellis">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://asherellis.net/photos/">
+  <meta property="og:title" content="Photos – Asher Ellis">
+  <meta property="og:description" content="Selected photography by Asher Ellis.">
+  <meta property="og:site_name" content="Asher Ellis">
+  <meta property="twitter:card" content="summary">
+  <meta property="twitter:url" content="https://asherellis.net/photos/">
+  <meta property="twitter:title" content="Photos – Asher Ellis">
+  <meta property="twitter:description" content="Selected photography by Asher Ellis.">
   <link rel="canonical" href="https://asherellis.net/photos/">
   <link rel="preload" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" as="style"
     onload="this.onload=null;this.rel='stylesheet'">
@@ -13,103 +24,6 @@
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet">
   </noscript>
   <link rel="stylesheet" href="../style.css">
-  <style>
-    /* Photo grid with 7:4 cropped images - using main page styling approach */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 500px));
-      /* Much larger: 320px→400px, 400px→500px */
-      gap: 50px;
-      /* Generous spacing */
-      margin-top: 20px;
-      justify-content: start;
-    }
-
-    .photo-item {
-      background: white;
-      border-radius: 0;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-      width: 100%;
-      margin: 0;
-    }
-
-    .photo-item img {
-      width: 100%;
-      aspect-ratio: 3/2;
-      /* Maintains 3:2 ratio at all screen sizes */
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-
-    .photo-caption {
-      padding: 4px 20px 20px 20px;
-      /* Reduced top padding from 8px to 4px */
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .photo-caption .location {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 6px;
-      font-size: 15px;
-    }
-
-    .photo-caption .description {
-      color: #666;
-      font-size: 13px;
-    }
-
-    /* Progressive spacing reduction as screen gets smaller */
-    @media screen and (max-width: 900px) {
-      .photo-grid {
-        gap: 40px;
-        /* Start reducing gap */
-      }
-    }
-
-    @media screen and (max-width: 800px) {
-      .photo-grid {
-        gap: 30px;
-        /* Smaller gap */
-      }
-    }
-
-    @media screen and (max-width: 700px) {
-      .photo-grid {
-        gap: 25px;
-        /* Even smaller */
-      }
-    }
-
-    /* Match main page mobile spacing (850px breakpoint) */
-    @media screen and (max-width: 850px) {
-      .photo-grid {
-        grid-template-columns: 1fr;
-        /* Single column like main page */
-        gap: 10px;
-        /* Minimal gap to match main page's minimal padding */
-        padding: 0;
-        /* No side padding like main page */
-        justify-content: center;
-        /* Center the grid items */
-      }
-
-      .photo-item {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .photo-item img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3/2;
-        /* Maintain ratio on mobile */
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -123,6 +37,7 @@
           <li class="navitem"><a href="/about/">About</a></li>
           <li class="navitem"><a href="/writing/">Writing</a></li>
           <li class="navitem"><a href="/photos/" class="current-page">Photos</a></li>
+          <li class="navitem"><a href="/family/">Family</a></li>
         </ul>
       </nav>
     </header>

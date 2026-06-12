@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Tree – Asher Ellis</title>
+<link rel="preload" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" rel="stylesheet"></noscript>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+       background: #fafafa; color: #333; overflow: hidden; height: 100vh; }
+
+/* Site nav header */
+#site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: #fff; border-bottom: 1px solid #dedfe0;
+  display: flex; align-items: center;
+  padding: 0 20px; height: 44px;
+}
+#site-brand { font-size: 15px; font-weight: 600; color: #333; text-decoration: none;
+              white-space: nowrap; margin-right: 20px; letter-spacing: -0.01em; transition: color 0.15s; }
+#site-brand:hover { color: #515151; text-decoration: none; }
+#site-nav { display: flex; align-items: center; }
+#site-nav a { color: #aaa; font-weight: 300; font-size: 14px; text-decoration: none;
+              text-transform: lowercase; padding: 0 10px; transition: color 0.15s; white-space: nowrap; }
+#site-nav a:hover { color: #333; text-decoration: none; }
+#site-nav a.active { color: #333; font-weight: 500; }
+#tree-controls { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+#search { background: #fff; border: 1px solid #dedfe0; border-radius: 4px;
+          color: #515151; padding: 4px 9px; font-size: 12px; font-weight: 300;
+          width: 160px; outline: none; font-family: inherit; transition: border-color 0.15s; }
+#search:focus { border-color: #aaa; }
+#search::placeholder { color: #bbb; }
+.tb-btn { background: #fff; border: 1px solid #dedfe0; color: #aaa; border-radius: 4px;
+          padding: 3px 9px; font-size: 11px; cursor: pointer; white-space: nowrap;
+          font-family: inherit; font-weight: 300; transition: color 0.12s, border-color 0.12s; }
+.tb-btn:hover { border-color: #aaa; color: #515151; }
+.tb-btn.active { border-color: #268bd2; color: #268bd2; background: rgba(38,139,210,0.05); }
+#gen-label { color: #aaa; font-size: 11px; font-weight: 300; white-space: nowrap; }
+#gen-slider { width: 72px; accent-color: #268bd2; cursor: pointer; }
+.spacer { flex: 1; }
+#match-count { font-size: 11px; color: #aaa; font-weight: 300; white-space: nowrap; }
+
+/* SVG canvas */
+#canvas { position: fixed; top: 44px; left: 0; right: 0; bottom: 0; }
+svg { width: 100%; height: 100%; }
+.link { fill: none; stroke: #ccc; stroke-width: 1.5px; }
+.link.paternal-gf  { stroke: #4a7fa5; }
+.link.paternal-gm  { stroke: #b8872e; }
+.link.maternal-gf  { stroke: #4a8a5a; }
+.link.maternal-gm  { stroke: #8a4a6a; }
+
+/* Person cards */
+.person-card { cursor: pointer; }
+.card-bg {
+  rx: 7; ry: 7;
+  stroke-width: 1.5;
+  fill: #fff;
+  stroke: #ddd;
+  transition: stroke 0.15s;
+}
+.card-bg.paternal-gf { fill: #fff; stroke: #4a7fa5; }
+.card-bg.paternal-gm { fill: #fff; stroke: #b8872e; }
+.card-bg.maternal-gf { fill: #fff; stroke: #4a8a5a; }
+.card-bg.maternal-gm { fill: #fff; stroke: #8a4a6a; }
+.card-bg.self        { fill: #fff; stroke: #333; stroke-width: 2; }
+.card-bg.sibling     { fill: #fff; stroke: #ccc; }
+.card-bg.unknown-bg  { fill: #f5f5f5; stroke: #e0e0e0; }
+
+.person-card:hover .card-bg { stroke-width: 2.5; }
+.person-card.selected .card-bg { stroke-width: 3; filter: brightness(1.3); }
+
+.card-name { fill: #333; font-size: 12px; font-weight: 600; }
+.card-name.long { font-size: 10.5px; }
+.card-dates { fill: #888; font-size: 10px; }
+.card-unknown { fill: #bbb; font-size: 11px; font-style: italic; }
+
+/* Expand button on cards */
+.expand-btn { cursor: pointer; }
+.expand-circle { fill: #f0f0f0; stroke: #ccc; stroke-width: 1; }
+.expand-circle:hover { fill: #e0e0e0; }
+.expand-text { fill: #888; font-size: 11px; font-weight: 700; pointer-events: none; }
+
+/* Detail panel — white, matches rest of site */
+#detail {
+  position: fixed; top: 44px; right: 0; bottom: 0; width: 290px;
+  background: #fff; border-left: 1px solid #dedfe0;
+  padding: 24px 20px 20px; overflow-y: auto;
+  transform: translateX(100%); transition: transform 0.22s ease;
+  z-index: 150; color: #515151;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+#detail.open { transform: translateX(0); }
+#detail-close { position: absolute; top: 12px; right: 12px;
+                background: transparent; border: 1px solid #dedfe0; color: #aaa; border-radius: 4px;
+                width: 24px; height: 24px; cursor: pointer; font-size: 14px; line-height: 22px; }
+#detail-close:hover { border-color: #aaa; color: #515151; }
+#detail h2 { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 2px; line-height: 1.3;
+             padding-right: 32px; letter-spacing: -0.02em; }
+#detail .d-subtitle { font-size: 11px; color: #aaa; margin-bottom: 18px; font-weight: 300; }
+.d-section { margin-bottom: 13px; }
+.d-label { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+           color: #bbb; margin-bottom: 2px; }
+.d-value { font-size: 13px; color: #515151; line-height: 1.5; font-weight: 300; }
+.d-value.empty { color: #ccc; font-style: italic; }
+.d-divider { border: none; border-top: 1px solid #dedfe0; margin: 14px 0; }
+.d-link { color: #268bd2; text-decoration: none; font-size: 12px; cursor: pointer; font-weight: 300; }
+.d-link:hover { text-decoration: underline; }
+#detail .d-person-links a { display: block; color: #268bd2; font-size: 13px;
+                             text-decoration: none; padding: 2px 0; font-weight: 300; }
+#detail .d-person-links a:hover { text-decoration: underline; }
+
+/* Legend */
+#legend {
+  position: fixed; bottom: 16px; left: 16px;
+  background: rgba(255,255,255,0.92); border: 1px solid #dedfe0; border-radius: 5px;
+  padding: 8px 12px; font-size: 11px; z-index: 100; font-weight: 300; color: #515151;
+  backdrop-filter: blur(6px);
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.leg-item { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
+.leg-item:last-child { margin-bottom: 0; }
+.leg-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+/* Zoom controls */
+#zoom-controls { position: fixed; bottom: 16px; right: 16px; z-index: 100;
+                 display: flex; flex-direction: column; gap: 5px; }
+.zoom-btn { background: rgba(255,255,255,0.92); border: 1px solid #dedfe0; color: #aaa; border-radius: 4px;
+            width: 30px; height: 30px; font-size: 16px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(6px); transition: color 0.12s, border-color 0.12s; }
+.zoom-btn:hover { color: #515151; border-color: #aaa; }
+
+/* Search highlight */
+.person-card.dimmed { opacity: 0.25; }
+.person-card.highlighted .card-bg { stroke-width: 3; filter: brightness(1.4); }
+</style>
+</head>
+<body>
+
+<div id="site-header">
+  <a id="site-brand" href="/"><strong>Asher Ellis</strong></a>
+  <nav id="site-nav">
+    <a href="/about/">about</a>
+    <a href="/writing/">writing</a>
+    <a href="/photos/">photos</a>
+    <a href="/family/" class="active">family</a>
+  </nav>
+  <div id="tree-controls">
+    <input id="search" type="text" placeholder="Search name…" autocomplete="off">
+    <span id="match-count"></span>
+    <span id="gen-label">gens: <strong id="gen-val">3</strong></span>
+    <input id="gen-slider" type="range" min="2" max="8" value="3">
+    <button class="tb-btn" id="btn-reset-view">reset</button>
+    <button class="tb-btn active" id="btn-ancestors">ancestors</button>
+    <button class="tb-btn" id="btn-all">full tree</button>
+  </div>
+</div>
+
+<div id="canvas">
+  <svg id="svg">
+    <g id="root-g">
+      <g id="links-g"></g>
+      <g id="nodes-g"></g>
+    </g>
+  </svg>
+</div>
+
+<div id="detail">
+  <button id="detail-close">×</button>
+  <h2 id="d-name">—</h2>
+  <div class="d-subtitle" id="d-subtitle"></div>
+  <div class="d-section">
+    <div class="d-label">Birth</div>
+    <div class="d-value" id="d-birth"></div>
+  </div>
+  <div class="d-section">
+    <div class="d-label">Death</div>
+    <div class="d-value" id="d-death"></div>
+  </div>
+  <div class="d-section" id="d-marriages-section">
+    <div class="d-label">Married</div>
+    <div class="d-value" id="d-marriages"></div>
+  </div>
+  <hr class="d-divider">
+  <div class="d-section">
+    <div class="d-label">Parents</div>
+    <div class="d-person-links" id="d-parents"></div>
+  </div>
+  <div class="d-section">
+    <div class="d-label">Children</div>
+    <div class="d-person-links" id="d-children"></div>
+  </div>
+  <div class="d-section" id="d-siblings-section">
+    <div class="d-label">Siblings</div>
+    <div class="d-person-links" id="d-siblings"></div>
+  </div>
+  <hr class="d-divider">
+  <div class="d-section">
+    <div class="d-label">Focus tree on this person</div>
+    <a class="d-link" id="d-focus">Make root →</a>
+  </div>
+</div>
+
+<div id="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#4a7fa5"></div> Sheldon Ellis (paternal)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#b8872e"></div> Julie Harrosh (paternal)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#4a8a5a"></div> Joel Brody (maternal)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#8a4a6a"></div> Eileen Rogovin (maternal)</div>
+</div>
+
+<div id="zoom-controls">
+  <button class="zoom-btn" id="btn-zoom-in">+</button>
+  <button class="zoom-btn" id="btn-zoom-out">−</button>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// ── Data ───────────────────────────────────────────────────────────────────────
+const RAW = {"people": {"@I342782218120@": {"id": "@I342782218120@", "name": "Asher Ellis", "given": "Asher", "surname": "Ellis", "sex": "U", "birth_date": "2 Dec 2001", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218181@", "@I342782218123@"], "spouses": [], "children": [], "marriages": []}, "@I342782218123@": {"id": "@I342782218123@", "name": "Cheryl Marlene Brody", "given": "Cheryl Marlene", "surname": "Brody", "sex": "F", "birth_date": "4 Jul 1970", "birth_place": "Mission Viejo", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218128@", "@I342782218124@"], "spouses": ["@I342782218181@"], "children": ["@I342782218120@", "@I342782221087@", "@I342782221088@", "@I342782221090@"], "marriages": [{"spouse": "@I342782218181@", "date": "", "place": ""}]}, "@I342782218124@": {"id": "@I342782218124@", "name": "Eileen Lorraine Rogovin", "given": "Eileen Lorraine", "surname": "Rogovin", "sex": "F", "birth_date": "20 Feb 1943", "birth_place": "Brooklyn, Kings, New York, New York, USA", "death": true, "death_date": "25 May 2015", "death_place": "North Las Vegas, Nevada, USA", "parents": ["@I342782218130@", "@I342782218131@"], "spouses": ["@I342782218128@"], "children": ["@I342782218123@", "@I342785428980@", "@I342785429062@"], "marriages": [{"spouse": "@I342782218128@", "date": "19 Mar 1966", "place": "San Diego City, California, USA"}]}, "@I342782218128@": {"id": "@I342782218128@", "name": "Joel Frederick Brody", "given": "Joel Frederick", "surname": "Brody", "sex": "M", "birth_date": "28 Aug 1942", "birth_place": "Brooklyn, Kings, New York, USA", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782219172@", "@I342782219194@"], "spouses": ["@I342782218124@"], "children": ["@I342782218123@", "@I342785428980@", "@I342785429062@"], "marriages": [{"spouse": "@I342782218124@", "date": "19 Mar 1966", "place": "San Diego City, California, USA"}]}, "@I342782218130@": {"id": "@I342782218130@", "name": "Bernard J. Rogovin", "given": "Bernard J.", "surname": "Rogovin", "sex": "M", "birth_date": "28 Dec 1916", "birth_place": "Brooklyn, New York", "death": true, "death_date": "31 Dec 1997", "death_place": "Sun City West, Maricopa, Arizona, United States of America", "parents": ["@I342782218380@", "@I342782218371@"], "spouses": ["@I342782218131@"], "children": ["@I342782218124@", "@I342785470409@"], "marriages": [{"spouse": "@I342782218131@", "date": "22 Jul 1941", "place": "Brooklyn, New York City, Kings County, Long Island, New York, USA"}]}, "@I342782218131@": {"id": "@I342782218131@", "name": "Sylvia Ruth Merzon", "given": "Sylvia Ruth", "surname": "Merzon", "sex": "F", "birth_date": "21 May 1921", "birth_place": "Detroit, Michigan", "death": true, "death_date": "10 Oct 2003", "death_place": "Sun City West, Maricopa, Arizona, USA", "parents": ["@I342782218709@", "@I342782218710@"], "spouses": ["@I342782218130@"], "children": ["@I342782218124@", "@I342785470409@"], "marriages": [{"spouse": "@I342782218130@", "date": "22 Jul 1941", "place": "Brooklyn, New York City, Kings County, Long Island, New York, USA"}]}, "@I342782218181@": {"id": "@I342782218181@", "name": "Mark E Ellis", "given": "Mark E", "surname": "Ellis", "sex": "M", "birth_date": "26 Jan 1970", "birth_place": "Los Angeles, California", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218224@", "@I342782218229@"], "spouses": ["@I342782218123@"], "children": ["@I342782218120@", "@I342782221087@", "@I342782221088@", "@I342782221090@"], "marriages": [{"spouse": "@I342782218123@", "date": "", "place": ""}]}, "@I342782218224@": {"id": "@I342782218224@", "name": "Sheldon S Ellis", "given": "Sheldon S", "surname": "Ellis", "sex": "M", "birth_date": "Aug 1932", "birth_place": "St. Louis, Missouri, USA", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220839@", "@I342782220217@"], "spouses": ["@I342782218229@"], "children": ["@I342782218181@"], "marriages": [{"spouse": "@I342782218229@", "date": "6 Sep 1964", "place": ""}]}, "@I342782218229@": {"id": "@I342782218229@", "name": "Julia Hilda Harrosh", "given": "Julia Hilda", "surname": "Harrosh", "sex": "F", "birth_date": "31 Mar 1938", "birth_place": "Casablanca, Morocco", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220433@", "@I342782220443@"], "spouses": ["@I342782218224@"], "children": ["@I342782218181@"], "marriages": [{"spouse": "@I342782218224@", "date": "6 Sep 1964", "place": ""}]}, "@I342782218371@": {"id": "@I342782218371@", "name": "Rose \"Rosie\" Rush", "given": "Rose \"Rosie\"", "surname": "Rush", "sex": "F", "birth_date": "22 Mar 1896", "birth_place": "Russia", "death": true, "death_date": "27 Feb 1969", "death_place": "Los Angeles County, California, USA", "parents": ["@I342782218574@", "@I342782218579@"], "spouses": ["@I342782218380@", "@I342782218381@"], "children": ["@I342782379331@", "@I342782218130@", "@I342782379381@"], "marriages": [{"spouse": "@I342782218380@", "date": "24 Jan 1914", "place": "Brooklyn, New York City, Kings County, Long Island, New York, USA"}, {"spouse": "@I342782218381@", "date": "11 Aug 1934", "place": "Brooklyn, New York City, Kings County, Long Island, New York, USA"}]}, "@I342782218380@": {"id": "@I342782218380@", "name": "David Rogovin", "given": "David", "surname": "Rogovin", "sex": "M", "birth_date": "18 Nov 1891", "birth_place": "Russia", "death": true, "death_date": "1925", "death_place": "New York City, New York, USA", "parents": ["@I342782331647@", "@I342782331648@"], "spouses": ["@I342782218371@"], "children": ["@I342782379331@", "@I342782218130@", "@I342782379381@"], "marriages": [{"spouse": "@I342782218371@", "date": "24 Jan 1914", "place": "Brooklyn, New York City, Kings County, Long Island, New York, USA"}]}, "@I342782218381@": {"id": "@I342782218381@", "name": "Max Sobel", "given": "Max", "surname": "Sobel", "sex": "M", "birth_date": "abt 1891", "birth_place": "Russia", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782218371@"], "children": [], "marriages": [{"spouse": "@I342782218371@", "date": "11 Aug 1934", "place": "Brooklyn, New York City, Kings County, Long Island, New York, USA"}]}, "@I342782218574@": {"id": "@I342782218574@", "name": "Hershel Erin Harry Rush", "given": "Hershel Erin Harry", "surname": "Rush", "sex": "M", "birth_date": "abt 1866", "birth_place": "Bialystok, Poland", "death": true, "death_date": "6 Feb 1922", "death_place": "Manhattan, New York, USA", "parents": ["@I342785471935@", "@I342785471950@"], "spouses": ["@I342782218579@"], "children": ["@I342782218371@"], "marriages": [{"spouse": "@I342782218579@", "date": "", "place": ""}]}, "@I342782218579@": {"id": "@I342782218579@", "name": "Cily Celia (Sorel) Zimmerman", "given": "Cily Celia (Sorel)", "surname": "Zimmerman", "sex": "F", "birth_date": "5 Jan 1878", "birth_place": "Bialystok, Poland", "death": true, "death_date": "11 Jan 1935", "death_place": "Kings, New York, USA", "parents": ["@I342782218583@", "@I342782390784@"], "spouses": ["@I342782218574@"], "children": ["@I342782218371@"], "marriages": [{"spouse": "@I342782218574@", "date": "", "place": ""}]}, "@I342782218583@": {"id": "@I342782218583@", "name": "Max Zimmerman", "given": "Max", "surname": "Zimmerman", "sex": "M", "birth_date": "1850", "birth_place": "Russia", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782390784@"], "children": ["@I342782218579@"], "marriages": [{"spouse": "@I342782390784@", "date": "", "place": ""}]}, "@I342782218709@": {"id": "@I342782218709@", "name": "Joseph Merzon", "given": "Joseph", "surname": "Merzon", "sex": "M", "birth_date": "7 Nov 1891", "birth_place": "Russia", "death": true, "death_date": "13 Nov 1973", "death_place": "Pontiac, Oakland County, Michigan, USA", "parents": ["@I342782229813@", "@I342782229818@"], "spouses": ["@I342782218710@"], "children": ["@I342782218131@"], "marriages": [{"spouse": "@I342782218710@", "date": "20 Jul 1927", "place": "Wayne, Michigan, USA"}]}, "@I342782218710@": {"id": "@I342782218710@", "name": "Rose E Bisko", "given": "Rose E", "surname": "Bisko", "sex": "F", "birth_date": "abt 1897", "birth_place": "Lithuania", "death": true, "death_date": "1955", "death_place": "", "parents": ["@I342782227512@", "@I342782227237@"], "spouses": ["@I342782218709@"], "children": ["@I342782218131@"], "marriages": [{"spouse": "@I342782218709@", "date": "20 Jul 1927", "place": "Wayne, Michigan, USA"}]}, "@I342782219172@": {"id": "@I342782219172@", "name": "George Brody", "given": "George", "surname": "Brody", "sex": "M", "birth_date": "12 Dec 1911", "birth_place": "New York", "death": true, "death_date": "13 Aug 2003", "death_place": "Carson City, Nevada, USA", "parents": ["@I342782219238@", "@I342782219241@"], "spouses": ["@I342782219194@"], "children": ["@I342782218128@"], "marriages": [{"spouse": "@I342782219194@", "date": "25 Nov 1936", "place": "Kings, New York, USA"}]}, "@I342782219194@": {"id": "@I342782219194@", "name": "Jeanette Levy", "given": "Jeanette", "surname": "Levy", "sex": "F", "birth_date": "24 Mar 1912", "birth_place": "New York", "death": true, "death_date": "25 Feb 1991", "death_place": "Laguna Woods, Orange County, California, USA", "parents": ["@I342782219291@", "@I342782219294@"], "spouses": ["@I342782219172@"], "children": ["@I342782218128@"], "marriages": [{"spouse": "@I342782219172@", "date": "25 Nov 1936", "place": "Kings, New York, USA"}]}, "@I342782219238@": {"id": "@I342782219238@", "name": "Samuel Brody", "given": "Samuel", "surname": "Brody", "sex": "M", "birth_date": "12 Jul 1884", "birth_place": "Timkovichi, Slutsk, Minsk, Belarus", "death": true, "death_date": "24 Jan 1958", "death_place": "Brooklyn, Kings, New York City, New York, USA", "parents": ["@I342782220479@", "@I342782220483@"], "spouses": ["@I342782219241@"], "children": ["@I342785428773@", "@I342785428835@", "@I342782219172@"], "marriages": [{"spouse": "@I342782219241@", "date": "31 Jan 1905", "place": "New York, New York City, New York, USA"}]}, "@I342782219241@": {"id": "@I342782219241@", "name": "Gussie Cohen", "given": "Gussie", "surname": "Cohen", "sex": "F", "birth_date": "15 Jan 1886", "birth_place": "Romanova, Slutsk, Minsk, Belarus", "death": true, "death_date": "17 Feb 1982", "death_place": "Flushing, Queens, New York City, New York, USA", "parents": ["@I342782219278@", "@I342782219284@"], "spouses": ["@I342782219238@"], "children": ["@I342785428773@", "@I342785428835@", "@I342782219172@"], "marriages": [{"spouse": "@I342782219238@", "date": "31 Jan 1905", "place": "New York, New York City, New York, USA"}]}, "@I342782219278@": {"id": "@I342782219278@", "name": "Joseph Cohen", "given": "Joseph", "surname": "Cohen", "sex": "M", "birth_date": "Abt. 1860", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782219284@"], "children": ["@I342782219241@"], "marriages": [{"spouse": "@I342782219284@", "date": "", "place": ""}]}, "@I342782219284@": {"id": "@I342782219284@", "name": "Hannah Hochberg", "given": "Hannah", "surname": "Hochberg", "sex": "F", "birth_date": "Abt. 1862", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782219278@"], "children": ["@I342782219241@"], "marriages": [{"spouse": "@I342782219278@", "date": "", "place": ""}]}, "@I342782219291@": {"id": "@I342782219291@", "name": "Harris Levy 🧬J", "given": "Harris", "surname": "Levy", "sex": "M", "birth_date": "Feb 1870", "birth_place": "Minsk, Belarus", "death": true, "death_date": "4 Aug 1953", "death_place": "New York, New York, USA", "parents": ["@I342782226788@", "@I342782226904@"], "spouses": ["@I342782219294@"], "children": ["@I342782219194@"], "marriages": [{"spouse": "@I342782219294@", "date": "Sep 1895", "place": ""}]}, "@I342782219294@": {"id": "@I342782219294@", "name": "Gussie \\ Sruna \\ Gertie \\ Gruna Pollack (Levy) 🧬", "given": "Gussie \\ Sruna \\ Gertie \\ Gruna", "surname": "Pollack (Levy)", "sex": "F", "birth_date": "abt 1873", "birth_place": "Russia", "death": true, "death_date": "6 Jul 1952", "death_place": "New York, New York, USA", "parents": ["@I342782221052@", "@I342782221059@"], "spouses": ["@I342782219291@"], "children": ["@I342782219194@"], "marriages": [{"spouse": "@I342782219291@", "date": "Sep 1895", "place": ""}]}, "@I342782220217@": {"id": "@I342782220217@", "name": "Hilda Helena\\Helene Kirsch", "given": "Hilda Helena\\Helene", "surname": "Kirsch", "sex": "F", "birth_date": "abt 1911", "birth_place": "Missouri", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220374@", "@I342782220377@"], "spouses": ["@I342782220839@", "@I342784610787@"], "children": ["@I342782218224@"], "marriages": [{"spouse": "@I342782220839@", "date": "30 Jun 1929", "place": ""}, {"spouse": "@I342784610787@", "date": "24 Dec 1959", "place": "Los Angeles, California, USA"}]}, "@I342782220374@": {"id": "@I342782220374@", "name": "Joseph Kirsch", "given": "Joseph", "surname": "Kirsch", "sex": "M", "birth_date": "Mar 1885", "birth_place": "Vilna, Vilniaus, Lithuania", "death": true, "death_date": "26 Feb 1963", "death_place": "Los Angeles, California, USA", "parents": ["@I342782220397@", "@I342784611330@"], "spouses": ["@I342782220377@"], "children": ["@I342782220217@", "@I342784610788@"], "marriages": [{"spouse": "@I342782220377@", "date": "6 Jan 1909", "place": "Marion, Indiana, USA"}]}, "@I342782220377@": {"id": "@I342782220377@", "name": "Nellie Davis", "given": "Nellie", "surname": "Davis", "sex": "F", "birth_date": "3 Feb 1888", "birth_place": "Rosendale, New York, USA", "death": true, "death_date": "12 Feb 1953", "death_place": "Los Angeles, Los Angeles County, California, USA", "parents": [], "spouses": ["@I342782220374@"], "children": ["@I342782220217@", "@I342784610788@"], "marriages": [{"spouse": "@I342782220374@", "date": "6 Jan 1909", "place": "Marion, Indiana, USA"}]}, "@I342782220397@": {"id": "@I342782220397@", "name": "Wolff Kirsch", "given": "Wolff", "surname": "Kirsch", "sex": "M", "birth_date": "Apr 1860", "birth_place": "Salantai, Kretinga, Lithuania", "death": true, "death_date": "11 Nov 1923", "death_place": "St Louis, St Louis, Missouri, USA", "parents": ["@I342785397153@", "@I342785397271@"], "spouses": ["@I342784611330@"], "children": ["@I342782220374@"], "marriages": [{"spouse": "@I342784611330@", "date": "", "place": ""}]}, "@I342782220433@": {"id": "@I342782220433@", "name": "Isaac Frank Harrosh", "given": "Isaac Frank", "surname": "Harrosh", "sex": "M", "birth_date": "2 March 1910", "birth_place": "Marrakech-Tensift-El Haouz, Morocco", "death": true, "death_date": "7 May 1997", "death_place": "Fremont, Alameda, California, USA", "parents": ["@I342782437179@", "@I342782437281@"], "spouses": ["@I342782220443@"], "children": ["@I342782218229@", "@I342785429227@", "@I342785429298@"], "marriages": [{"spouse": "@I342782220443@", "date": "3 May 1937", "place": "Manhattan, New York, USA"}]}, "@I342782220443@": {"id": "@I342782220443@", "name": "Elise Elkaim", "given": "Elise", "surname": "Elkaim", "sex": "F", "birth_date": "2 Oct 1911", "birth_place": "Casablanca, Grand Casablanca, Morocco", "death": true, "death_date": "18 September 1981", "death_place": "Alameda, Alameda, California, USA", "parents": ["@I342782558152@", "@I342782558153@"], "spouses": ["@I342782220433@"], "children": ["@I342782218229@", "@I342785429227@", "@I342785429298@"], "marriages": [{"spouse": "@I342782220433@", "date": "3 May 1937", "place": "Manhattan, New York, USA"}]}, "@I342782220479@": {"id": "@I342782220479@", "name": "Girsh Bradkovskii", "given": "Girsh", "surname": "Bradkovskii", "sex": "M", "birth_date": "1846", "birth_place": "Timkovichi, Slutsk, Minsk, Belarus", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782556849@", "@I342785472740@"], "spouses": ["@I342782220483@"], "children": ["@I342782219238@", "@I342785426991@", "@I342785472442@", "@I342785472480@"], "marriages": [{"spouse": "@I342782220483@", "date": "", "place": ""}]}, "@I342782220483@": {"id": "@I342782220483@", "name": "Leah Fiyalkin", "given": "Leah", "surname": "Fiyalkin", "sex": "F", "birth_date": "Abt. 1845", "birth_place": "Timkovichi, Slutsk, Minsk", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782220479@"], "children": ["@I342782219238@", "@I342785426991@", "@I342785472442@", "@I342785472480@"], "marriages": [{"spouse": "@I342782220479@", "date": "", "place": ""}]}, "@I342782220839@": {"id": "@I342782220839@", "name": "Nathan Edward Ellis", "given": "Nathan Edward", "surname": "Ellis", "sex": "M", "birth_date": "3 Sep 1903", "birth_place": "St. Louis, Missouri", "death": true, "death_date": "29 Oct 1992", "death_place": "Murrieta, Riverside, California, USA", "parents": ["@I342782220885@", "@I342782220888@"], "spouses": ["@I342782220217@", "@I342785470440@"], "children": ["@I342782218224@"], "marriages": [{"spouse": "@I342782220217@", "date": "30 Jun 1929", "place": ""}, {"spouse": "@I342785470440@", "date": "", "place": ""}]}, "@I342782220885@": {"id": "@I342782220885@", "name": "Samuel Ellis", "given": "Samuel", "surname": "Ellis", "sex": "M", "birth_date": "16 Jul 1861", "birth_place": "Russia", "death": true, "death_date": "8 July 1930", "death_place": "St. Louis, Missouri, USA", "parents": ["@I342782221123@"], "spouses": ["@I342782220888@"], "children": ["@I342782220839@"], "marriages": [{"spouse": "@I342782220888@", "date": "1888", "place": ""}]}, "@I342782220888@": {"id": "@I342782220888@", "name": "Jennie Labow \\Lebeaux", "given": "Jennie", "surname": "Labow \\Lebeaux", "sex": "F", "birth_date": "12 Sep 1871", "birth_place": "Russia", "death": true, "death_date": "20 Nov 1930", "death_place": "St. Louis, Missouri, USA", "parents": ["@I342785425832@", "@I342782221036@"], "spouses": ["@I342782220885@"], "children": ["@I342782220839@", "@I342784610687@", "@I342784610684@", "@I342784610688@", "@I342784610683@", "@I342784610685@", "@I342784610682@", "@I342784610681@"], "marriages": [{"spouse": "@I342782220885@", "date": "1888", "place": ""}, {"spouse": null, "date": "", "place": ""}]}, "@I342782221036@": {"id": "@I342782221036@", "name": "Hinda Labow", "given": "Hinda", "surname": "Labow", "sex": "F", "birth_date": "1852", "birth_place": "Russia", "death": true, "death_date": "14 January 1922", "death_place": "", "parents": [], "spouses": ["@I342785425832@"], "children": ["@I342782220888@"], "marriages": [{"spouse": "@I342785425832@", "date": "", "place": ""}]}, "@I342782221052@": {"id": "@I342782221052@", "name": "William Morris Pollack 🧬", "given": "William Morris", "surname": "Pollack", "sex": "M", "birth_date": "1850", "birth_place": "", "death": true, "death_date": "1907", "death_place": "", "parents": [], "spouses": ["@I342782221059@"], "children": ["@I342782219294@"], "marriages": [{"spouse": "@I342782221059@", "date": "", "place": ""}]}, "@I342782221059@": {"id": "@I342782221059@", "name": "Freda Feldman (Pollack)", "given": "Freda", "surname": "Feldman (Pollack)", "sex": "F", "birth_date": "abt 1850", "birth_place": "Russia", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782221052@"], "children": ["@I342782219294@"], "marriages": [{"spouse": "@I342782221052@", "date": "", "place": ""}]}, "@I342782221087@": {"id": "@I342782221087@", "name": "Rachel Elise Ellis", "given": "Rachel Elise", "surname": "Ellis", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218181@", "@I342782218123@"], "spouses": [], "children": [], "marriages": []}, "@I342782221088@": {"id": "@I342782221088@", "name": "Gershon Baruch Ellis", "given": "Gershon Baruch", "surname": "Ellis", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218181@", "@I342782218123@"], "spouses": [], "children": [], "marriages": []}, "@I342782221090@": {"id": "@I342782221090@", "name": "Naftali Avraham Ellis", "given": "Naftali Avraham", "surname": "Ellis", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218181@", "@I342782218123@"], "spouses": [], "children": [], "marriages": []}, "@I342782221123@": {"id": "@I342782221123@", "name": "Jake (Yaakov) Ellis", "given": "Jake (Yaakov)", "surname": "Ellis", "sex": "M", "birth_date": "", "birth_place": "Russia", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342782220885@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342782226788@": {"id": "@I342782226788@", "name": "Nachman \\ Nathan \\ Nachum \\ Austine  Lusternak \\ Luster 🧬J", "given": "Nachman \\ Nathan \\ Nachum \\ Austine ?", "surname": "Lusternak \\ Luster", "sex": "M", "birth_date": "Abt. 1850", "birth_place": "Russia", "death": true, "death_date": "21 Jan 1928", "death_place": "Manhattan, New York, USA", "parents": [], "spouses": ["@I342782226904@"], "children": ["@I342782219291@"], "marriages": [{"spouse": "@I342782226904@", "date": "", "place": ""}]}, "@I342782226904@": {"id": "@I342782226904@", "name": "Basszewa \"Bernice\" Hirsch \\ Hinch (Lusternak \\ Luster) 🧬J", "given": "Basszewa \"Bernice\"", "surname": "Hirsch \\ Hinch (Lusternak \\ Luster)", "sex": "F", "birth_date": "Abt. 1850", "birth_place": "Russia", "death": true, "death_date": "", "death_place": "New York", "parents": [], "spouses": ["@I342782226788@"], "children": ["@I342782219291@"], "marriages": [{"spouse": "@I342782226788@", "date": "", "place": ""}]}, "@I342782227237@": {"id": "@I342782227237@", "name": "Cheina Leah Meyerovich", "given": "Cheina Leah", "surname": "Meyerovich", "sex": "F", "birth_date": "Abt. 1865", "birth_place": "Kupiskis, Lithuania", "death": true, "death_date": "Abt. 1939", "death_place": "", "parents": ["@I342782228086@", "@I342782228176@"], "spouses": ["@I342782227512@"], "children": ["@I342782218710@", "@I342785472560@", "@I342785472603@"], "marriages": [{"spouse": "@I342782227512@", "date": "", "place": ""}]}, "@I342782227512@": {"id": "@I342782227512@", "name": "Zalman (Shneyer) Bysko", "given": "Zalman (Shneyer)", "surname": "Bysko", "sex": "M", "birth_date": "1865", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782228249@", "@I342782228257@"], "spouses": ["@I342782227237@"], "children": ["@I342782218710@", "@I342785472560@", "@I342785472603@"], "marriages": [{"spouse": "@I342782227237@", "date": "", "place": ""}]}, "@I342782228086@": {"id": "@I342782228086@", "name": "Kasriel (Israel) Meyerovitch\\Meyerowitz", "given": "Kasriel (Israel)", "surname": "Meyerovitch\\Meyerowitz", "sex": "M", "birth_date": "Abt. 1847", "birth_place": "Kupiskis, Panevezys, Kaunas, Lithuania", "death": true, "death_date": "26 Feb 1892", "death_place": "Kupiskis, Panevezys, Kaunas, Lithuania", "parents": ["@I342782229054@", "@I342782228859@"], "spouses": ["@I342782228176@"], "children": ["@I342782227237@"], "marriages": [{"spouse": "@I342782228176@", "date": "", "place": ""}]}, "@I342782228176@": {"id": "@I342782228176@", "name": "Feige (Fannie) Reznikoff (Katz)", "given": "Feige (Fannie)", "surname": "Reznikoff (Katz)", "sex": "F", "birth_date": "1847", "birth_place": "Lithuania", "death": true, "death_date": "12 Jul 1932", "death_place": "", "parents": [], "spouses": ["@I342782228086@"], "children": ["@I342782227237@"], "marriages": [{"spouse": "@I342782228086@", "date": "", "place": ""}]}, "@I342782228249@": {"id": "@I342782228249@", "name": "Itsko Bisko", "given": "Itsko", "surname": "Bisko", "sex": "M", "birth_date": "Abt  1825", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782229058@"], "spouses": ["@I342782228257@"], "children": ["@I342782227512@"], "marriages": [{"spouse": "@I342782228257@", "date": "", "place": ""}]}, "@I342782228257@": {"id": "@I342782228257@", "name": "Khana Bysko", "given": "Khana", "surname": "Bysko", "sex": "F", "birth_date": "Abt 1833", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782228249@"], "children": ["@I342782227512@"], "marriages": [{"spouse": "@I342782228249@", "date": "", "place": ""}]}, "@I342782228859@": {"id": "@I342782228859@", "name": "Rochel-leah Meyerovich", "given": "Rochel-leah", "surname": "Meyerovich", "sex": "F", "birth_date": "1825", "birth_place": "Kupishok, Kupiskis, Lithuania", "death": true, "death_date": "09 Feb 1880", "death_place": "Kupishok, Kupiskis, Lithuania", "parents": [], "spouses": ["@I342782229054@"], "children": ["@I342782228086@"], "marriages": [{"spouse": "@I342782229054@", "date": "", "place": ""}]}, "@I342782229054@": {"id": "@I342782229054@", "name": "Pincus-leib Meyerovich - Alufociene", "given": "Pincus-leib", "surname": "Meyerovich - Alufociene", "sex": "M", "birth_date": "1812", "birth_place": "Kupishok, Kupiskis, Lithuania", "death": true, "death_date": "1897", "death_place": "Kupishok, Kupiskis, Lithuania", "parents": ["@I342782229076@"], "spouses": ["@I342782228859@"], "children": ["@I342782228086@"], "marriages": [{"spouse": "@I342782228859@", "date": "", "place": ""}]}, "@I342782229058@": {"id": "@I342782229058@", "name": "Kopel Bysko or Bisko", "given": "Kopel", "surname": "Bysko or Bisko", "sex": "M", "birth_date": "About 1800", "birth_place": "Birzai, Panevezys, Lithuania", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342782228249@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342782229076@": {"id": "@I342782229076@", "name": "Kasriel Meierovich", "given": "Kasriel", "surname": "Meierovich", "sex": "M", "birth_date": "1780", "birth_place": "Kupishok, Kupiskis, Lithuania", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342782229054@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342782229813@": {"id": "@I342782229813@", "name": "Menacham Mendel Merzon", "given": "Menacham Mendel", "surname": "Merzon", "sex": "M", "birth_date": "abt 1852", "birth_place": "Smolyany, Mogilev Oblast, Belarus", "death": false, "death_date": "", "death_place": "", "parents": ["@I342785429430@"], "spouses": ["@I342782229818@"], "children": ["@I342782218709@"], "marriages": [{"spouse": "@I342782229818@", "date": "", "place": ""}]}, "@I342782229818@": {"id": "@I342782229818@", "name": "Tobe (Tieba) Oretskin", "given": "Tobe (Tieba)", "surname": "Oretskin", "sex": "F", "birth_date": "abt 1862", "birth_place": "", "death": true, "death_date": "", "death_place": "Mogilov, Russia", "parents": ["@I342785471987@"], "spouses": ["@I342782229813@"], "children": ["@I342782218709@"], "marriages": [{"spouse": "@I342782229813@", "date": "", "place": ""}]}, "@I342782229910@": {"id": "@I342782229910@", "name": "Esther Leonie Crémieux", "given": "Esther Leonie", "surname": "Crémieux", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": [], "marriages": []}, "@I342782331645@": {"id": "@I342782331645@", "name": "Barney Rogovin", "given": "Barney", "surname": "Rogovin", "sex": "M", "birth_date": "15 Dec 1886", "birth_place": "Ellia, Russia", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782331647@", "@I342782331648@"], "spouses": ["@I342783371589@"], "children": [], "marriages": [{"spouse": "@I342783371589@", "date": "", "place": ""}]}, "@I342782331646@": {"id": "@I342782331646@", "name": "Harry Rogovin", "given": "Harry", "surname": "Rogovin", "sex": "M", "birth_date": "3 May 1890", "birth_place": "Russia", "death": true, "death_date": "8 Mar 1967", "death_place": "New Haven, New Haven County, Connecticut, USA", "parents": ["@I342782331647@", "@I342782331648@"], "spouses": ["@I342785465407@", "@I342785467930@"], "children": ["@I342785467043@"], "marriages": [{"spouse": "@I342785465407@", "date": "8 Jun 1930", "place": "New Haven, Connecticut, USA"}, {"spouse": "@I342785467930@", "date": "", "place": ""}]}, "@I342782331647@": {"id": "@I342782331647@", "name": "Morris L. ( Meyer ) Rogovin", "given": "Morris L. ( Meyer )", "surname": "Rogovin", "sex": "M", "birth_date": "1855", "birth_place": "Russia", "death": true, "death_date": "29 March 1912", "death_place": "Manhattan, New York City, New York County, New York, USA", "parents": [], "spouses": ["@I342782331648@"], "children": ["@I342782331645@", "@I342782331646@", "@I342782218380@"], "marriages": [{"spouse": "@I342782331648@", "date": "", "place": ""}]}, "@I342782331648@": {"id": "@I342782331648@", "name": "Anna \"Fannie\" Feinbloom", "given": "Anna \"Fannie\"", "surname": "Feinbloom", "sex": "F", "birth_date": "1857", "birth_place": "Russia", "death": true, "death_date": "15 July 1934", "death_place": "Brooklyn, New York City, Kings County, Long Island, New York, USA", "parents": ["@I342785426193@"], "spouses": ["@I342782331647@"], "children": ["@I342782331645@", "@I342782331646@", "@I342782218380@"], "marriages": [{"spouse": "@I342782331647@", "date": "", "place": ""}]}, "@I342782379331@": {"id": "@I342782379331@", "name": "Martin Morris Rogovin", "given": "Martin Morris", "surname": "Rogovin", "sex": "M", "birth_date": "8 Oct 1914", "birth_place": "Brooklyn, Kings, New York, USA", "death": true, "death_date": "Feb 1982", "death_place": "Sun City West, Maricopa, Arizona, USA", "parents": ["@I342782218380@", "@I342782218371@"], "spouses": ["@I342783371480@"], "children": [], "marriages": [{"spouse": "@I342783371480@", "date": "", "place": ""}]}, "@I342782379381@": {"id": "@I342782379381@", "name": "Harriet Rogovin", "given": "Harriet", "surname": "Rogovin", "sex": "F", "birth_date": "21 Feb 1924", "birth_place": "Brooklyn, Kings, New York, USA", "death": true, "death_date": "28 Oct 1990", "death_place": "San Diego County, California, USA", "parents": ["@I342782218380@", "@I342782218371@"], "spouses": [], "children": [], "marriages": []}, "@I342782390784@": {"id": "@I342782390784@", "name": "Rose Shapiro", "given": "Rose", "surname": "Shapiro", "sex": "F", "birth_date": "", "birth_place": "Russia", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782218583@"], "children": ["@I342782218579@"], "marriages": [{"spouse": "@I342782218583@", "date": "", "place": ""}]}, "@I342782437179@": {"id": "@I342782437179@", "name": "Joseph Harrosh", "given": "Joseph", "surname": "Harrosh", "sex": "M", "birth_date": "1885", "birth_place": "Morocco", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782437281@"], "children": ["@I342783368787@", "@I342782220433@", "@I342782557732@"], "marriages": [{"spouse": "@I342782437281@", "date": "", "place": ""}]}, "@I342782437281@": {"id": "@I342782437281@", "name": "Nina Kadosh", "given": "Nina", "surname": "Kadosh", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782437179@"], "children": ["@I342783368787@", "@I342782220433@", "@I342782557732@"], "marriages": [{"spouse": "@I342782437179@", "date": "", "place": ""}]}, "@I342782556849@": {"id": "@I342782556849@", "name": "Shmuel' Bradkovskii", "given": "Shmuel'", "surname": "Bradkovskii", "sex": "M", "birth_date": "1824", "birth_place": "Timkovichi, Slutsk, Minsk, Belarus", "death": true, "death_date": "Abt. 1893", "death_place": "", "parents": [], "spouses": ["@I342785472740@"], "children": ["@I342782220479@"], "marriages": [{"spouse": "@I342785472740@", "date": "", "place": ""}]}, "@I342782557546@": {"id": "@I342782557546@", "name": "Joseph Ben-Haroche", "given": "Joseph", "surname": "Ben-Haroche", "sex": "M", "birth_date": "", "birth_place": "", "death": true, "death_date": "1888", "death_place": "", "parents": [], "spouses": ["@I342782557581@"], "children": ["@I342782559504@"], "marriages": [{"spouse": "@I342782557581@", "date": "", "place": ""}]}, "@I342782557581@": {"id": "@I342782557581@", "name": "Janie Malka", "given": "Janie", "surname": "Malka", "sex": "F", "birth_date": "", "birth_place": "", "death": true, "death_date": "24 August 1888", "death_place": "Angers, Maroc", "parents": [], "spouses": ["@I342782557546@"], "children": ["@I342782559504@"], "marriages": [{"spouse": "@I342782557546@", "date": "", "place": ""}]}, "@I342782557732@": {"id": "@I342782557732@", "name": "Emile G Harrosh", "given": "Emile G", "surname": "Harrosh", "sex": "M", "birth_date": "4 May 1914", "birth_place": "Marrakech-Tensift-El Haouz, Morocco", "death": true, "death_date": "6 May 2012", "death_place": "Alameda County, California, United States of America", "parents": ["@I342782437179@", "@I342782437281@"], "spouses": [], "children": [], "marriages": []}, "@I342782558146@": {"id": "@I342782558146@", "name": "Simi Elkaim", "given": "Simi", "surname": "Elkaim", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782558152@", "@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782558147@": {"id": "@I342782558147@", "name": "Messody Elkaim", "given": "Messody", "surname": "Elkaim", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782558152@", "@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782558148@": {"id": "@I342782558148@", "name": "Charles Elkaim", "given": "Charles", "surname": "Elkaim", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782558152@", "@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782558149@": {"id": "@I342782558149@", "name": "Mary Elkaim (TiaMarie) Hassan", "given": "Mary Elkaim (TiaMarie)", "surname": "Hassan", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782558152@", "@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782558150@": {"id": "@I342782558150@", "name": "Moise Elkaim", "given": "Moise", "surname": "Elkaim", "sex": "M", "birth_date": "June 05, 1885", "birth_place": "Sidi Bel Abbes, Algeria", "death": true, "death_date": "November 02, 1888", "death_place": "Sidi Bel Abbes, Algeria", "parents": ["@I342782558152@", "@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782558151@": {"id": "@I342782558151@", "name": "Eli Elkaim", "given": "Eli", "surname": "Elkaim", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782558152@", "@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782558152@": {"id": "@I342782558152@", "name": "Abraham Elkaim", "given": "Abraham", "surname": "Elkaim", "sex": "M", "birth_date": "1887", "birth_place": "", "death": true, "death_date": "November 1948", "death_place": "", "parents": [], "spouses": ["@I342782558153@"], "children": ["@I342782558150@", "@I342782220443@", "@I342782558146@", "@I342782558147@", "@I342782558148@", "@I342782558149@", "@I342782558151@"], "marriages": [{"spouse": "@I342782558153@", "date": "", "place": "Sidi Bel Abbes, Algeria"}]}, "@I342782558153@": {"id": "@I342782558153@", "name": "Yacout Azoulay", "given": "Yacout", "surname": "Azoulay", "sex": "F", "birth_date": "Abt. 1853", "birth_place": "Tetouan, Morocco", "death": true, "death_date": "July 26, 1911", "death_place": "Sidi Bel Abbes, Algeria", "parents": ["@I342782559336@", "@I342782559337@"], "spouses": ["@I342782558152@"], "children": ["@I342782558150@", "@I342782220443@", "@I342782558146@", "@I342782558147@", "@I342782558148@", "@I342782558149@", "@I342782558151@", "@I342782559339@", "@I342782559343@", "@I342782559344@", "@I342782559342@", "@I342782559341@", "@I342782559340@"], "marriages": [{"spouse": "@I342782558152@", "date": "", "place": "Sidi Bel Abbes, Algeria"}, {"spouse": null, "date": "", "place": ""}]}, "@I342782559332@": {"id": "@I342782559332@", "name": "Salomon Azoulay", "given": "Salomon", "surname": "Azoulay", "sex": "M", "birth_date": "Abt. 1844", "birth_place": "Tetouan, Morocco", "death": true, "death_date": "February 17, 1895", "death_place": "Sidi Bel Abbes, Algeria", "parents": ["@I342782559336@", "@I342782559337@"], "spouses": [], "children": [], "marriages": []}, "@I342782559333@": {"id": "@I342782559333@", "name": "Messaouda Azoulay", "given": "Messaouda", "surname": "Azoulay", "sex": "F", "birth_date": "1866", "birth_place": "Tetouan, Morocco", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782559336@"], "spouses": [], "children": [], "marriages": []}, "@I342782559334@": {"id": "@I342782559334@", "name": "Semha Azoulai", "given": "Semha", "surname": "Azoulai", "sex": "F", "birth_date": "Abt. 1850", "birth_place": "Tetouan, Morocco", "death": true, "death_date": "June 09, 1885", "death_place": "Oran, Algeria", "parents": ["@I342782559336@"], "spouses": [], "children": [], "marriages": []}, "@I342782559335@": {"id": "@I342782559335@", "name": "Moise Azoulay", "given": "Moise", "surname": "Azoulay", "sex": "M", "birth_date": "1862", "birth_place": "Tetouan, Morocco", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782559336@"], "spouses": [], "children": [], "marriages": []}, "@I342782559336@": {"id": "@I342782559336@", "name": "Pinhas Azoulay", "given": "Pinhas", "surname": "Azoulay", "sex": "M", "birth_date": "", "birth_place": "", "death": true, "death_date": "1878", "death_place": "Tetouan, Morocco", "parents": [], "spouses": ["@I342782559337@"], "children": ["@I342782559332@", "@I342782558153@", "@I342782559334@", "@I342782559335@", "@I342782559333@"], "marriages": [{"spouse": "@I342782559337@", "date": "Bef. 1840", "place": ""}, {"spouse": null, "date": "", "place": ""}]}, "@I342782559337@": {"id": "@I342782559337@", "name": "Louna \"Rachel\" Sabbah", "given": "Louna \"Rachel\"", "surname": "Sabbah", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782559336@"], "children": ["@I342782559332@", "@I342782558153@"], "marriages": [{"spouse": "@I342782559336@", "date": "Bef. 1840", "place": ""}]}, "@I342782559339@": {"id": "@I342782559339@", "name": "Louna \"Leonie\" Meloul", "given": "Louna \"Leonie\"", "surname": "Meloul", "sex": "F", "birth_date": "May 04, 1870", "birth_place": "Sidi Bel Abbes, Algeria", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782559340@": {"id": "@I342782559340@", "name": "David Melloul", "given": "David", "surname": "Melloul", "sex": "M", "birth_date": "January 03, 1888", "birth_place": "Sidi Bel Abbes, Algeria", "death": true, "death_date": "August 04, 1889", "death_place": "Sidi Bel Abbes, Algeria", "parents": ["@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782559341@": {"id": "@I342782559341@", "name": "Samuel Melloul", "given": "Samuel", "surname": "Melloul", "sex": "M", "birth_date": "April 20, 1882", "birth_place": "Sidi Bel Abbes, Algeria", "death": true, "death_date": "November 21, 1914", "death_place": "WWI:  Neuville-St. Vaast, Pas de Calais, France", "parents": ["@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782559342@": {"id": "@I342782559342@", "name": "Aron Melloul", "given": "Aron", "surname": "Melloul", "sex": "M", "birth_date": "January 21, 1879", "birth_place": "Sidi Bel Abbes, Algeria", "death": true, "death_date": "September 21, 1948", "death_place": "Oran, Algeria", "parents": ["@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782559343@": {"id": "@I342782559343@", "name": "Pinhas Meloul", "given": "Pinhas", "surname": "Meloul", "sex": "M", "birth_date": "January 10, 1873", "birth_place": "Sidi Bel Abbes, Algeria", "death": true, "death_date": "August 28, 1915", "death_place": "Sidi Bel Abbes, Algeria", "parents": ["@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782559344@": {"id": "@I342782559344@", "name": "Chaloum Meloul", "given": "Chaloum", "surname": "Meloul", "sex": "M", "birth_date": "May 22, 1876", "birth_place": "Sidi Bel Abbes, Algeria", "death": true, "death_date": "September 30, 1905", "death_place": "Sidi Bel Abbes, Algeria", "parents": ["@I342782558153@"], "spouses": [], "children": [], "marriages": []}, "@I342782559504@": {"id": "@I342782559504@", "name": "Issac Ben Haroche", "given": "Issac", "surname": "Ben Haroche", "sex": "M", "birth_date": "August 1864", "birth_place": "El Doukkala-Abda, Doukkala-Abda, Maroc", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782557546@", "@I342782557581@"], "spouses": ["@I342784614519@"], "children": [], "marriages": [{"spouse": "@I342784614519@", "date": "24 Sept 1891", "place": "Bouches-Du-Rhône, Provence-Alpes-Côte D'azur, France"}]}, "@I342783368787@": {"id": "@I342783368787@", "name": "Aime James Harrosh", "given": "Aime James", "surname": "Harrosh", "sex": "M", "birth_date": "4 April 1904", "birth_place": "Marrakesh-Safi, Morocco", "death": true, "death_date": "5 December 1982", "death_place": "San Francisco, San Francisco, California, USA", "parents": ["@I342782437179@", "@I342782437281@"], "spouses": ["@I342784873160@"], "children": ["@I342784873159@"], "marriages": [{"spouse": "@I342784873160@", "date": "", "place": ""}]}, "@I342783371480@": {"id": "@I342783371480@", "name": "Lillian Simmy Rogovin", "given": "Lillian Simmy", "surname": "Rogovin", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782379331@"], "children": [], "marriages": [{"spouse": "@I342782379331@", "date": "", "place": ""}]}, "@I342783371589@": {"id": "@I342783371589@", "name": "Ada", "given": "Ada", "surname": "", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782331645@"], "children": [], "marriages": [{"spouse": "@I342782331645@", "date": "", "place": ""}]}, "@I342784610681@": {"id": "@I342784610681@", "name": "Jacob (Jack) Ellis\\Elias", "given": "Jacob (Jack)", "surname": "Ellis\\Elias", "sex": "M", "birth_date": "31 Dec 1898", "birth_place": "St. Louis, St Louis, Missouri, USA", "death": true, "death_date": "1959", "death_place": "", "parents": ["@I342782220888@"], "spouses": [], "children": [], "marriages": []}, "@I342784610682@": {"id": "@I342784610682@", "name": "Lillie Ellis \\Elias", "given": "Lillie", "surname": "Ellis \\Elias", "sex": "F", "birth_date": "Apr 1896", "birth_place": "Missouri", "death": true, "death_date": "2 October 1957", "death_place": "St. Louis City, Missouri, United States of America", "parents": ["@I342782220888@"], "spouses": [], "children": [], "marriages": []}, "@I342784610683@": {"id": "@I342784610683@", "name": "Sarah Ellis\\Elias", "given": "Sarah", "surname": "Ellis\\Elias", "sex": "F", "birth_date": "May 1893", "birth_place": "Missouri", "death": true, "death_date": "1954", "death_place": "", "parents": ["@I342782220888@"], "spouses": [], "children": [], "marriages": []}, "@I342784610684@": {"id": "@I342784610684@", "name": "Gussie (Gus) Ellis", "given": "Gussie (Gus)", "surname": "Ellis", "sex": "M", "birth_date": "Feb 1890", "birth_place": "Russia", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220888@"], "spouses": [], "children": [], "marriages": []}, "@I342784610685@": {"id": "@I342784610685@", "name": "Sarah Ellis", "given": "Sarah", "surname": "Ellis", "sex": "F", "birth_date": "abt 1895", "birth_place": "Canada", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220888@"], "spouses": [], "children": [], "marriages": []}, "@I342784610687@": {"id": "@I342784610687@", "name": "Samuel W Ellis Jr.", "given": "Samuel W", "surname": "Ellis", "sex": "M", "birth_date": "Apr 1889", "birth_place": "Russia", "death": true, "death_date": "28 Oct 1957", "death_place": "Saint Louis, Saint Louis City, Missouri", "parents": ["@I342782220888@"], "spouses": [], "children": [], "marriages": []}, "@I342784610688@": {"id": "@I342784610688@", "name": "George Edward Ellis", "given": "George Edward", "surname": "Ellis", "sex": "M", "birth_date": "21 Jan 1891", "birth_place": "St Louis Missouri", "death": true, "death_date": "31 Mar 1955 (30 Mar per Bible)", "death_place": "Jefferson, Louisiana, USA", "parents": ["@I342782220888@"], "spouses": [], "children": [], "marriages": []}, "@I342784610689@": {"id": "@I342784610689@", "name": "Bertha (Bertie) Levine", "given": "Bertha (Bertie)", "surname": "Levine", "sex": "F", "birth_date": "01 Sep 1908", "birth_place": "Los Angeles, California", "death": true, "death_date": "28 Nov 2006", "death_place": "Las Vegas, Clark, Nevada, USA", "parents": [], "spouses": [], "children": [], "marriages": []}, "@I342784610787@": {"id": "@I342784610787@", "name": "Harry B Weiner", "given": "Harry B", "surname": "Weiner", "sex": "M", "birth_date": "18 Dec 1893", "birth_place": "Maryland", "death": true, "death_date": "15 Apr 1973", "death_place": "Los Angeles", "parents": [], "spouses": ["@I342782220217@"], "children": [], "marriages": [{"spouse": "@I342782220217@", "date": "24 Dec 1959", "place": "Los Angeles, California, USA"}]}, "@I342784610788@": {"id": "@I342784610788@", "name": "Mirian Mary Kirsch", "given": "Mirian Mary", "surname": "Kirsch", "sex": "F", "birth_date": "02 Oct 1915", "birth_place": "Saint Louis County, Missouri, USA", "death": true, "death_date": "15 Feb 1965", "death_place": "Great Neck, Nassau, New York, USA", "parents": ["@I342782220374@", "@I342782220377@"], "spouses": [], "children": [], "marriages": []}, "@I342784611330@": {"id": "@I342784611330@", "name": "Minnie Gutman", "given": "Minnie", "surname": "Gutman", "sex": "F", "birth_date": "Apr 1860", "birth_place": "Vilnius, Vilniaus, Lithuania", "death": true, "death_date": "29 Mar 1932", "death_place": "St Louis, St Louis, Missouri, USA", "parents": ["@I342785433565@"], "spouses": ["@I342782220397@"], "children": ["@I342782220374@"], "marriages": [{"spouse": "@I342782220397@", "date": "", "place": ""}]}, "@I342784614519@": {"id": "@I342784614519@", "name": "Esther Leonie Crémieux", "given": "Esther Leonie", "surname": "Crémieux", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782559504@"], "children": [], "marriages": [{"spouse": "@I342782559504@", "date": "24 Sept 1891", "place": "Bouches-Du-Rhône, Provence-Alpes-Côte D'azur, France"}]}, "@I342784873159@": {"id": "@I342784873159@", "name": "Joseph Harrosh", "given": "Joseph", "surname": "Harrosh", "sex": "M", "birth_date": "3 August 1933", "birth_place": "Casablanca, Casablanca-Settat, Morocco", "death": true, "death_date": "25 July 2002", "death_place": "", "parents": ["@I342783368787@", "@I342784873160@"], "spouses": [], "children": [], "marriages": []}, "@I342784873160@": {"id": "@I342784873160@", "name": "Lina Nina Harrosh", "given": "Lina Nina", "surname": "Harrosh", "sex": "F", "birth_date": "2 August 1914", "birth_place": "Tunisia", "death": true, "death_date": "18 December 2007", "death_place": "", "parents": [], "spouses": ["@I342783368787@"], "children": ["@I342784873159@"], "marriages": [{"spouse": "@I342783368787@", "date": "", "place": ""}]}, "@I342785397153@": {"id": "@I342785397153@", "name": "Meyer Rubin Kirsch", "given": "Meyer Rubin", "surname": "Kirsch", "sex": "M", "birth_date": "May 1827", "birth_place": "Salantai, Kretinga, Lithuania", "death": true, "death_date": "27 Jul 1915", "death_place": "Preston, New London, Connecticut, USA", "parents": ["@I342785397297@", "@I342785397389@"], "spouses": ["@I342785397271@"], "children": ["@I342782220397@", "@I342785426795@"], "marriages": [{"spouse": "@I342785397271@", "date": "", "place": ""}]}, "@I342785397271@": {"id": "@I342785397271@", "name": "Sarah Gertrude Danilovitz", "given": "Sarah Gertrude", "surname": "Danilovitz", "sex": "F", "birth_date": "Jun 1831", "birth_place": "Kaunas, Kauno, Lithuania", "death": true, "death_date": "13 Sep 1919", "death_place": "Preston, New London, Connecticut, USA", "parents": ["@I342785433446@"], "spouses": ["@I342785397153@"], "children": ["@I342782220397@", "@I342785426795@"], "marriages": [{"spouse": "@I342785397153@", "date": "", "place": ""}]}, "@I342785397297@": {"id": "@I342785397297@", "name": "Wolf Berel Kirsh", "given": "Wolf Berel", "surname": "Kirsh", "sex": "M", "birth_date": "1780", "birth_place": "Plunge, Plunge, Lithuania", "death": false, "death_date": "", "death_place": "", "parents": ["@I342785433818@"], "spouses": ["@I342785397389@"], "children": ["@I342785397153@"], "marriages": [{"spouse": "@I342785397389@", "date": "", "place": ""}]}, "@I342785397389@": {"id": "@I342785397389@", "name": "Khaie Kirsch", "given": "Khaie", "surname": "Kirsch", "sex": "F", "birth_date": "abt 1779", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342785397297@"], "children": ["@I342785397153@"], "marriages": [{"spouse": "@I342785397297@", "date": "", "place": ""}]}, "@I342785425832@": {"id": "@I342785425832@", "name": "Simon Labowitz", "given": "Simon", "surname": "Labowitz", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782221036@"], "children": ["@I342782220888@"], "marriages": [{"spouse": "@I342782221036@", "date": "", "place": ""}]}, "@I342785426193@": {"id": "@I342785426193@", "name": "Ephraim Feinbloom", "given": "Ephraim", "surname": "Feinbloom", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342782331648@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342785426795@": {"id": "@I342785426795@", "name": "Aaron Kirsch", "given": "Aaron", "surname": "Kirsch", "sex": "M", "birth_date": "14 Jan 1865", "birth_place": "Russia", "death": true, "death_date": "3 Aug 1953", "death_place": "Preston, New London, Connecticut, USA", "parents": ["@I342785397153@", "@I342785397271@"], "spouses": ["@I342785426869@"], "children": [], "marriages": [{"spouse": "@I342785426869@", "date": "", "place": ""}]}, "@I342785426869@": {"id": "@I342785426869@", "name": "Lena Ada Kirsch", "given": "Lena Ada", "surname": "Kirsch", "sex": "F", "birth_date": "16 Jul 1875", "birth_place": "Russia", "death": true, "death_date": "5 Jun 1952", "death_place": "New London, Connecticut, USA", "parents": ["@I342785472687@"], "spouses": ["@I342785426795@"], "children": [], "marriages": [{"spouse": "@I342785426795@", "date": "", "place": ""}]}, "@I342785426991@": {"id": "@I342785426991@", "name": "Jennie Brody", "given": "Jennie", "surname": "Brody", "sex": "F", "birth_date": "", "birth_place": "", "death": true, "death_date": "10 Oct 1941", "death_place": "Bronx, New York, USA", "parents": ["@I342782220479@", "@I342782220483@"], "spouses": ["@I342785472768@"], "children": ["@I342785472827@", "@I342785472898@"], "marriages": [{"spouse": "@I342785472768@", "date": "", "place": ""}]}, "@I342785428773@": {"id": "@I342785428773@", "name": "Betty Brody", "given": "Betty", "surname": "Brody", "sex": "F", "birth_date": "29 Jul 1907", "birth_place": "Brooklyn, Kings, New York, USA", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782219238@", "@I342782219241@"], "spouses": [], "children": [], "marriages": []}, "@I342785428835@": {"id": "@I342785428835@", "name": "Lily Brody", "given": "Lily", "surname": "Brody", "sex": "F", "birth_date": "1 Oct 1909", "birth_place": "Brooklyn, Kings, New York, USA", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782219238@", "@I342782219241@"], "spouses": [], "children": [], "marriages": []}, "@I342785428980@": {"id": "@I342785428980@", "name": "Daniel Seth Brody", "given": "Daniel Seth", "surname": "Brody", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218128@", "@I342782218124@"], "spouses": [], "children": [], "marriages": []}, "@I342785429062@": {"id": "@I342785429062@", "name": "Randall Howard Brody", "given": "Randall Howard", "surname": "Brody", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218128@", "@I342782218124@"], "spouses": [], "children": [], "marriages": []}, "@I342785429227@": {"id": "@I342785429227@", "name": "Joseph L. Harrosh", "given": "Joseph L.", "surname": "Harrosh", "sex": "M", "birth_date": "13 Mar 1940", "birth_place": "New Orleans, Orleans, Louisiana, USA", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220433@", "@I342782220443@"], "spouses": [], "children": [], "marriages": []}, "@I342785429298@": {"id": "@I342785429298@", "name": "Samuel N. Harrosh", "given": "Samuel N.", "surname": "Harrosh", "sex": "M", "birth_date": "Abt 1943", "birth_place": "Louisiana, USA", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220433@", "@I342782220443@"], "spouses": [], "children": [], "marriages": []}, "@I342785429430@": {"id": "@I342785429430@", "name": "Girsh Merzon", "given": "Girsh", "surname": "Merzon", "sex": "M", "birth_date": "Abt 1820", "birth_place": "Smolyany, Mogilev Oblast, Belarus", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342782229813@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342785433446@": {"id": "@I342785433446@", "name": "Aaron Danilowitz", "given": "Aaron", "surname": "Danilowitz", "sex": "M", "birth_date": "Abt 1807", "birth_place": "Kaunas, Lithuania", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342785397271@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342785433565@": {"id": "@I342785433565@", "name": "Hillel Guttman", "given": "Hillel", "surname": "Guttman", "sex": "M", "birth_date": "Abt 1807", "birth_place": "Telsiai, Lithuania", "death": true, "death_date": "10 Apr 1900", "death_place": "Telsiai, Lithuania", "parents": ["@I342785434732@"], "spouses": [], "children": ["@I342785433689@", "@I342784611330@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342785433689@": {"id": "@I342785433689@", "name": "Berel Guttman", "given": "Berel", "surname": "Guttman", "sex": "M", "birth_date": "Abt 1838", "birth_place": "Telsiai, Lithuania", "death": true, "death_date": "4 Mar 1911", "death_place": "Vilna, Lithuania", "parents": ["@I342785433565@"], "spouses": [], "children": [], "marriages": []}, "@I342785433818@": {"id": "@I342785433818@", "name": "Zimel Kirsh", "given": "Zimel", "surname": "Kirsh", "sex": "M", "birth_date": "Abt 1750", "birth_place": "Plunge, Lithuania", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342785397297@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342785434732@": {"id": "@I342785434732@", "name": "Iosel Guttman", "given": "Iosel", "surname": "Guttman", "sex": "M", "birth_date": "Abt 1795", "birth_place": "", "death": true, "death_date": "1857", "death_place": "Telsiai, Lithuania", "parents": [], "spouses": [], "children": ["@I342785433565@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342785465407@": {"id": "@I342785465407@", "name": "Helen Pollack", "given": "Helen", "surname": "Pollack", "sex": "F", "birth_date": "14 Mar 1890", "birth_place": "", "death": true, "death_date": "16 Feb 1988", "death_place": "", "parents": [], "spouses": ["@I342782331646@"], "children": [], "marriages": [{"spouse": "@I342782331646@", "date": "8 Jun 1930", "place": "New Haven, Connecticut, USA"}]}, "@I342785467043@": {"id": "@I342785467043@", "name": "David William Rogovin", "given": "David William", "surname": "Rogovin", "sex": "M", "birth_date": "26 Mar 1935", "birth_place": "New York, New York", "death": true, "death_date": "22 Oct 2005", "death_place": "", "parents": ["@I342782331646@", "@I342785467930@"], "spouses": ["@I342785468267@"], "children": [], "marriages": [{"spouse": "@I342785468267@", "date": "", "place": ""}]}, "@I342785467930@": {"id": "@I342785467930@", "name": "Helen M Pollack", "given": "Helen M", "surname": "Pollack", "sex": "F", "birth_date": "14 Mar 1890", "birth_place": "Poland", "death": true, "death_date": "16 February 1988", "death_place": "New Haven, New Haven County, Connecticut, United States of America", "parents": [], "spouses": ["@I342782331646@"], "children": ["@I342785467043@"], "marriages": [{"spouse": "@I342782331646@", "date": "", "place": ""}]}, "@I342785468267@": {"id": "@I342785468267@", "name": "Patricia Lazaroff", "given": "Patricia", "surname": "Lazaroff", "sex": "F", "birth_date": "23 Oct 1934", "birth_place": "Bridgeport, Connecticut", "death": true, "death_date": "23 Sep 2017", "death_place": "", "parents": [], "spouses": ["@I342785467043@"], "children": [], "marriages": [{"spouse": "@I342785467043@", "date": "", "place": ""}]}, "@I342785470409@": {"id": "@I342785470409@", "name": "Diane Rogovin", "given": "Diane", "surname": "Rogovin", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782218130@", "@I342782218131@"], "spouses": [], "children": [], "marriages": []}, "@I342785470440@": {"id": "@I342785470440@", "name": "Bertha Levine", "given": "Bertha", "surname": "Levine", "sex": "F", "birth_date": "1 Sep 1908", "birth_place": "Los Angeles, California", "death": true, "death_date": "28 Nov 2006", "death_place": "Las Vegas, Clark County, Nevada", "parents": [], "spouses": ["@I342782220839@"], "children": [], "marriages": [{"spouse": "@I342782220839@", "date": "", "place": ""}]}, "@I342785471935@": {"id": "@I342785471935@", "name": "Jack Rush", "given": "Jack", "surname": "Rush", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342785471950@"], "children": ["@I342782218574@"], "marriages": [{"spouse": "@I342785471950@", "date": "", "place": ""}]}, "@I342785471950@": {"id": "@I342785471950@", "name": "Annie", "given": "Annie", "surname": "", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342785471935@"], "children": ["@I342782218574@"], "marriages": [{"spouse": "@I342785471935@", "date": "", "place": ""}]}, "@I342785471987@": {"id": "@I342785471987@", "name": "Movsha Oretzkin", "given": "Movsha", "surname": "Oretzkin", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342782229818@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342785472442@": {"id": "@I342785472442@", "name": "Jacob Brody", "given": "Jacob", "surname": "Brody", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220479@", "@I342782220483@"], "spouses": [], "children": [], "marriages": []}, "@I342785472480@": {"id": "@I342785472480@", "name": "Ida Brotkovski", "given": "Ida", "surname": "Brotkovski", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782220479@", "@I342782220483@"], "spouses": [], "children": [], "marriages": []}, "@I342785472560@": {"id": "@I342785472560@", "name": "Meer Hilel Bisko", "given": "Meer Hilel", "surname": "Bisko", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782227512@", "@I342782227237@"], "spouses": [], "children": [], "marriages": []}, "@I342785472603@": {"id": "@I342785472603@", "name": "Freida Biskaite", "given": "Freida", "surname": "Biskaite", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342782227512@", "@I342782227237@"], "spouses": ["@I342785472658@"], "children": [], "marriages": [{"spouse": "@I342785472658@", "date": "", "place": ""}]}, "@I342785472658@": {"id": "@I342785472658@", "name": "Movsha-Itsik Slavinciskis", "given": "Movsha-Itsik", "surname": "Slavinciskis", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342785472603@"], "children": [], "marriages": [{"spouse": "@I342785472603@", "date": "", "place": ""}]}, "@I342785472687@": {"id": "@I342785472687@", "name": "Reuven Wolf Kirsch", "given": "Reuven Wolf", "surname": "Kirsch", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": [], "children": ["@I342785426869@"], "marriages": [{"spouse": null, "date": "", "place": ""}]}, "@I342785472740@": {"id": "@I342785472740@", "name": "Khaia Liba Bradkovskii", "given": "Khaia Liba", "surname": "Bradkovskii", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342782556849@"], "children": ["@I342782220479@"], "marriages": [{"spouse": "@I342782556849@", "date": "", "place": ""}]}, "@I342785472768@": {"id": "@I342785472768@", "name": "Samuel Brody", "given": "Samuel", "surname": "Brody", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342785472977@", "@I342785473019@"], "spouses": ["@I342785426991@"], "children": ["@I342785472827@", "@I342785472898@"], "marriages": [{"spouse": "@I342785426991@", "date": "", "place": ""}]}, "@I342785472827@": {"id": "@I342785472827@", "name": "Sarah Falk", "given": "Sarah", "surname": "Falk", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342785472768@", "@I342785426991@"], "spouses": ["@I342785472947@"], "children": [], "marriages": [{"spouse": "@I342785472947@", "date": "", "place": ""}]}, "@I342785472898@": {"id": "@I342785472898@", "name": "Fannie Falk", "given": "Fannie", "surname": "Falk", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": ["@I342785472768@", "@I342785426991@"], "spouses": [], "children": [], "marriages": []}, "@I342785472947@": {"id": "@I342785472947@", "name": "William Brody", "given": "William", "surname": "Brody", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342785472827@"], "children": [], "marriages": [{"spouse": "@I342785472827@", "date": "", "place": ""}]}, "@I342785472977@": {"id": "@I342785472977@", "name": "Peisakh Brodkowski", "given": "Peisakh", "surname": "Brodkowski", "sex": "M", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342785473019@"], "children": ["@I342785472768@"], "marriages": [{"spouse": "@I342785473019@", "date": "", "place": ""}]}, "@I342785473019@": {"id": "@I342785473019@", "name": "Ester Tsipa Brodkowski", "given": "Ester Tsipa", "surname": "Brodkowski", "sex": "F", "birth_date": "", "birth_place": "", "death": false, "death_date": "", "death_place": "", "parents": [], "spouses": ["@I342785472977@"], "children": ["@I342785472768@"], "marriages": [{"spouse": "@I342785472977@", "date": "", "place": ""}]}}, "root": "@I342782218120@", "total": 152};
+const people = RAW.people;
+const DEFAULT_ROOT = RAW.root;
+
+// ── Branch assignment ─────────────────────────────────────────────────────────
+// Walk up from known grandparents to tag every ancestor with a branch
+const BRANCHES = {
+  "paternal-gf": null,   // Papa Sheldon
+  "paternal-gm": null,   // Grandma Julie
+  "maternal-gf": null,   // Zayde Joel
+  "maternal-gm": null,   // Grandma Eileen
+};
+
+// Find grandparents by name pattern
+for (const [id, p] of Object.entries(people)) {
+  const n = p.name.toLowerCase();
+  if (n.includes("sheldon") && n.includes("ellis")) BRANCHES["paternal-gf"] = id;
+  if ((n.includes("julia") || n.includes("julie") || n.includes("hilda")) && n.includes("harrosh")) BRANCHES["paternal-gm"] = id;
+  if (n.includes("joel") && n.includes("brody")) BRANCHES["maternal-gf"] = id;
+  if (n.includes("eileen") && (n.includes("rogovin") || n.includes("brody"))) BRANCHES["maternal-gm"] = id;
+}
+
+const branchOf = {};
+function tagBranch(id, branch, visited = new Set()) {
+  if (!id || visited.has(id) || branchOf[id]) return;
+  visited.add(id);
+  branchOf[id] = branch;
+  const p = people[id];
+  if (p) p.parents.forEach(pid => tagBranch(pid, branch, visited));
+}
+for (const [branch, id] of Object.entries(BRANCHES)) {
+  if (id) tagBranch(id, branch);
+}
+
+// Asher's children (to find Mark/Cheryl split)
+const asher = people[DEFAULT_ROOT];
+if (asher) {
+  const parents = asher.parents;
+  if (parents[0]) {
+    const p0 = people[parents[0]];
+    const isMale0 = p0 && p0.sex === "M";
+    tagBranch(parents[0], isMale0 ? "paternal-gf-line" : "paternal-gm-line");
+  }
+}
+
+// ── Layout constants ──────────────────────────────────────────────────────────
+const NODE_W  = 168;
+const NODE_H  = 56;
+const GEN_GAP = 210;   // horizontal gap between generations
+const ROW_GAP = 68;    // vertical gap between rows
+
+let currentRoot = DEFAULT_ROOT;
+let maxGen = 3;
+let selectedId = null;
+
+// ── D3 setup ──────────────────────────────────────────────────────────────────
+const svg   = d3.select("#svg");
+const rootG = d3.select("#root-g");
+const linksG = d3.select("#links-g");
+const nodesG = d3.select("#nodes-g");
+
+const zoom = d3.zoom()
+  .scaleExtent([0.08, 3])
+  .on("zoom", e => rootG.attr("transform", e.transform));
+
+svg.call(zoom);
+
+// ── Build hierarchy ───────────────────────────────────────────────────────────
+// Returns a flat array of {node, x, y} plus an array of links {source, target}.
+// Gen-0 is expanded to show all siblings of rootId, not just rootId alone.
+function buildAncestorLayout(rootId, maxGens) {
+  const nodes = [];
+  const links = [];
+
+  function place(id, gen, slotIndex, slotCount) {
+    if (!id || gen > maxGens) return;
+    const p = people[id];
+    const displayName = p ? p.name : "Unknown";
+    const isUnknown = !p || displayName === "Unknown" || displayName === "";
+    const x = gen * GEN_GAP;
+    const y = (slotIndex + 0.5) * (ROW_GAP * Math.pow(2, maxGens - gen));
+    nodes.push({ id, gen, x, y, name: displayName, isUnknown,
+                 person: p || null, branch: branchOf[id] || (id === rootId ? "self" : "") });
+    if (!p || gen >= maxGens) return;
+    const pars = p.parents.filter(pid => pid && people[pid]);
+    pars.forEach((pid, i) => {
+      links.push({ source: id, target: pid, branch: branchOf[pid] || "" });
+      place(pid, gen + 1, slotIndex * 2 + i, slotCount * 2);
+    });
+  }
+
+  // Build the ancestor tree with rootId as the starting point
+  place(rootId, 0, 0, 1);
+
+  return { nodes, links };
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────────
+function render(rootId, gens) {
+  const { nodes, links } = buildAncestorLayout(rootId, gens);
+
+  // Position map by id
+  const posMap = {};
+  nodes.forEach(n => { posMap[n.id] = n; });
+
+  // ── Links ──
+  const linkSel = linksG.selectAll(".link")
+    .data(links, d => d.source + "--" + d.target);
+
+  linkSel.enter()
+    .append("path")
+    .attr("class", d => `link ${d.branch}`)
+    .merge(linkSel)
+    .attr("d", d => {
+      const s = posMap[d.source];
+      const t = posMap[d.target];
+      if (!s || !t) return "";
+      const sx = s.x + NODE_W, sy = s.y + NODE_H / 2;
+      const tx = t.x,          ty = t.y + NODE_H / 2;
+      const mx = (sx + tx) / 2;
+      return `M${sx},${sy} C${mx},${sy} ${mx},${ty} ${tx},${ty}`;
+    });
+
+  linkSel.exit().remove();
+
+  // ── Nodes ──
+  const nodeSel = nodesG.selectAll(".person-card")
+    .data(nodes, d => d.id + "-" + d.gen);
+
+  const enter = nodeSel.enter()
+    .append("g")
+    .attr("class", d => `person-card ${d.id === selectedId ? "selected" : ""}`)
+    .style("cursor", "pointer")
+    .on("click", (event, d) => {
+      event.stopPropagation();
+      if (!d.isUnknown) selectPerson(d.id);
+    });
+
+  enter.append("rect")
+    .attr("class", d => {
+      if (d.isUnknown) return "card-bg unknown-bg";
+      if (d.branch === "self")    return "card-bg self";
+      if (d.branch === "sibling") return "card-bg sibling";
+      return `card-bg ${d.branch}`;
+    })
+    .attr("width", NODE_W)
+    .attr("height", NODE_H);
+
+  enter.append("text")
+    .attr("class", d => {
+      const cls = "card-name";
+      return d.name && d.name.length > 22 ? cls + " long" : cls;
+    })
+    .attr("x", 12).attr("y", 20)
+    .text(d => d.isUnknown ? "" : truncate(d.name, 26));
+
+  enter.append("text")
+    .attr("class", "card-dates")
+    .attr("x", 12).attr("y", 36)
+    .text(d => {
+      if (d.isUnknown || !d.person) return "";
+      const b = shortYear(d.person.birth_date);
+      const dd = d.person.death ? shortYear(d.person.death_date) : "";
+      if (!b && !dd) return "";
+      return dd ? `${b || "?"} – ${dd || "?"}` : (b ? `b. ${b}` : "");
+    });
+
+  enter.append("text")
+    .attr("class", "card-dates")
+    .attr("x", 12).attr("y", 50)
+    .text(d => {
+      if (!d.person) return "";
+      const place = shortPlace(d.person.birth_place || d.person.death_place);
+      return place;
+    });
+
+  // Unknown placeholder text
+  enter.append("text")
+    .attr("class", "card-unknown")
+    .attr("x", NODE_W / 2).attr("y", NODE_H / 2 + 4)
+    .attr("text-anchor", "middle")
+    .text(d => d.isUnknown ? "Unknown" : "");
+
+  // Merge update
+  const all = enter.merge(nodeSel);
+  all.attr("transform", d => `translate(${d.x}, ${d.y - NODE_H/2})`);
+  all.attr("class", d => {
+    let cls = "person-card";
+    if (d.id === selectedId) cls += " selected";
+    return cls;
+  });
+
+  nodeSel.exit().remove();
+
+  // Auto-fit view on first render or root change
+  autoFit(nodes);
+}
+
+function autoFit(nodes) {
+  if (!nodes.length) return;
+  const xs = nodes.map(n => n.x);
+  const ys = nodes.map(n => n.y);
+  const minX = Math.min(...xs) - 20;
+  const maxX = Math.max(...xs) + NODE_W + 20;
+  const minY = Math.min(...ys) - NODE_H - 20;
+  const maxY = Math.max(...ys) + NODE_H + 20;
+  const cw = svg.node().clientWidth  || 1200;
+  const ch = (svg.node().clientHeight || 800) - 0;
+  const scale = Math.min(0.95, Math.min(cw / (maxX - minX), ch / (maxY - minY)));
+  const tx = (cw - (maxX + minX) * scale) / 2;
+  const ty = (ch - (maxY + minY) * scale) / 2;
+  svg.transition().duration(600)
+    .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+}
+
+// ── Person detail panel ────────────────────────────────────────────────────────
+function selectPerson(id) {
+  selectedId = id;
+  const p = people[id];
+  if (!p) return;
+
+  document.getElementById("d-name").textContent = p.name;
+  document.getElementById("d-subtitle").textContent = relationLabel(id);
+
+  const birth = [p.birth_date, p.birth_place].filter(Boolean).join("  ·  ") || "Unknown";
+  document.getElementById("d-birth").textContent = birth;
+  document.getElementById("d-birth").className = birth === "Unknown" ? "d-value empty" : "d-value";
+
+  let death;
+  if (!p.death && !p.death_date) {
+    death = "—";
+  } else {
+    death = [p.death_date, p.death_place].filter(Boolean).join("  ·  ") || "Deceased (date unknown)";
+  }
+  document.getElementById("d-death").textContent = death;
+  document.getElementById("d-death").className = death === "—" ? "d-value empty" : "d-value";
+
+  // Marriages
+  const marriages = p.marriages.filter(m => m.spouse && people[m.spouse]);
+  const mEl = document.getElementById("d-marriages");
+  mEl.innerHTML = "";
+  if (marriages.length) {
+    marriages.forEach(m => {
+      const sp = people[m.spouse];
+      const line = document.createElement("div");
+      line.style.marginBottom = "6px";
+      const parts = [sp ? sp.name : "Unknown"];
+      if (m.date) parts.push(m.date);
+      if (m.place) parts.push(shortPlace(m.place, 35));
+      line.textContent = parts.join("  ·  ");
+      line.style.fontSize = "13px"; line.style.color = "#666";
+      mEl.appendChild(line);
+    });
+    document.getElementById("d-marriages-section").style.display = "";
+  } else {
+    document.getElementById("d-marriages-section").style.display = "none";
+  }
+
+  // Parents
+  const parentsEl = document.getElementById("d-parents");
+  parentsEl.innerHTML = "";
+  p.parents.forEach(pid => {
+    const par = people[pid];
+    if (!par) return;
+    const a = document.createElement("a");
+    a.textContent = par.name;
+    a.onclick = () => selectPerson(pid);
+    parentsEl.appendChild(a);
+  });
+  if (!p.parents.length) parentsEl.innerHTML = '<span style="color:#bbb;font-size:13px;font-style:italic">Unknown</span>';
+
+  // Children
+  const childrenEl = document.getElementById("d-children");
+  childrenEl.innerHTML = "";
+  p.children.forEach(cid => {
+    const ch = people[cid];
+    if (!ch) return;
+    const a = document.createElement("a");
+    a.textContent = ch.name;
+    a.onclick = () => selectPerson(cid);
+    childrenEl.appendChild(a);
+  });
+  if (!p.children.length) childrenEl.innerHTML = '<span style="color:#bbb;font-size:13px">—</span>';
+
+  // Siblings: other children of the same parents
+  const siblingsEl = document.getElementById("d-siblings");
+  siblingsEl.innerHTML = "";
+  let sibIds = [];
+  for (const pid of p.parents) {
+    const par = people[pid];
+    if (par && par.children.length > 1) {
+      sibIds = par.children.filter(cid => cid !== id && people[cid]);
+      break;
+    }
+  }
+  if (sibIds.length) {
+    sibIds.forEach(sid => {
+      const sib = people[sid];
+      const a = document.createElement("a");
+      a.textContent = sib.name;
+      a.onclick = () => selectPerson(sid);
+      siblingsEl.appendChild(a);
+    });
+    document.getElementById("d-siblings-section").style.display = "";
+  } else {
+    document.getElementById("d-siblings-section").style.display = "none";
+  }
+
+  document.getElementById("d-focus").onclick = () => {
+    currentRoot = id;
+    render(currentRoot, maxGen);
+  };
+
+  document.getElementById("detail").classList.add("open");
+
+  // Highlight selected node
+  nodesG.selectAll(".person-card")
+    .classed("selected", d => d.id === id);
+}
+
+function relationLabel(id) {
+  const p = people[id];
+  if (!p) return "";
+  // Simple relation based on sex + branch
+  const br = branchOf[id] || "";
+  if (id === DEFAULT_ROOT) return "";
+  const labels = {
+    "paternal-gf": "Ellis / paternal line",
+    "paternal-gm": "Harrosh / paternal line",
+    "maternal-gf": "Brody / maternal line",
+    "maternal-gm": "Rogovin / maternal line",
+  };
+  return labels[br] || "";
+}
+
+// ── Search ────────────────────────────────────────────────────────────────────
+let searchTimeout;
+document.getElementById("search").addEventListener("input", function() {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => doSearch(this.value.trim()), 150);
+});
+
+function doSearch(q) {
+  const countEl = document.getElementById("match-count");
+  if (!q) {
+    nodesG.selectAll(".person-card").classed("dimmed", false).classed("highlighted", false);
+    countEl.textContent = "";
+    return;
+  }
+  const ql = q.toLowerCase();
+  let count = 0;
+  nodesG.selectAll(".person-card").each(function(d) {
+    const match = d.name && d.name.toLowerCase().includes(ql);
+    d3.select(this).classed("dimmed", !match).classed("highlighted", match);
+    if (match) count++;
+  });
+  countEl.textContent = count ? `${count} match${count > 1 ? "es" : ""}` : "No matches";
+}
+
+// ── Controls ──────────────────────────────────────────────────────────────────
+document.getElementById("gen-slider").addEventListener("input", function() {
+  maxGen = +this.value;
+  document.getElementById("gen-val").textContent = maxGen;
+  render(currentRoot, maxGen);
+});
+
+document.getElementById("btn-reset-view").addEventListener("click", () => {
+  currentRoot = DEFAULT_ROOT;
+  render(currentRoot, maxGen);
+});
+
+document.getElementById("detail-close").addEventListener("click", () => {
+  document.getElementById("detail").classList.remove("open");
+  selectedId = null;
+  nodesG.selectAll(".person-card").classed("selected", false);
+});
+
+document.getElementById("btn-zoom-in").addEventListener("click", () => {
+  svg.transition().duration(250).call(zoom.scaleBy, 1.4);
+});
+document.getElementById("btn-zoom-out").addEventListener("click", () => {
+  svg.transition().duration(250).call(zoom.scaleBy, 0.7);
+});
+
+svg.on("click", () => {
+  document.getElementById("detail").classList.remove("open");
+  selectedId = null;
+  nodesG.selectAll(".person-card").classed("selected", false);
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    document.getElementById("detail").classList.remove("open");
+    selectedId = null;
+    nodesG.selectAll(".person-card").classed("selected", false);
+  }
+});
+
+// Ancestor / Full-tree mode toggle
+document.getElementById("btn-ancestors").addEventListener("click", function() {
+  this.classList.add("active");
+  document.getElementById("btn-all").classList.remove("active");
+  render(currentRoot, maxGen);
+});
+
+document.getElementById("btn-all").addEventListener("click", function() {
+  // Full-tree mode: just render ancestors from default root for now,
+  // but with max generations turned up
+  this.classList.add("active");
+  document.getElementById("btn-ancestors").classList.remove("active");
+  const old = maxGen;
+  maxGen = 8;
+  document.getElementById("gen-val").textContent = maxGen;
+  document.getElementById("gen-slider").value = maxGen;
+  render(DEFAULT_ROOT, 8);
+});
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function truncate(str, n) {
+  return str && str.length > n ? str.slice(0, n - 1) + "…" : (str || "");
+}
+function shortYear(date) {
+  if (!date) return "";
+  const m = date.match(/\b(\d{4})\b/);
+  return m ? m[1] : date.split(" ").pop();
+}
+function shortPlace(place, maxLen = 28) {
+  if (!place) return "";
+  // Take first two parts of comma-separated place
+  const parts = place.split(",").map(s => s.trim());
+  const short = parts.slice(0, 2).join(", ");
+  return short.length > maxLen ? short.slice(0, maxLen - 1) + "…" : short;
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+render(currentRoot, maxGen);
+</script>
+</body>
+</html>
