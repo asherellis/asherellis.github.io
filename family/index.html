@@ -5,18 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Family – Asher Ellis</title>
-  <meta name="description" content="Six generations of family history — Ashkenazi and Sephardic Jewish roots across Eastern Europe and Morocco.">
+  <meta name="description" content="Six generations of Ashkenazi and Sephardic Jewish family history — from the shtetls of Kupiskis, Timkovichi, Minsk, and Salantai to the mellah of Casablanca, from Brooklyn and Detroit to Los Angeles.">
   <meta name="author" content="Asher Ellis">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://asherellis.net/family/">
   <meta property="og:title" content="Family – Asher Ellis">
-  <meta property="og:description" content="Six generations of family history — Ashkenazi and Sephardic Jewish roots across Eastern Europe and Morocco.">
+  <meta property="og:description" content="Six generations of Ashkenazi and Sephardic Jewish family history — from the shtetls of Kupiskis, Timkovichi, Minsk, and Salantai to the mellah of Casablanca, from Brooklyn and Detroit to Los Angeles.">
   <meta property="og:site_name" content="Asher Ellis">
   <meta property="twitter:card" content="summary">
   <meta property="twitter:url" content="https://asherellis.net/family/">
   <meta property="twitter:title" content="Family – Asher Ellis">
-  <meta property="twitter:description" content="Six generations of family history — Ashkenazi and Sephardic Jewish roots across Eastern Europe and Morocco.">
+  <meta property="twitter:description" content="Six generations of Ashkenazi and Sephardic Jewish family history — from the shtetls of Kupiskis, Timkovichi, Minsk, and Salantai to the mellah of Casablanca, from Brooklyn and Detroit to Los Angeles.">
   <link rel="canonical" href="https://asherellis.net/family/" />
   <link rel="preload" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600" as="style"
     onload="this.onload=null;this.rel='stylesheet'">
@@ -42,26 +42,45 @@
       text-decoration: none;
       color: #fff;
     }
-    .family-origins {
+    .migration-map {
       margin-top: 1.5rem;
       border-top: 1px solid #dedfe0;
       padding-top: 1.25rem;
+      position: relative;
     }
-    .origin-line {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.6rem;
-      font-size: 13px;
+    .migration-map svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .arc {
+      fill: none;
+      stroke: #268bd2;
+      stroke-width: 2;
+      stroke-linecap: round;
+      opacity: 0;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+    }
+    .arc:hover { opacity: 1 !important; }
+    @keyframes drawArc {
+      0%   { stroke-dashoffset: 2000; opacity: 0; }
+      6%   { opacity: 0.8; }
+      100% { stroke-dashoffset: 0; opacity: 0.8; }
+    }
+    .arc.drawn { animation: drawArc 2.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+    #map-tip {
+      position: absolute;
+      display: none;
+      background: rgba(30,30,30,0.82);
+      color: #fff;
+      padding: 4px 9px;
+      border-radius: 3px;
+      font-size: 12px;
       line-height: 1.5;
-    }
-    .origin-label {
-      color: #333;
-      font-weight: 600;
-      min-width: 190px;
-      flex-shrink: 0;
-    }
-    .origin-detail {
-      color: #666;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 10;
     }
   </style>
 </head>
@@ -75,6 +94,7 @@
       <nav class="masthead-nav">
         <ul class="navlist">
           <li class="navitem"><a href="/about/">About</a></li>
+          <li class="navitem"><a href="/research/">Research</a></li>
           <li class="navitem"><a href="/writing/">Writing</a></li>
           <li class="navitem"><a href="/photos/">Photos</a></li>
           <li class="navitem"><a href="/family/" class="current-page">Family</a></li>
@@ -83,32 +103,176 @@
     </header>
 
     <div class="content list">
-      <p class="page-description">My family is Jewish on both sides — Ashkenazi and Sephardic. The research here covers six generations, tracing lines from the shtetls of Belarus and Lithuania to the mellah of Casablanca, from Brooklyn tenements to Los Angeles.</p>
+      <p class="page-description">My family is Jewish on both sides — roughly three-quarters Ashkenazi, one-quarter Sephardic. This tree was compiled with help from a middle school project, my zayde, Ancestry.com, Nathan Schachtman, and Claude — tracing six generations from the shtetls of Kupiskis, Timkovichi, Minsk, Smolyany, Grodno, and Salantai to the mellah of Casablanca, from Brooklyn, Detroit, and the Bay Area to Los Angeles.</p>
 
-      <p class="page-description">Seven of eight great-grandparents are fully documented. The eighth — my paternal great-grandfather Nathan Edward Ellis — remains the one open mystery, somewhere between England and Eastern Europe.</p>
-
-      <div class="family-origins">
-        <div class="origin-line">
-          <span class="origin-label">Sheldon Ellis</span>
-          <span class="origin-detail">St. Louis, MO — maternal line from Vilna, Lithuania; paternal line unknown (England or Eastern Europe)</span>
-        </div>
-        <div class="origin-line">
-          <span class="origin-label">Julie Harrosh</span>
-          <span class="origin-detail">Casablanca, Morocco — Sephardic Jewish; Iberian Peninsula before 1492</span>
-        </div>
-        <div class="origin-line">
-          <span class="origin-label">Joel Brody</span>
-          <span class="origin-detail">Brooklyn, NY — great-grandfather arrived from Timkovichi, Belarus in the 1880s</span>
-        </div>
-        <div class="origin-line">
-          <span class="origin-label">Eileen Rogovin</span>
-          <span class="origin-detail">New York City — lines from Volozhin, Belarus and Kupishok, Lithuania</span>
-        </div>
+      <div class="migration-map" id="migmap">
+        <svg id="migsvg" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" overflow="hidden" role="img" aria-label="Family migration routes from Lithuania, Belarus, and Morocco to New York, Detroit, St. Louis, and the Bay Area"></svg>
+        <div id="map-tip"></div>
       </div>
 
       <a href="/family/tree/" class="tree-link">Explore the interactive family tree →</a>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script>
+    (function () {
+      var ns = 'http://www.w3.org/2000/svg';
+      var svg = document.getElementById('migsvg');
+      var tip = document.getElementById('map-tip');
+      var mapEl = document.getElementById('migmap');
+
+      var ORIGINS = [
+        { id: 'a1', label: 'Kirsch',             sub: 'Salantai, Lithuania',  lon: 22.58, lat: 56.05, dest: 'stl' },
+        { id: 'a2', label: 'Bisco · Meyerovich', sub: 'Kupiskis, Lithuania',  lon: 24.97, lat: 55.83, dest: 'det' },
+        { id: 'a3', label: 'Rogovin',            sub: 'Ilya, Belarus',        lon: 26.27, lat: 54.93, dest: 'nyc' },
+        { id: 'a4', label: 'Merzon',             sub: 'Smolyany, Belarus',    lon: 30.08, lat: 54.47, dest: 'det' },
+        { id: 'a5', label: 'Levy · Lusternik',   sub: 'Minsk, Belarus',       lon: 27.57, lat: 53.9,  dest: 'nyc' },
+        { id: 'a6', label: 'Ellis',              sub: 'Grodno, Belarus',      lon: 23.83, lat: 53.68, dest: 'stl' },
+        { id: 'a7', label: 'Brody',              sub: 'Timkovichi, Belarus',  lon: 26.98, lat: 53.07, dest: 'nyc' },
+        { id: 'a8', label: 'Harrosh · Elkaim',   sub: 'Casablanca, Morocco',  lon: -7.59, lat: 33.59, dest: 'sf'  },
+      ];
+      var DESTS = {
+        nyc: { label: 'New York',  lon: -74.0,   lat: 40.7  },
+        stl: { label: 'St. Louis', lon: -90.2,   lat: 38.6  },
+        det: { label: 'Detroit',   lon: -83.05,  lat: 42.33 },
+        sf:  { label: 'Bay Area',  lon: -122.4,  lat: 37.77 },
+      };
+
+      var proj = d3.geoMercator().scale(236).translate([584, 336]);
+      var pathGen = d3.geoPath().projection(proj);
+
+      function el(tag, attrs) {
+        var e = document.createElementNS(ns, tag);
+        for (var k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+      }
+      function textEl(attrs, content) {
+        var e = el('text', attrs);
+        e.textContent = content;
+        return e;
+      }
+      var FONT = '-apple-system,BlinkMacSystemFont,sans-serif';
+
+      var animFired = false, arcsReady = false;
+      function tryAnimate() {
+        if (!animFired || !arcsReady) return;
+        ORIGINS.forEach(function (o, i) {
+          setTimeout(function () {
+            var arc = document.getElementById(o.id);
+            if (arc) arc.classList.add('drawn');
+            var dot = document.getElementById('dot-' + o.id);
+            if (dot) {
+              Array.from(dot.querySelectorAll('animate, animateMotion')).forEach(function (a) { a.beginElement(); });
+            }
+          }, i * 620);
+        });
+      }
+
+      if (window.IntersectionObserver) {
+        new IntersectionObserver(function (entries, obs) {
+          if (!entries[0].isIntersecting) return;
+          animFired = true; tryAnimate(); obs.disconnect();
+        }, { threshold: 0.25 }).observe(mapEl);
+      } else { animFired = true; }
+
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
+        .then(function (r) { return r.json(); })
+        .then(function (world) {
+          var land = topojson.feature(world, world.objects.land);
+          svg.appendChild(el('path', { d: pathGen(land), fill: '#ebebea', stroke: 'none' }));
+
+          var pts = ORIGINS.map(function (o) { return proj([o.lon, o.lat]); });
+          var dPts = {};
+          for (var k in DESTS) dPts[k] = proj([DESTS[k].lon, DESTS[k].lat]);
+
+          // Arcs + traveling dots
+          var xlns = 'http://www.w3.org/1999/xlink';
+          ORIGINS.forEach(function (o, i) {
+            var p1 = pts[i], p2 = dPts[o.dest];
+            var mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2;
+            var dist = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+            var hump = o.lat > 45 ? 0.38 : 0.28;
+            var cpy = Math.max(12, my - dist * hump);
+            svg.appendChild(el('path', {
+              id: o.id, class: 'arc',
+              d: 'M ' + p1 + ' Q ' + [mx, cpy] + ' ' + p2
+            }));
+
+            var dot = el('circle', { id: 'dot-' + o.id, r: '4', fill: '#268bd2', opacity: '0' });
+            var aMotion = document.createElementNS(ns, 'animateMotion');
+            aMotion.setAttribute('dur', '2.4s');
+            aMotion.setAttribute('begin', 'indefinite');
+            aMotion.setAttribute('fill', 'freeze');
+            aMotion.setAttribute('calcMode', 'spline');
+            aMotion.setAttribute('keyTimes', '0;1');
+            aMotion.setAttribute('keySplines', '0.4 0 0.2 1');
+            var mpath = document.createElementNS(ns, 'mpath');
+            mpath.setAttributeNS(xlns, 'href', '#' + o.id);
+            aMotion.appendChild(mpath);
+            dot.appendChild(aMotion);
+            var aOp = document.createElementNS(ns, 'animate');
+            aOp.setAttribute('attributeName', 'opacity');
+            aOp.setAttribute('values', '0;1;1;0');
+            aOp.setAttribute('keyTimes', '0;0.04;0.88;1');
+            aOp.setAttribute('dur', '2.4s');
+            aOp.setAttribute('begin', 'indefinite');
+            aOp.setAttribute('fill', 'freeze');
+            dot.appendChild(aOp);
+            svg.appendChild(dot);
+          });
+
+          // Origin dots — larger hit area + JS tooltip
+          pts.forEach(function (p, i) {
+            var hit = el('circle', { cx: p[0], cy: p[1], r: '8', fill: 'transparent', style: 'cursor:default' });
+            var dot = el('circle', { cx: p[0], cy: p[1], r: '3.5', fill: '#555', 'pointer-events': 'none' });
+            hit.addEventListener('mouseenter', function (e) {
+              tip.innerHTML = '<strong>' + ORIGINS[i].label + '</strong><br>' + ORIGINS[i].sub;
+              tip.style.display = 'block';
+            });
+            hit.addEventListener('mousemove', function (e) {
+              var rect = mapEl.getBoundingClientRect();
+              tip.style.left = (e.clientX - rect.left + 10) + 'px';
+              tip.style.top  = (e.clientY - rect.top  - 36) + 'px';
+            });
+            hit.addEventListener('mouseleave', function () { tip.style.display = 'none'; });
+            svg.appendChild(dot);
+            svg.appendChild(hit);
+          });
+
+          // Destination dots + city name labels
+          for (var dk in DESTS) {
+            var dp = dPts[dk];
+            svg.appendChild(el('circle', { cx: dp[0], cy: dp[1], r: '3', fill: '#aaa' }));
+            var anchor = dp[0] < 400 ? 'start' : 'end';
+            var dx = dp[0] < 400 ? 6 : -6;
+            svg.appendChild(textEl({
+              x: dp[0] + dx, y: dp[1] + 4,
+              'font-family': FONT, 'font-size': '9', fill: '#888',
+              'text-anchor': anchor, 'pointer-events': 'none'
+            }, DESTS[dk].label));
+          }
+
+          // Eastern European labels (0–6) — stacked left of dot cluster
+          var bx = Math.min(pts[0][0], pts[1][0], pts[2][0], pts[3][0], pts[4][0], pts[5][0], pts[6][0]) - 8;
+          var by = Math.min(pts[0][1], pts[1][1], pts[2][1], pts[3][1], pts[4][1], pts[5][1], pts[6][1]);
+          [0, 1, 2, 3, 4, 5, 6].forEach(function (i) {
+            var ly = by + i * 20;
+            svg.appendChild(textEl({ x: bx, y: ly, 'font-family': FONT, 'font-size': '9.5', 'font-weight': '600', fill: '#333', 'text-anchor': 'end', 'pointer-events': 'none' }, ORIGINS[i].label));
+            svg.appendChild(textEl({ x: bx, y: ly + 9, 'font-family': FONT, 'font-size': '7', fill: '#999', 'text-anchor': 'end', 'pointer-events': 'none' }, ORIGINS[i].sub));
+          });
+
+          // Morocco label (7) — left of dot
+          var morX = pts[7][0] - 8;
+          var morY = pts[7][1];
+          svg.appendChild(textEl({ x: morX, y: morY, 'font-family': FONT, 'font-size': '9.5', 'font-weight': '600', fill: '#333', 'text-anchor': 'end', 'pointer-events': 'none' }, ORIGINS[7].label));
+          svg.appendChild(textEl({ x: morX, y: morY + 9, 'font-family': FONT, 'font-size': '7', fill: '#999', 'text-anchor': 'end', 'pointer-events': 'none' }, ORIGINS[7].sub));
+
+          arcsReady = true;
+          tryAnimate();
+        });
+    })();
+  </script>
 </body>
 
 </html>
