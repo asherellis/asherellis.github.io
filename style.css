@@ -439,6 +439,37 @@ img {
   opacity: 1;
 }
 
+/* ── Era anchor navigation ── */
+.ops-era-nav {
+  margin-top: 1rem;
+  font-size: 11px;
+  color: #aaa;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ops-era-nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ccc;
+}
+
+.ops-era-nav-link {
+  color: #999;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.15s;
+}
+
+.ops-era-nav-link:hover {
+  color: #333;
+  text-decoration: none;
+}
+
 .ops-entry {
   background: white;
   overflow: hidden;
