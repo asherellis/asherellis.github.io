@@ -436,15 +436,34 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ops-photo-placeholder::before,
+.ops-photo-placeholder::after {
+  content: '';
+  position: absolute;
+  border: 1px solid #2a2a2a;
+}
+
+.ops-photo-placeholder::before {
+  inset: 10px;
+}
+
+.ops-photo-placeholder::after {
+  inset: 14px;
 }
 
 .ops-placeholder-text {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
-  letter-spacing: 0.22em;
-  color: #333;
+  letter-spacing: 0.24em;
+  color: #2e2e2e;
   text-transform: uppercase;
   user-select: none;
+  position: relative;
+  z-index: 1;
 }
 
 .ops-caption {
