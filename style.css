@@ -351,6 +351,23 @@ img {
   color: #515151;
 }
 
+.ops-page-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.ops-subtitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 1.25rem;
+}
+
 .ops-tagline {
   font-style: italic;
   color: #888;
@@ -360,20 +377,49 @@ img {
 
 .ops-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 500px));
-  gap: 50px;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 480px));
+  gap: 44px;
   margin-top: 20px;
   justify-content: start;
+}
+
+.ops-era {
+  grid-column: 1 / -1;
+  border-top: 1px solid #dedfe0;
+  padding-top: 28px;
+  margin-top: 8px;
+  margin-bottom: -12px;
+}
+
+.ops-era-years {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 3px;
+}
+
+.ops-era-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  letter-spacing: -0.01em;
 }
 
 .ops-entry {
   background: white;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.2s ease;
+}
+
+.ops-entry:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.13);
 }
 
 .ops-photo-wrap {
-  background: #1a1a1a;
+  background: #111;
   aspect-ratio: 4/3;
   overflow: hidden;
   position: relative;
@@ -390,14 +436,13 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #111;
 }
 
 .ops-placeholder-text {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.2em;
-  color: #444;
+  letter-spacing: 0.22em;
+  color: #333;
   text-transform: uppercase;
   user-select: none;
 }
@@ -407,41 +452,99 @@ img {
 }
 
 .ops-side {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-bottom: 6px;
 }
 
-.ops-side.american { color: #b03030; }
-.ops-side.soviet   { color: #2566a8; }
+.ops-side.american { color: #a02828; }
+.ops-side.soviet   { color: #1d5a9a; }
 
 .ops-name {
   font-weight: 600;
-  color: #1a1a1a;
-  font-size: 15px;
+  color: #111;
+  font-size: 14px;
   margin-bottom: 3px;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .ops-meta {
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 12px;
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 11px;
   line-height: 1.5;
 }
 
 .ops-text {
   font-size: 13px;
   color: #515151;
-  line-height: 1.7;
+  line-height: 1.75;
   margin: 0;
+}
+
+/* ── Further Reading ── */
+.ops-footer {
+  grid-column: 1 / -1;
+  border-top: 1px solid #dedfe0;
+  padding-top: 36px;
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.ops-footer-section h3 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+.ops-book-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ops-book {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #666;
+  margin-bottom: 9px;
+  padding-left: 0;
+}
+
+.ops-book em {
+  font-style: italic;
+  color: #333;
+}
+
+.ops-book .author {
+  color: #999;
+}
+
+.ops-photo-note {
+  font-size: 11px;
+  color: #aaa;
+  line-height: 1.65;
+}
+
+.ops-photo-note a {
+  color: #aaa;
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 850px) {
   .ops-grid {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+  .ops-footer {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 }
