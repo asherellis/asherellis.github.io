@@ -503,6 +503,46 @@ img {
   margin: 0;
 }
 
+/* ── Filter buttons ── */
+.ops-filter {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ops-filter-btn {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #aaa;
+  background: none;
+  border: 1px solid #e0e0e0;
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  text-transform: lowercase;
+}
+
+.ops-filter-btn:hover {
+  color: #333;
+  border-color: #bbb;
+}
+
+.ops-filter-btn.active {
+  color: #111;
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+.ops-filter-count {
+  font-weight: 400;
+  opacity: 0.75;
+}
+
 /* ── Further Reading ── */
 .ops-footer {
   grid-column: 1 / -1;

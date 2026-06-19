@@ -49,7 +49,12 @@
         <h2 class="ops-page-title">Cold War Dads</h2>
         <p>In the years between the fall of Saigon and the fall of the Soviet Union, the world's most capable men cultivated the world's most ordinary appearances. KGB illegals drove Chevrolets and attended PTA meetings. Delta operators wore polo shirts and let their hair grow out. CIA case officers carried briefcases through airport terminals on three continents and looked, to a customs agent, like mid-level regional managers on their way to a sales conference.</p>
         <p>They looked exactly like your dad. This was not an accident.</p>
-        <p class="ops-tagline">KGB Directorate S. 1st SFOD-D. Ground Branch. Alpha Group. Vympel. SEAL Team Six. The quiet professionals and the forgettable faces.</p>
+        <p class="ops-tagline">KGB Directorate S. 1st SFOD-D. Ground Branch. Alpha Group. Vympel. SEAL Team Six. GRU Spetsnaz. The quiet professionals and the forgettable faces.</p>
+        <div class="ops-filter" role="group" aria-label="Filter by side">
+          <button class="ops-filter-btn active" data-filter="all">All <span class="ops-filter-count" id="count-all"></span></button>
+          <button class="ops-filter-btn" data-filter="american">American <span class="ops-filter-count" id="count-american"></span></button>
+          <button class="ops-filter-btn" data-filter="soviet">Soviet <span class="ops-filter-count" id="count-soviet"></span></button>
+        </div>
       </div>
 
       <div class="ops-grid">
@@ -64,7 +69,7 @@
         </div>
 
         <!-- Photo: commons.wikimedia.org/wiki/File:Rudolf_Ivanovich_Abel.jpg (FBI photo, PD-USGov) → save as src/abel.jpg -->
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -86,7 +91,7 @@
         </div>
 
         <!-- Photo: commons.wikimedia.org/wiki/File:Charles_Beckwith.jpg (PD-USGov) → save as src/beckwith.jpg -->
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -98,7 +103,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -110,7 +115,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -122,7 +127,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -144,7 +149,7 @@
         </div>
 
         <!-- Photo: en.wikipedia.org/wiki/File:Richard_Meadows_soldier.jpg (verify license before use) → save as src/meadows.jpg -->
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -156,7 +161,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -168,8 +173,21 @@
           </div>
         </div>
 
+        <!-- Photo: DOD/NARA — Grenada 1983, Operation Urgent Fury, RG 319 or RG 330 (PD-USGov) → save as src/urgent-fury.jpg -->
+        <div class="ops-entry" data-side="american">
+          <div class="ops-photo-wrap ops-photo-placeholder">
+            <span class="ops-placeholder-text">UNCLASSIFIED</span>
+          </div>
+          <div class="ops-caption">
+            <div class="ops-side american">American</div>
+            <div class="ops-name">Operation Urgent Fury — Grenada</div>
+            <div class="ops-meta">Delta Force / SEAL Team Six / 1st &amp; 2nd Ranger Bn · Point Salines, Grenada · October 25, 1983</div>
+            <p class="ops-text">Urgent Fury is remembered as the failure that built modern American special operations. The invasion of Grenada in October 1983 was the largest U.S. military operation since Vietnam, and it was chaotic. Delta Force's mission at Richmond Hill Prison—where American-aligned political prisoners were being held—nearly came apart due to intelligence failures and coordination breakdowns. Four Navy SEALs drowned during an evening parachute insertion into rough seas near Point Salines—their boat swamped, their motor died, and three of the four were lost. SEAL Team Six operators rescued Grenadian Governor-General Paul Scoon. Services couldn't communicate with each other on compatible radio frequencies. An Army officer famously used a civilian credit card to call in air support on a commercial phone. The Goldwater-Nichols Act came three years later. SOCOM was stood up in 1987. Every lesson learned in Grenada was learned because Urgent Fury demonstrated, in real time, what happened when the most capable operators in the world were sent in without the organizational structure to support them. In the pre-mission photos, they look like men at a normal briefing.</p>
+          </div>
+        </div>
+
         <!-- Photo: NARA/DVIDS — 160th SOAR official portrait, Fort Campbell c. 1983 (PD-USGov) → save as src/160soar.jpg -->
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -181,7 +199,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -193,7 +211,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -205,7 +223,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -230,7 +248,7 @@
              Pelton (NSA) arrested, Howard (CIA) escapes. Eight major espionage arrests.
              The FBI calls it the worst year in the history of American intelligence. -->
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -243,7 +261,7 @@
         </div>
 
         <!-- Photo: FBI evidence/court release, Walker arrest, 1985 (PD-USGov) → save as src/walker.jpg -->
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -256,7 +274,7 @@
         </div>
 
         <!-- Photo: fbi.gov/image-repository/hanssen.jpeg (PD-USGov) → save as src/hanssen.jpg -->
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -269,7 +287,7 @@
         </div>
 
         <!-- Photo: fbi.gov/image-repository/history/ames-arrest.jpeg (PD-USGov) → save as src/ames.jpg -->
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -281,7 +299,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -293,7 +311,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -305,7 +323,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -317,7 +335,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -330,7 +348,7 @@
         </div>
 
         <!-- Photo: DOD/NARA — Operation Just Cause, Panama, December 1989 (PD-USGov) → save as src/acid-gambit.jpg -->
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -351,7 +369,7 @@
           <div class="ops-era-title">Endgame</div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -363,7 +381,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -375,7 +393,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="american">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">UNCLASSIFIED</span>
           </div>
@@ -387,7 +405,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -399,7 +417,7 @@
           </div>
         </div>
 
-        <div class="ops-entry">
+        <div class="ops-entry" data-side="soviet">
           <div class="ops-photo-wrap ops-photo-placeholder">
             <span class="ops-placeholder-text">РАССЕКРЕЧЕНО</span>
           </div>
@@ -477,6 +495,32 @@
       </div><!-- /ops-grid -->
     </div><!-- /content -->
   </div><!-- /container -->
+  <script>
+    (function () {
+      var entries = Array.from(document.querySelectorAll('.ops-entry'));
+      var btns = Array.from(document.querySelectorAll('.ops-filter-btn'));
+
+      // Populate counts
+      var total = entries.length;
+      var countAm = entries.filter(function(e){ return e.dataset.side === 'american'; }).length;
+      var countSov = entries.filter(function(e){ return e.dataset.side === 'soviet'; }).length;
+      document.getElementById('count-all').textContent = '(' + total + ')';
+      document.getElementById('count-american').textContent = '(' + countAm + ')';
+      document.getElementById('count-soviet').textContent = '(' + countSov + ')';
+
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var filter = this.dataset.filter;
+          btns.forEach(function (b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          entries.forEach(function (entry) {
+            var match = filter === 'all' || entry.dataset.side === filter;
+            entry.style.display = match ? '' : 'none';
+          });
+        });
+      });
+    })();
+  </script>
 </body>
 
 </html>
