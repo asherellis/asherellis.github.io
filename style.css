@@ -407,6 +407,38 @@ img {
   letter-spacing: -0.01em;
 }
 
+.ops-era-count {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #ccc;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.ops-back-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 34px;
+  height: 34px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+  z-index: 200;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.ops-back-top:hover {
+  opacity: 1;
+}
+
 .ops-entry {
   background: white;
   overflow: hidden;
